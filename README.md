@@ -9,15 +9,16 @@ Thư mục này chứa toàn bộ hệ thống tài liệu phân tích, thiết 
 ```text
 project/design/
 ├── README.md                 # Tài liệu hướng dẫn này
-├── DESIGN.md                 # Hệ thống thiết kế (Tokens, Typography, Iconography)
+├── DESIGN.md                 # Hệ thống thiết kế (màu sắc, typography, spacing, components)
 ├── USE_CASES.md              # Đặc tả Use Case chi tiết (UC-01 -> UC-08)
 ├── IA-and-routing/           # Kiến trúc thông tin & Định tuyến
 │   ├── sitemap.md            # Cây cấu trúc màn hình & Hộp thoại (Sitemap)
-│   └── user-flows.md         # Luồng tương tác (Concise Version)
-├── design-system/            # Tài nguyên Design System
-│   ├── tokens.json           # Danh sách token CSS
-│   └── icon-library.json     # Thư viện 67 Lucide SVG cho Figma/Code
+│   └── user-flows.md         # Luồng tương tác chi tiết giữa các màn hình (User Flows)
+├── design-system/            # Tài nguyên Design System dạng code
+│   └── tokens.json           # Danh sách token CSS (màu, bo góc, khoảng cách, font)
 └── uis-spec/                 # Đặc tả chi tiết giao diện màn hình (UI specs)
+    ├── admin-dashboard/      # Các màn hình phân hệ Admin (13 tệp)
+    └── learner-app/          # Các màn hình phân hệ Learner (18 tệp)
 ```
 
 ---
@@ -39,13 +40,14 @@ Tài liệu **[USE_CASES.md](file:///d:/Study/research_DiveVerse/project/design/
 - **UC-05 -> UC-08 (Learner):** Quy trình học từ vựng 6 giai đoạn, học ngữ pháp 7 giai đoạn, phòng luyện 4 kỹ năng ( shadow nói đuổi, viết gợi ý ZPD, đọc báo chí), thi cử nghiêm ngặt, và ôn tập lặp lại ngắt quãng SRS.
 
 ### 3. Kiến trúc thông tin & Định tuyến
-Thư mục **[IA-and-routing/](IA-and-routing/)** định hình khung xương và đường đi của ứng dụng:
-- **[sitemap.md](IA-and-routing/sitemap.md)**: Sơ đồ cây thư mục trang, đã được liên kết trực tiếp với UI Specs.
-- **[user-flows.md](IA-and-routing/user-flows.md)**: Phiên bản rút gọn tối ưu context, mô tả luồng chuyển động màn hình.
+Thư mục **[IA-and-routing/](file:///d:/Study/research_DiveVerse/project/design/IA-and-routing/)** định hình khung xương và đường đi của ứng dụng:
+- **[sitemap.md](file:///d:/Study/research_DiveVerse/project/design/IA-and-routing/sitemap.md)**: Sơ đồ cây thư mục trang và các modal lớp phủ, dùng để quản lý số lượng màn hình Figma.
+- **[user-flows.md](file:///d:/Study/research_DiveVerse/project/design/IA-and-routing/user-flows.md)**: Chi tiết hóa sơ đồ chuyển đổi màn hình dạng mũi tên (ví dụ: `Đăng nhập -> Dashboard -> Chọn Unit -> Bài học -> Kết quả`) giúp định hướng Figma Prototype và Route của lập trình viên.
 
-### 4. Tài nguyên Design System
-- **[DESIGN.md](DESIGN.md)**: Chứa YAML Frontmatter cho Google Stick và quy tắc Iconography.
-- **[icon-library.json](design-system/icon-library.json)**: Bộ 67 icon SVG đã trích xuất, sẵn sàng để import vào Figma.
+### 4. Đặc tả chi tiết màn hình (UI Screen Specifications)
+Thư mục **[uis-spec/](file:///d:/Study/research_DiveVerse/project/design/uis-spec/)** chứa tài liệu mô tả giao diện bằng ngôn ngữ cho từng màn hình riêng biệt, phân chia theo vai trò:
+
+#### 💻 Phân hệ Quản trị viên ([admin-dashboard](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/))
 
 ---
 
@@ -63,8 +65,7 @@ Nếu bạn là một AI Agent được giao nhiệm vụ thiết kế UI hoặc
 ### 2. Nguyên tắc quan trọng
 *   **User Flows là bắt buộc:** Không được tự ý tạo luồng đi mới nếu không có trong `user-flows.md`. File này cực kỳ quan trọng để lập trình định tuyến (Routing).
 *   **Trạng thái UI:** Luôn kiểm tra `user-flows.md` để biết khi nào hiện Toast, khi nào hiện Modal, khi nào chuyển trang.
-*   **Nhất quán Component:** Nếu thiết kế 1 trang mới, hãy kiểm tra các trang cùng nhóm trong `uis-spec` để đảm bảo dùng chung component (ví dụ: `ZPD Feedback Modal`).
-*   **Sử dụng Icon tiết chế (Iconography):** Tra cứu file `design-system/icon-library.json` (67 Lucide icons). **KHÔNG LẠM DỤNG ICON**. Chỉ dùng icon cho điều hướng, trạng thái, hệ thống, hoặc gamification. Button có text rõ ràng thì không cần icon trang trí. (Xem chi tiết tại mục *Iconography* trong `DESIGN.md`).
+*   **Nhất quán:** Nếu thiết kế 1 trang mới, hãy kiểm tra các trang cùng nhóm trong `uis-spec` để đảm bảo dùng chung component (ví dụ: `ZPD Feedback Modal`).
 
 Gồm 13 tệp đặc tả chi tiết giao diện quản lý:
 - *Xác thực:* [admin_login_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/admin_login_page.md).
