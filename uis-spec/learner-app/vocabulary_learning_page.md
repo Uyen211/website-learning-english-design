@@ -1,27 +1,27 @@
-# MÀN HÌNH: VOCABULARY LEARNING PAGE (MÀN HÌNH HỌC TỪ VỰNG NỀN TẢNG)
+# MÀN HÌNH: VOCABULARY LEARNING PAGE (MÀN HÌNH Khám phá Từ vựng)
 
 ## 1. THÔNG TIN CHUNG
-- Tên màn hình: Vocabulary Learning Page (Màn hình học từ vựng nền tảng - UC-05a)
-- Mã use case liên quan: UC-05a (Học từ vựng nền tảng)
-- Mã luồng người dùng liên quan: Flow LN-FL-02 (Học từ vựng nền tảng)
+- Tên màn hình: Vocabulary Learning Page (Màn hình Khám phá Từ vựng - UC-05a)
+- Mã use case liên quan: UC-05a (Khám phá Từ vựng)
+- Mã luồng người dùng liên quan: Flow LN-FL-02 (Khám phá Từ vựng)
 - Vai trò người dùng: Learner (Người học / Học viên)
 - Vị trí trong sitemap: Trang chủ -> Dashboard -> Click Unit -> Unit Detail Page -> Click bài học Từ vựng -> Vocabulary Learning Page (URL: /units/{unit_id}/lessons/{lesson_id}/vocabulary)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Học viên sử dụng màn hình này để trải qua quy trình học từ vựng quy nạp đa giác quan gồm 6 giai đoạn nối tiếp nhau (từ làm quen qua ngữ cảnh, xem định nghĩa, thực hành nhận diện, gõ chính tả, sản sinh tự viết câu có trợ lý AI ZPD phản hồi lỗi sai, đến khi hoàn thành bài học để đưa từ vựng vào lịch ôn tập SRS).
+Học viên sử dụng màn hình này để trải qua hành trình khám phá từ vựng tự nhiên gồm 6 chặng nối tiếp nhau (từ làm quen qua ngữ cảnh, giải mã định nghĩa, thực hành nhận diện, ghi nhớ âm thanh, tự sáng tác câu có Cá Voi Thông Thái đồng hành, đến khi hoàn thành bài học để đưa từ vựng vào kho lưu trữ).
 
 ## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Centered card layout (Bố cục một cột căn giữa hoàn toàn theo cả chiều ngang và dọc) sử dụng nền canvas sáng ấm (#fffaf0), kết hợp thanh tiến độ ngang ở đầu màn hình và bảng điều khiển phụ (Side/Bottom Panel) cho phản hồi AI ZPD.
+- Loại bố cục: Centered card layout (Bố cục một cột căn giữa hoàn toàn theo cả chiều ngang và dọc) sử dụng nền canvas sáng ấm (#fffaf0), kết hợp thanh tiến độ ngang ở đầu màn hình và bảng Gợi ý từ Cá Voi.
 - Các vùng chính trên màn hình:
-  - Vùng A: Thanh tiêu đề và tiến độ bài học (Progress Header) cố định ở đầu màn hình.
-  - Vùng B: Thẻ học tập trung tâm (Central Learning Card Container) là nơi hiển thị nội dung của từng giai đoạn học.
-  - Vùng C: Bảng phản hồi AI ZPD (ZPD AI Feedback Panel) xuất hiện ở bên phải (trên desktop) hoặc trượt từ dưới lên (trên mobile) trong giai đoạn sản sinh câu.
-  - Vùng D: Thanh điều hướng chân trang (Footer Action Bar) chứa các nút điều hướng chuyển tiếp.
+  - Vùng A: Thanh tiêu đề và tiến độ chuyến đi (Journey Header) cố định ở đầu màn hình.
+  - Vùng B: Thẻ học tập trung tâm (Central Learning Card Container).
+  - Vùng C: Bảng Cá Voi Thông Thái (Wise Whale Panel) xuất hiện để hướng dẫn học viên.
+  - Vùng D: Thanh lệnh chân trang (Action Bar) chứa các nút tiến bước.
 - Kích thước / Grid tham khảo:
   - Thẻ học tập trung tâm có kích thước cố định: 720px x 480px, góc bo rounded-xl (24px).
-  - Vùng C (ZPD Panel) có chiều rộng 360px khi mở rộng bên phải thẻ trung tâm.
+  - Vùng C (Bảng Cá Voi) có chiều rộng 360px khi mở rộng bên phải thẻ trung tâm.
   - Khoảng cách padding trong thẻ học tập: spacing-xl (32px).
-  - Màn hình sử dụng lưới grid linh hoạt: 1 cột cho Mobile, 2 cột (7:5) cho Desktop khi ZPD Panel mở ra.
+  - Màn hình sử dụng lưới grid linh hoạt: 1 cột cho Mobile, 2 cột (7:5) cho Desktop khi Bảng Cá Voi mở ra.
 
 ## 4. THÀNH PHẦN GIAO DIỆN (UI COMPONENTS)
 
@@ -41,7 +41,7 @@ Học viên sử dụng màn hình này để trải qua quy trình học từ v
 ---
 
 ### GIAI ĐOẠN 1: LÀM QUEN QUA NGỮ CẢNH (CONTEXTUAL GUESSING STAGE)
-- **Tên component:** Khu vực phát âm thanh (Audio Player Component)
+- **Tên component:** Âm thanh từ Vũ trụ (Audio Player Component)
   - **Loại component tham chiếu từ DESIGN.md:** rounded-full (nền primary #0a0a0a, màu chữ on-primary #ffffff, touch target 48x48px)
   - **Vị trí:** Vùng B, nằm trên cùng của Central Card.
   - **Trạng thái:** Mặc định, đang phát (sóng âm soundwave chuyển động), dừng phát.
@@ -94,7 +94,7 @@ Học viên sử dụng màn hình này để trải qua quy trình học từ v
   - **Trạng thái:** Mặc định, đang kéo, đặt đúng (thẻ đổi màu success #22c55e nhạt), đặt sai (thẻ đổi màu error #ef4444 nhạt).
   - **Dữ liệu hiển thị / hành vi:** Học viên kéo thẻ chữ "Collaborate" thả vào đúng thẻ hình ảnh 3D mô tả hành động hợp tác nhóm.
 
-- **Tên component:** Ô nhập dự đoán collocation (AI Next-word Prediction / Smart Concordance)
+- **Tên component:** Ô nhập dự đoán collocation (Cá Voi đoán từ / Smart Concordance)
   - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, border 1px hairline #e5e5e5, height 44px, rounded-md 12px)
   - **Vị trí:** Vùng B.
   - **Trạng thái:** Mặc định, focus, error.
@@ -123,7 +123,7 @@ Học viên sử dụng màn hình này để trải qua quy trình học từ v
 
 ---
 
-### GIAI ĐOẠN 5: TỰ VIẾT CÂU CÁ HÂN HÓA & TRỢ LÝ ZPD AI (PERSONALIZED PRODUCTION STAGE)
+### GIAI ĐOẠN 5: TỰ VIẾT CÂU CÁ HÂN HÓA & TRỢ LÝ Cá Voi Thông Thái (PERSONALIZED PRODUCTION STAGE)
 - **Tên component:** Khung đặt câu cá nhân hóa
   - **Loại component tham chiếu từ DESIGN.md:** text-area (nền canvas #fffaf0, text ink #0a0a0a, border 1px hairline #e5e5e5, rounded-md 12px, padding 16px, chiều cao 100px)
   - **Vị trí:** Vùng B, nằm ở thân Central Card.
@@ -138,12 +138,12 @@ Học viên sử dụng màn hình này để trải qua quy trình học từ v
 
 ---
 
-### VÙNG C: BẢNG PHẢN HỒI AI ZPD (ZPD AI FEEDBACK PANEL)
-- **Tên component:** Bảng điều khiển ZPD AI (ZPD AI Panel Container)
+### VÙNG C: BẢNG gợi ý từ Cá Voi Cá Voi Thông Thái (Gợi ý từ Cá Voi Thông Thái PANEL)
+- **Tên component:** Bảng điều khiển Cá Voi Thông Thái (Cá Voi Thông Thái Panel Container)
   - **Loại component tham chiếu từ DESIGN.md:** feature-card-ochre (nền brand-ochre #e8b94a nhạt hoặc surface-card #f5f0e0, border-left 1px hairline #e5e5e5, padding 20px)
   - **Vị trí:** Vùng C, hiển thị dọc bên phải Central Card khi chuyển sang Giai đoạn 5.
   - **Trạng thái:** Ẩn mặc định ở 4 giai đoạn đầu, tự động mở rộng ra ở giai đoạn 5 khi có phản hồi lỗi từ AI.
-  - **Dữ liệu hiển thị / hành vi:** Chứa tiêu đề "Phân tích ZPD AI" (Plain Black 18px), đoạn văn bản chấm lỗi sai ngữ pháp, và các câu gợi ý mẫu.
+  - **Dữ liệu hiển thị / hành vi:** Chứa tiêu đề "Phân tích Cá Voi Thông Thái" (Plain Black 18px), đoạn văn bản chấm lỗi sai ngữ pháp, và các câu gợi ý mẫu.
 
 - **Tên component:** Nhãn bôi đỏ lỗi ngữ pháp (Error Highlights)
   - **Loại component tham chiếu từ DESIGN.md:** text-span (màu error #ef4444, in đậm, có gạch chân wavy dưới chữ)
@@ -151,9 +151,9 @@ Học viên sử dụng màn hình này để trải qua quy trình học từ v
   - **Trạng thái:** Mặc định.
   - **Dữ liệu hiển thị / hành vi:** AI bôi đỏ từ viết sai (ví dụ: gõ "collaborate to him" -> bôi đỏ "to" và gợi ý đổi thành "with").
 
-- **Tên component:** Khung gợi ý ZPD 3 vòng (Scaffolded Hints)
+- **Tên component:** Khung gợi ý Cá Voi Thông Thái 3 vòng (Scaffolded Hints)
   - **Loại component tham chiếu từ DESIGN.md:** body-sm (font Inter size 13px, màu body #3a3a3a)
-  - **Vị trí:** Vùng C, thân ZPD Panel.
+  - **Vị trí:** Vùng C, thân Bảng Cá Voi.
   - **Trạng thái:** Hiển thị tăng dần mức độ trợ giúp khi học viên nộp câu sai lần 1 và lần 2.
   - **Dữ liệu hiển thị / hành vi:**
     - *Nộp sai lần 1:* Hiển thị Gợi ý lỗi từ loại/cấu trúc (ví dụ: "Hãy kiểm tra lại giới từ đi kèm với 'collaborate'.").
@@ -169,7 +169,7 @@ Học viên sử dụng màn hình này để trải qua quy trình học từ v
   - **Trạng thái:** Mặc định. Tự động rơi confetti hiệu ứng giấy bay khi chuyển sang.
   - **Dữ liệu hiển thị / hành vi:** 
     - Tiêu đề: "Tuyệt vời! Bạn đã hoàn thành từ vựng này!" (display-sm 32px, màu ink #0a0a0a).
-    - Icon 3D Mascot chú bạch tuộc nhỏ đang cầm bảng tích xanh đứng vỗ tay.
+    - Icon 3D Mascot chú Cá Voi Xanh nhỏ đang cầm bảng tích xanh đứng vỗ tay.
     - Điểm EXP cộng thêm: "EXP tích lũy: +10 EXP" (badge-pill màu success).
     - Trạng thái SRS: "Từ vựng 'collaborate' đã được lên lịch ôn tập sau 24 giờ tới (SRS)".
 
@@ -187,10 +187,10 @@ Học viên sử dụng màn hình này để trải qua quy trình học từ v
     - Nếu gõ sai lần 3 -> Hệ thống tự động khóa ô nhập tự do, hiển thị Hộp đáp án cưỡng bức chứa từ mẫu "collaborate". Học viên bắt buộc phải gõ chính xác theo chuỗi này mới được kích hoạt nút "Tiếp tục" để chuyển sang Giai đoạn 5.
 - **Hành động: Giai đoạn 5 - Tự viết câu và click "Nộp câu"**
   - **Luồng chính:** Học viên đặt câu chính xác -> Click "Nộp câu" -> AI phân tích không thấy lỗi -> Nút chuyển sang trạng thái thành công -> Tự động chuyển sang Giai đoạn 6 (Hoàn thành bài học).
-  - **Luồng con / rẽ nhánh (Sai ngữ pháp/Cấu trúc - Phản hồi ZPD AI):**
-    - Học viên viết câu có lỗi (ví dụ: "I collaborate to him.") -> Click "Nộp câu" -> Nút nộp tắt loading. ZPD AI Panel ở Vùng C trượt mở ra.
-    - *Lần sửa 1:* AI bôi đỏ vị trí lỗi "to" trên câu học viên và đưa ra gợi ý gợi mở ở ZPD Panel: "Bạn đang sử dụng sai giới từ đi kèm với động từ collaborate. Hãy sửa lại!". Học viên sửa câu (ví dụ: gõ "I collaborate about him") -> Bấm nộp lại.
-    - *Lần sửa 2:* AI phát hiện vẫn lỗi -> Bôi đỏ lỗi và đưa ra gợi ý cấu trúc trực tiếp ở ZPD Panel: "Hãy nhớ cấu trúc: collaborate WITH somebody (hợp tác với ai). Hãy sửa lại câu của bạn!". Học viên sửa lại câu chính xác và bấm nộp -> Chuyển sang Giai đoạn 6.
+  - **Luồng con / rẽ nhánh (Sai ngữ pháp/Cấu trúc - Phản hồi Cá Voi Thông Thái):**
+    - Học viên viết câu có lỗi (ví dụ: "I collaborate to him.") -> Click "Nộp câu" -> Nút nộp tắt loading. Cá Voi Thông Thái Panel ở Vùng C trượt mở ra.
+    - *Lần sửa 1:* AI bôi đỏ vị trí lỗi "to" trên câu học viên và đưa ra gợi ý gợi mở ở Bảng Cá Voi: "Bạn đang sử dụng sai giới từ đi kèm với động từ collaborate. Hãy sửa lại!". Học viên sửa câu (ví dụ: gõ "I collaborate about him") -> Bấm nộp lại.
+    - *Lần sửa 2:* AI phát hiện vẫn lỗi -> Bôi đỏ lỗi và đưa ra gợi ý cấu trúc trực tiếp ở Bảng Cá Voi: "Hãy nhớ cấu trúc: collaborate WITH somebody (hợp tác cùng Cá Voi Thông Thái). Hãy sửa lại câu của bạn!". Học viên sửa lại câu chính xác và bấm nộp -> Chuyển sang Giai đoạn 6.
     - *Lần sửa 3 (nếu nộp lại lần 2 vẫn sai):* Hệ thống tự động khóa ô đặt câu tự do. Hiển thị câu mẫu của Admin bị khuyết giới từ: "I collaborate _____ my colleagues. (Hãy điền giới từ thích hợp)". Học viên gõ từ "with" vào ô khuyết -> Nhấn xác nhận -> Chuyển sang Giai đoạn 6.
   - **Dữ liệu gửi lên / nhận về:**
     - Gửi đi: `{ "userId": 105, "vocabularyId": 45, "userSentence": "I collaborate to him." }`
@@ -198,8 +198,8 @@ Học viên sử dụng màn hình này để trải qua quy trình học từ v
 
 ## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
 - **Trạng thái rỗng (empty state):** Không áp dụng.
-- **Trạng thái tải (loading state):** Khi nhấn "Nộp câu" ở Giai đoạn 5, AI đang chạy phân tích cú pháp câu (thời gian khoảng 1-2 giây) -> Nút nộp chuyển sang trạng thái Loading (hiển thị spinner, khóa click), ZPD Panel hiển thị các thanh xương skeleton lướt nhẹ.
-- **Trạng thái lỗi (error state):** Khi API AI bị mất kết nối mạng -> Hiển thị text cảnh báo đỏ ở chân ZPD Panel: "Lỗi kết nối AI. Hệ thống tự động chuyển sang chế độ câu mẫu khuyết từ..." để học viên điền từ và hoàn tất bài học, không bị kẹt lại.
+- **Trạng thái tải (loading state):** Khi nhấn "Nộp câu" ở Giai đoạn 5, AI đang chạy phân tích cú pháp câu (thời gian khoảng 1-2 giây) -> Nút nộp chuyển sang trạng thái Loading (hiển thị spinner, khóa click), Bảng Cá Voi hiển thị các thanh xương skeleton lướt nhẹ.
+- **Trạng thái lỗi (error state):** Khi API AI bị mất kết nối mạng -> Hiển thị text cảnh báo đỏ ở chân Bảng Cá Voi: "Lỗi kết nối AI. Hệ thống tự động chuyển sang chế độ câu mẫu khuyết từ..." để học viên điền từ và hoàn tất bài học, không bị kẹt lại.
 - **Trạng thái thành công (success state):** Giai đoạn 6 chúc mừng hoàn thành bài học, rơi confetti đầy màu sắc sinh động, cộng điểm EXP tích lũy.
 
 ## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
@@ -210,6 +210,9 @@ Học viên sử dụng màn hình này để trải qua quy trình học từ v
 ## 8. LƯU Ý THIẾT KẾ (DESIGN NOTES)
 - Nền sàn của trang sử dụng màu canvas sáng ấm (#fffaf0) để giữ trạng thái dịu mắt cho học viên trong suốt quá trình tập trung học.
 - Hộp chứa biểu mẫu học tập Central Card sử dụng phong cách `feature-card-cream` màu surface-card (#f5f0e0), các nút bấm bo góc rounded-md (12px) màu đen ink hoặc canvas hairline mỏng 1px (#e5e5e5).
-- Trong giai đoạn 5, ZPD AI Panel sử dụng màu vàng ấm nhạt của `feature-card-ochre` để tạo sự chú ý vừa phải cho học viên mà không gây cảm giác hoảng sợ khi làm sai câu.
+- Trong giai đoạn 5, Cá Voi Thông Thái Panel sử dụng màu vàng ấm nhạt của `feature-card-ochre` để tạo sự chú ý vừa phải cho học viên mà không gây cảm giác hoảng sợ khi làm sai câu.
 - Theo Nguyên tắc Báo hiệu (Signaling Principle), các ký tự viết sai chính tả hoặc sai giới từ được bôi màu đỏ sáng (#ef4444) kết hợp gạch wavy để thu hút tiêu điểm thị giác tức thì giúp học viên tự điều chỉnh nhận thức lỗi sai.
 - Đảm bảo khoảng cách spacing-lg (24px) giữa câu ví dụ và các trường nhập để tránh chật chội. Touch target của các nút bấm và ô nhập là 44px.
+
+
+

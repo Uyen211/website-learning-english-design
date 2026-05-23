@@ -8,20 +8,20 @@
 - Vị trí trong sitemap: Trang chủ -> Dashboard -> Click Unit -> Unit Detail Page -> Click bài học Luyện Nghe -> Listening Practice Page (URL: /units/{unit_id}/lessons/{lesson_id}/listening)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Học viên sử dụng màn hình này để rèn luyện kỹ năng nghe hiểu tiếng Anh qua 3 hình thức luyện tập phong phú: nghe truyện tương tác, trắc nghiệm nghe hiểu đa dạng giọng nói (accents), và luyện nói đuổi (Shadowing), sau đó xem kết quả chi tiết và tương tác giải đáp trực tiếp với trợ lý AI.
+Học viên sử dụng màn hình này để rèn luyện kỹ năng nghe hiểu tiếng Anh qua 3 hình thức luyện tập phong phú: nghe truyện tương tác, trắc nghiệm nghe hiểu đa dạng giọng nói (accents), và luyện nói đuổi (Shadowing), sau đó xem kết quả chi tiết và tương tác giải đáp trực tiếp với Người bạn Cá Voi.
 
 ## 3. BỐ CỤC (LAYOUT)
 - Loại bố cục: Bố cục cột kép linh hoạt (Split View Layout). 
   - Khi luyện tập: Vùng chính ở giữa hiển thị trình phát và câu hỏi.
-  - Khi xem kết quả: Bên trái hiển thị transcript và câu trả lời; bên phải là khung chat trợ lý AI (Side Chat Panel) có thể thu gọn.
+  - Khi xem kết quả: Bên trái hiển thị transcript và câu trả lời; bên phải là khung chat Người bạn Cá Voi (Side Chat Panel) có thể thu gọn.
 - Các vùng chính trên màn hình:
   - Vùng A: Thanh tiến độ và ghim đầu trang (Header Progress Bar).
   - Vùng B: Vùng tương tác luyện nghe chính (Central Listening Player & Questions Area) có nội dung thay đổi theo 3 chế độ (Interactive Stories, Quiz, Shadowing).
-  - Vùng C: Bảng trợ lý AI hỏi đáp (Side AI Chat Panel) ở bên phải màn hình khi hiển thị trang kết quả.
+  - Vùng C: Bảng Người bạn Cá Voi hỏi đáp (Side AI Chat Panel) ở bên phải màn hình khi hiển thị trang kết quả.
   - Vùng D: Thanh điều hướng hành động ở chân trang (Footer Toolbar).
 - Kích thước / Grid tham khảo:
   - Vùng B (Vùng tương tác chính) chiếm chiều rộng 800px khi học.
-  - Khi hiện ZPD AI Chat Panel ở trang kết quả: Chia tỷ lệ 7:5 (Vùng chính 720px, AI Panel 380px) trên lưới 12 cột.
+  - Khi hiện Cá Voi Thông Thái Chat Panel ở trang kết quả: Chia tỷ lệ 7:5 (Vùng chính 720px, AI Panel 380px) trên lưới 12 cột.
   - Khoảng cách padding trong thẻ: spacing-xl (32px).
 
 ## 4. THÀNH PHẦN GIAO DIỆN (UI COMPONENTS)
@@ -103,13 +103,13 @@ Học viên sử dụng màn hình này để rèn luyện kỹ năng nghe hiể
   - **Trạng thái:** Mặc định, hover.
   - **Dữ liệu hiển thị / hành vi:** Icon dấu cộng và chữ "Lưu từ". Học viên nhấp chọn sẽ tự động đưa từ vựng đó vào danh sách ôn tập SRS cá nhân.
 
-- **Tên component:** Khung chat Trợ lý AI (ZPD AI Side Chat Panel)
+- **Tên component:** Khung chat Người bạn Cá Voi (Cá Voi Thông Thái Side Chat Panel)
   - **Loại component tham chiếu từ DESIGN.md:** feature-card-ochre (nền brand-ochre #e8b94a nhạt, border-left 1px hairline #e5e5e5, padding 20px, height 100% dọc)
   - **Vị trí:** Vùng C, hiển thị ở bên phải.
   - **Trạng thái:** Mặc định ở trang kết quả.
   - **Dữ liệu hiển thị / hành vi:**
     - Khung chứa lịch sử chat hiển thị các giải đáp ngữ pháp.
-    - Ô nhập câu hỏi (text-input) ở dưới cùng: "Hỏi trợ lý AI giải thích câu này...".
+    - Ô nhập câu hỏi (text-input) ở dưới cùng: "Hỏi Người bạn Cá Voi giải thích câu này...".
     - Nút gửi chat.
 
 ## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION DETAILS)
@@ -127,7 +127,7 @@ Học viên sử dụng màn hình này để rèn luyện kỹ năng nghe hiể
 ## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
 - **Trạng thái rỗng (empty state):** Không áp dụng.
 - **Trạng thái tải (loading state):** Khi đang tải dữ liệu âm thanh hoặc gửi file ghi âm Shadowing lên máy chủ -> Nút micro hoặc player hiển thị spinner xoay mờ, tạm khóa click.
-- **Trạng thái lỗi (error state):** Khi API AI bị ngắt kết nối trong khung chat -> Chatbox hiển thị thông báo: "Trợ lý AI tạm thời mất kết nối. Bạn có thể xem lời giải thích chi tiết của Admin phía dưới!".
+- **Trạng thái lỗi (error state):** Khi API AI bị ngắt kết nối trong khung chat -> Chatbox hiển thị thông báo: "Người bạn Cá Voi tạm thời mất kết nối. Bạn có thể xem lời giải thích chi tiết của Admin phía dưới!".
 - **Trạng thái thành công (success state):** Trang kết quả hiển thị tổng kết EXP đạt được, Toast xanh báo "Nộp bài nghe thành công!".
 
 ## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
@@ -140,5 +140,8 @@ Học viên sử dụng màn hình này để rèn luyện kỹ năng nghe hiể
 - Các khối nội dung sử dụng màu surface-card (#f5f0e0), viền hairline 1px (#e5e5e5) bo tròn rounded-lg (16px) hoặc rounded-xl (24px).
 - Nút loa và uploader có các góc bo tròn mềm mại rounded-md (12px) tạo cảm giác sờ nắn được như phong cách Clay.com.
 - Theo Nguyên tắc Báo hiệu (Signaling Principle), các từ phát âm sai trong phần Shadowing được tô đỏ gạch chân wavy, từ đúng tô xanh lá rõ ràng để người học nhận biết lỗi ngay tức khắc.
-- Khung chat AI ZPD ở bên phải dùng màu vàng ấm của brand-ochre để phân tách trực quan với vùng xem transcript kết quả.
+- Khung chat AI Cá Voi Thông Thái ở bên phải dùng màu vàng ấm của brand-ochre để phân tách trực quan với vùng xem transcript kết quả.
 - Touch target nút bấm đạt chuẩn 44px.
+
+
+

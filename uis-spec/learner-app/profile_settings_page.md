@@ -101,7 +101,7 @@ Học viên sử dụng màn hình này để xem thông tin hồ sơ cá nhân,
     - Nhận về: `{ "success": true }`
 
 ## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
-- **Trạng thái rỗng (empty state):** Khi Sổ tay lỗi sai trống -> Hiển thị hình vẽ 3D mascot bạch tuộc nhỏ cười lớn kèm dòng chữ: "Sổ tay lỗi sai trống! Bạn đang làm rất tốt, hãy tiếp tục phát huy!".
+- **Trạng thái rỗng (empty state):** Khi Sổ tay lỗi sai trống -> Hiển thị hình vẽ 3D mascot Cá Voi Xanh nhỏ cười lớn kèm dòng chữ: "Sổ tay lỗi sai trống! Bạn đang làm rất tốt, hãy tiếp tục phát huy!".
 - **Trạng thái tải (loading state):** Khi đang lưu cài đặt tài khoản, nút Lưu hiển thị spinner và khóa click.
 - **Trạng thái lỗi (error state):** API đổi mật khẩu báo sai mật khẩu hiện tại -> Báo đỏ viền ô mật khẩu hiện tại và hiện text lỗi đỏ: "Mật khẩu hiện tại không chính xác!".
 
@@ -118,3 +118,6 @@ Học viên sử dụng màn hình này để xem thông tin hồ sơ cá nhân,
 - Lưới thẻ Stats Cards Grid dùng các màu sắc thương hiệu của Clay: Ochre (#e8b94a), Peach (#ffb084), Lavender (#b8a4ed) nhạt để làm nổi bật các chỉ số cột mốc học tập.
 - Các trường nhập liệu và nút bấm có chiều cao 44px đạt chuẩn touch target.
 - Viền hairline 1px (#e5e5e5) nhẹ nhàng ngăn cách giữa các khối.
+
+
+

@@ -8,7 +8,7 @@
 - Vị trí trong sitemap: Trang chủ -> Dashboard -> Click Unit -> Unit Detail Page -> Click bài học Luyện Đọc -> Reading Practice Page (URL: /units/{unit_id}/lessons/{lesson_id}/reading)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Học viên sử dụng màn hình này để nâng cao kỹ năng đọc hiểu qua hai hình thức: Đọc hiểu văn bản thông thường và Đọc báo chí thực tế, tích hợp công cụ tra nghĩa từ điển nhanh tại chỗ và giải đáp thắc mắc bằng trợ lý AI.
+Học viên sử dụng màn hình này để nâng cao kỹ năng đọc hiểu qua hai hình thức: Đọc hiểu văn bản thông thường và Đọc báo chí thực tế, tích hợp công cụ tra nghĩa từ điển nhanh tại chỗ và giải đáp thắc mắc bằng Người bạn Cá Voi.
 
 ## 3. BỐ CỤC (LAYOUT)
 - Loại bố cục: Bố cục chia đôi màn hình (Split Screen 50/50 Layout) rất phổ biến trong các đề thi đọc hiểu chuẩn quốc tế.
@@ -17,7 +17,7 @@ Học viên sử dụng màn hình này để nâng cao kỹ năng đọc hiểu
   - Vùng B: Vùng nội dung đọc hiểu bên trái (Left Passage Panel) chứa văn bản đọc, hỗ trợ bôi đen tra cứu.
   - Vùng C: Vùng câu hỏi tương tác bên phải (Right Question Panel) chứa các câu hỏi trắc nghiệm/điền từ.
   - Vùng D: Hộp thoại xem từ điển nhanh (Popup Dictionary Tooltip) hiển thị nổi tại vị trí bôi đen văn bản.
-  - Vùng E: Bảng chat trợ lý AI hỏi đáp (ZPD AI Side Chat Panel) trượt mở từ bên phải khi ở trang kết quả.
+  - Vùng E: Bảng chat Người bạn Cá Voi hỏi đáp (Cá Voi Thông Thái Side Chat Panel) trượt mở từ bên phải khi ở trang kết quả.
 - Kích thước / Grid tham khảo:
   - Chia tỷ lệ màn hình 50% bên trái ( Passage Panel) và 50% bên phải (Question Panel) bằng CSS Grid 12 cột.
   - Khi xem kết quả, Vùng E (AI Panel) mở rộng chiếm 360px bên phải màn hình.
@@ -80,7 +80,7 @@ Học viên sử dụng màn hình này để nâng cao kỹ năng đọc hiểu
   - **Trạng thái:** Mặc định.
   - **Dữ liệu hiển thị / hành vi:** Chấm điểm tự động, hiển thị số câu đúng/sai, bôi màu xanh lá cho câu trả lời đúng của học viên, bôi đỏ câu sai kèm đáp án đúng chính thức và giải thích chi tiết của Admin.
 
-- **Tên component:** Khung chat Trợ lý AI (ZPD AI Side Chat Panel)
+- **Tên component:** Khung chat Người bạn Cá Voi (Cá Voi Thông Thái Side Chat Panel)
   - **Loại component tham chiếu từ DESIGN.md:** feature-card-ochre (nền brand-ochre #e8b94a nhạt, border-left 1px hairline #e5e5e5, padding 20px)
   - **Vị trí:** Vùng E (bên phải).
   - **Trạng thái:** Hiển thị ở trang kết quả.
@@ -90,7 +90,7 @@ Học viên sử dụng màn hình này để nâng cao kỹ năng đọc hiểu
 - **Hành động: Bôi đen một từ mới trong bài đọc để tra cứu**
   - **Luồng chính:** Học viên bôi đen từ "fascinating" ở Vùng B -> Popup Dictionary Tooltip Vùng D tự động hiển thị nổi -> Học viên xem nghĩa -> Click nút "Lưu từ" -> Từ được đưa vào SRS -> Popup đóng lại khi click ra ngoài.
 - **Hành động: Click nộp bài đọc ở Vùng D**
-  - **Luồng chính:** Học viên hoàn thành tất cả câu hỏi -> Click "Nộp bài" -> Hệ thống chấm điểm -> Chuyển Vùng C sang hiển thị trang kết quả chi tiết -> Toast thông báo thành công xanh lá -> ZPD AI Chat Panel mở rộng ở Vùng E.
+  - **Luồng chính:** Học viên hoàn thành tất cả câu hỏi -> Click "Nộp bài" -> Hệ thống chấm điểm -> Chuyển Vùng C sang hiển thị trang kết quả chi tiết -> Toast thông báo thành công xanh lá -> Cá Voi Thông Thái Chat Panel mở rộng ở Vùng E.
   - **Dữ liệu gửi lên / nhận về:**
     - Gửi đi: `{ "userId": 105, "lessonId": 26, "answers": { "q1": "A", "q2": "collaborate" } }`
     - Nhận về: `{ "score": 90, "correctCount": 9, "totalCount": 10, "details": { "q1": { "isCorrect": true, "correctAnswer": "A", "explanation": "..." } } }`
@@ -112,3 +112,6 @@ Học viên sử dụng màn hình này để nâng cao kỹ năng đọc hiểu
 - Popup từ điển nhanh được thiết kế bo tròn nhẹ rounded-md (12px) trên nền surface-card (#f5f0e0), không dùng bóng đổ đen thô ráp mà chỉ có viền hairline tinh tế (#e5e5e5).
 - Các từ được tra cứu thành công và lưu vào SRS được highlight màu brand-mint (#a4d4c5) nhạt trong văn bản để biểu thị trạng thái đã lưu theo Nguyên tắc Báo hiệu (Signaling Principle).
 - Touch target của các đáp án trắc nghiệm và nút lưu tối thiểu 44px.
+
+
+

@@ -141,3 +141,6 @@ Quản trị viên sử dụng màn hình này để xem danh sách toàn bộ c
 - Các thẻ Unit sử dụng kiểu dáng `product-mockup-card` với viền hairline mỏng 1px (#e5e5e5) màu nhạt, bo tròn góc rounded-lg (16px), không đổ bóng để giữ tính tối giản. Khi rê chuột qua thẻ (hover), viền thẻ đổi màu xám sẫm nhẹ và con trỏ chuột đổi sang dạng di chuyển (grab icon).
 - Khoảng cách dọc giữa các thẻ Unit là spacing-md (16px) đảm bảo tính trực quan và dễ dàng thao tác kéo thả mà không bị kích nhầm.
 - Touch target của các nút hành động (Sửa, Xóa) được tăng vùng đệm tối thiểu 44x44px. Nút Xóa có màu đỏ thương hiệu (#ef4444) để báo hiệu hành động nguy hiểm theo Nguyên tắc Báo hiệu (Signaling Principle).
+
+
+

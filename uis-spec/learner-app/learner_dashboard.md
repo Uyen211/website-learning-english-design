@@ -28,9 +28,9 @@ Người học sử dụng màn hình này để theo dõi toàn bộ lộ trìn
   - **Vị trí:** Vùng A.
   - **Trạng thái:** Mặc định.
   - **Dữ liệu hiển thị / hành vi:**
-    - Trái: Logo chú bạch tuộc DiveVerse.
-    - Giữa: Các tab chuyển đổi phân hệ: Dashboard (active, nền surface-card #f5f0e0), Luyện tập (trong suốt, chữ muted #6a6a6a), Thi cử (trong suốt), Ôn tập SRS (trong suốt).
-    - Phải: Tổng EXP hiển thị dạng badge icon, và Avatar bo tròn của học viên (kích thước 36px x 36px, nhấp vào hiển thị menu thiết lập/hồ sơ).
+    - Trái: Logo Chú Cá Voi Xanh Vũ Trụ DiveVerse.
+    - Giữa: Các tab chuyến đi: Dashboard (active), Trạm Luyện kỹ năng, Phòng Thi, Kho Ôn tập.
+    - Phải: Tổng EXP hiển thị dạng badge icon, và Avatar bo tròn của học viên.
 
 - **Tên component:** Bảng thông tin cá nhân & tiến trình (Student Progress Widget)
   - **Loại component tham chiếu từ DESIGN.md:** feature-card-cream (nền surface-card #f5f0e0, border 1px hairline #e5e5e5, rounded-lg 16px, padding 20px)
@@ -99,3 +99,6 @@ Người học sử dụng màn hình này để theo dõi toàn bộ lộ trìn
 - Sử dụng hiệu ứng micro-animation (pulsing) phát sáng nhẹ xung quanh Trạm đang học để kích thích động lực học tập của học viên theo Nguyên tắc Báo hiệu (Signaling Principle).
 - Khoảng cách giữa các trạm uốn lượn thưa thớt tạo nhịp điệu dễ thở, giảm áp lực tâm lý cho người học khi nhìn vào toàn bộ lộ trình dài.
 - Touch target của các nút trạm đạt tối thiểu 80x80px giúp dễ bấm trên mọi thiết bị di động và máy tính bảng.
+
+
+

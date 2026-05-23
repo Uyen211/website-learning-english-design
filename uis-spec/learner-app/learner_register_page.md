@@ -27,7 +27,7 @@ Người dùng (học viên mới) truy cập màn hình này để đăng ký m
   - **Loại component tham chiếu từ DESIGN.md:** 3D claymation mascot / image
   - **Vị trí:** Vùng A, nằm trên cùng, căn giữa.
   - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hình ảnh chú bạch tuộc DiveVerse đang đội mũ cử nhân. Kích thước 100px x 100px.
+  - **Dữ liệu hiển thị / hành vi:** Hình ảnh chú Cá Voi Xanh DiveVerse đang đội mũ cử nhân. Kích thước 100px x 100px.
 
 - **Tên component:** Tiêu đề trang
   - **Loại component tham chiếu từ DESIGN.md:** display-md (Plain Black display typeface, font Inter weight 500, size 32px, letter-spacing -0.5px)
@@ -130,3 +130,6 @@ Người dùng (học viên mới) truy cập màn hình này để đăng ký m
 - Thẻ biểu mẫu được thiết kế bằng phong cách `feature-card-cream` có góc bo rất lớn rounded-xl (24px) và màu nền surface-card (#f5f0e0), viền hairline mỏng 1px (#e5e5e5).
 - Khoảng cách dọc giữa các trường nhập liệu là spacing-md (16px) đảm bảo tính thoáng mát, dễ nhìn, tránh quá tải nhận thức cho học viên mới.
 - Chiều cao các trường nhập và nút bấm là 44px, đạt touch target chuẩn mực.
+
+
+

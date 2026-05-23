@@ -8,13 +8,13 @@
 - Vị trí trong sitemap: Trang chủ -> Dashboard -> Click Unit -> Unit Detail Page -> Click bài học Luyện Viết -> Writing Practice Page (URL: /units/{unit_id}/lessons/{lesson_id}/writing)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Học viên sử dụng màn hình này để nâng cao kỹ năng viết qua 3 hình thức: Viết cơ bản (ghép từ/điền khuyết), Viết ngắn ZPD 3 vòng gợi ý, và Viết luận lớn chuẩn hóa quốc tế (IELTS/TOEIC) có AI chấm chữa chi tiết theo 4 tiêu chí.
+Học viên sử dụng màn hình này để nâng cao kỹ năng viết qua 3 hình thức: Viết cơ bản (ghép từ/điền khuyết), Viết ngắn Cá Voi Thông Thái 3 vòng gợi ý, và Viết luận lớn chuẩn hóa quốc tế (IELTS/TOEIC) có AI chấm chữa chi tiết theo 4 tiêu chí.
 
 ## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Bố cục cột kép chia tỷ lệ 6:6 (Split Column Layout) cho màn hình viết luận và viết ZPD; Bố cục 1 cột căn giữa cho viết cơ bản.
+- Loại bố cục: Bố cục cột kép chia tỷ lệ 6:6 (Split Column Layout) cho màn hình viết luận và viết Cá Voi Thông Thái; Bố cục 1 cột căn giữa cho viết cơ bản.
 - Các vùng chính trên màn hình:
   - Vùng A: Thanh dẫn Breadcrumbs và tiến độ ở đầu trang.
-  - Vùng B: Vùng Đề bài và Gợi ý bên trái (Left Prompt Panel) chứa đề bài viết, gợi ý hoặc bảng phản hồi ZPD.
+  - Vùng B: Vùng Đề bài và Gợi ý bên trái (Left Prompt Panel) chứa đề bài viết, gợi ý hoặc bảng phản hồi Cá Voi Thông Thái.
   - Vùng C: Vùng Soạn thảo bài viết bên phải (Right Editor Panel) chứa khung nhập liệu văn bản lớn và bộ đếm từ.
   - Vùng D: Hộp thoại báo lỗi bài viết trống (Blank Essay Warning Modal - LN-08-M1).
   - Vùng E: Bảng kết quả chấm thi AI (AI Writing Evaluation View) hiển thị thay thế khi nộp bài thành công.
@@ -43,14 +43,14 @@ Học viên sử dụng màn hình này để nâng cao kỹ năng viết qua 3 
   - **Trạng thái:** Mặc định. Các thẻ từ có thể kéo thả.
   - **Dữ liệu hiển thị / hành vi:** Hiển thị các thẻ từ bị xáo trộn (ví dụ: "will / rains / stay / at / If / home / it / we"). Học viên kéo thả sắp xếp lại thành câu hoàn chỉnh: "If it rains, we will stay at home."
 
-#### 2. SCAFFOLDED ZPD WRITING MODE (GIAO DIỆN VIẾT GỢI Ý 3 VÒNG ZPD)
+#### 2. SCAFFOLDED Cá Voi Thông Thái WRITING MODE (GIAO DIỆN VIẾT GỢI Ý 3 VÒNG Cá Voi Thông Thái)
 - **Tên component:** Đề viết ngắn & Khung cấu trúc
   - **Loại component tham chiếu từ DESIGN.md:** product-mockup-card (nền canvas #fffaf0, padding 20px)
   - **Vị trí:** Vùng B (cột trái).
   - **Trạng thái:** Mặc định.
   - **Dữ liệu hiển thị / hành vi:** Hiển thị đề bài viết ngắn (ví dụ: "Viết câu trả lời email xin nghỉ phép") kèm theo các gợi ý cấu trúc đích cần sử dụng.
 
-- **Tên component:** Khung ZPD gợi ý 3 vòng (3-Tier Hint Box)
+- **Tên component:** Khung Cá Voi Thông Thái gợi ý 3 vòng (3-Tier Hint Box)
   - **Loại component tham chiếu từ DESIGN.md:** feature-card-ochre (nền brand-ochre #e8b94a nhạt, rounded-lg 16px, padding 16px)
   - **Vị trí:** Vùng B, xuất hiện dưới đề bài khi học viên nộp bài viết bị lỗi.
   - **Trạng thái:** Xuất hiện động.
@@ -59,7 +59,7 @@ Học viên sử dụng màn hình này để nâng cao kỹ năng viết qua 3 
     - *Vòng 2:* Đưa ra gợi ý quy luật ngữ pháp/từ vựng (ví dụ: "Hãy nhớ quy tắc viết: i đứng trước e trừ sau c. Nhận lại viết là receive.").
     - *Vòng 3:* Hiển thị câu gợi ý mẫu của Admin khuyết từ để học viên điền từ hoàn thành.
 
-- **Tên component:** Ô soạn thảo ZPD (ZPD Writing Input)
+- **Tên component:** Ô soạn thảo Cá Voi Thông Thái (Cá Voi Thông Thái Writing Input)
   - **Loại component tham chiếu từ DESIGN.md:** text-area (nền canvas #fffaf0, border 1px hairline #e5e5e5, rounded-md 12px, padding 16px)
   - **Vị trí:** Vùng C (cột phải).
   - **Trạng thái:** Mặc định, focus, error.
@@ -80,7 +80,7 @@ Học viên sử dụng màn hình này để nâng cao kỹ năng viết qua 3 
 ---
 
 ### TRANG KẾT QUẢ VIẾT CHẤM AI (WRITING RESULT PAGE)
-- **Tên component:** Bảng điểm AI & Đánh giá chi tiết (AI Evaluation Panel)
+- **Tên component:** Bảng điểm AI & Đánh giá chi tiết (Cá Voi đánh giá Panel)
   - **Loại component tham chiếu từ DESIGN.md:** cta-band-illustrated (nền surface-soft #faf5e8, rounded-xl 24px, padding 32px)
   - **Vị trí:** Vùng E, thay thế giao diện soạn thảo khi kết thúc.
   - **Trạng thái:** Mặc định.
@@ -120,8 +120,11 @@ Học viên sử dụng màn hình này để nâng cao kỹ năng viết qua 3 
 
 ## 8. LƯU Ý THIẾT KẾ (DESIGN NOTES)
 - Nền sàn của trang sử dụng màu canvas sáng ấm (#fffaf0) đặc trưng.
-- Split screen chia đôi 50/50 ở desktop giúp đối chiếu đề bài, gợi ý ZPD và khung soạn thảo trực quan, tránh gây mệt mỏi nhận thức (Coherence Principle).
+- Split screen chia đôi 50/50 ở desktop giúp đối chiếu đề bài, gợi ý Cá Voi Thông Thái và khung soạn thảo trực quan, tránh gây mệt mỏi nhận thức (Coherence Principle).
 - Khung soạn thảo văn bản được bo góc rounded-md (12px) trên nền canvas trắng ấm, không dùng bóng đổ.
 - Theo Nguyên tắc Báo hiệu (Signaling Principle), các lỗi sai chính tả trong bài viết sau khi chấm được bôi đỏ đậm kèm gạch wavy dưới từ, lỗi dùng từ sai sắc thái bôi màu ochre, lỗi ngữ pháp bôi màu lavender để học viên phân biệt rõ rệt từng nhóm lỗi.
-- Khung phản hồi ZPD sử dụng màu nền ấm brand-ochre nhạt để tạo cảm giác thân thiện nâng đỡ.
+- Khung phản hồi Cá Voi Thông Thái sử dụng màu nền ấm brand-ochre nhạt để tạo cảm giác thân thiện nâng đỡ.
 - Touch target nút bấm đạt chuẩn 44px.
+
+
+

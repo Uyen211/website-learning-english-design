@@ -74,7 +74,7 @@ Người học sử dụng màn hình này để xem kết quả bài thi chi ti
   - **Loại component tham chiếu từ DESIGN.md:** feature-card-cream (padding 20px)
   - **Vị trí:** Vùng C, xuất hiện dưới các câu hỏi tự luận viết/nói.
   - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị các tiêu chí chấm điểm chi tiết của AI và bản viết sửa lỗi chính tả/ngữ pháp bôi đỏ gạch wavy.
+  - **Dữ liệu hiển thị / hành vi:** Hiển thị các tiêu chí chấm điểm chi tiết của Cá Voi và bản viết sửa lỗi chính tả/ngữ pháp bôi đỏ gạch wavy.
 
 ---
 
@@ -111,3 +111,6 @@ Người học sử dụng màn hình này để xem kết quả bài thi chi ti
 - Theo Nguyên tắc Báo hiệu (Signaling Principle), các câu trả lời sai của học viên được bôi màu đỏ của error (#ef4444) kèm dấu nhân rõ ràng để nhận biết tức thì lỗi sai, câu trả lời đúng được bôi màu xanh success (#22c55e).
 - Các thẻ đề xuất ôn tập dùng màu brand-ochre nhạt để kích thích hành động tiếp theo của học viên.
 - Touch target nút bấm đạt chuẩn 44px.
+
+
+

@@ -78,3 +78,6 @@ Học viên sử dụng màn hình này làm trung tâm để quản lý tiến 
 - Thẻ xem chi tiết từ điển sử dụng màu nền surface-card (#f5f0e0), viền hairline 1px (#e5e5e5) bo tròn rounded-lg (16px) hoặc rounded-xl (24px) tạo cảm giác tối giản, thoáng mắt.
 - Dropdown tìm kiếm nhanh có độ đổ bóng cực thấp, mượt mà giúp tập trung thị giác vào danh sách từ gợi ý.
 - Touch target của các nút bấm và ô tìm kiếm tối thiểu 44px.
+
+
+

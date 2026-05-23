@@ -93,3 +93,6 @@ Người học sử dụng màn hình này để đọc cấu trúc đề thi, s
 - Thẻ Test Spec Card sử dụng phong cách `feature-card-cream` màu surface-card (#f5f0e0), viền hairline 1px (#e5e5e5) bo tròn góc bo lớn rounded-xl (24px) tạo cảm giác mập mạp và chuyên nghiệp.
 - Hai thẻ chọn chế độ ở Vùng C được thiết kế trực quan, khi di chuột qua sẽ đổi màu nhẹ, khi nhấp chọn sẽ viền dày lên giúp học viên nhận biết rõ ràng chế độ đang chọn (Nguyên tắc Báo hiệu - Signaling Principle).
 - Touch target nút bấm đạt chuẩn 44px. Khoảng cách dọc thưa 24px giúp bố cục thoáng đãng và giảm áp lực tâm lý trước khi thi.
+
+
+

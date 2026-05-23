@@ -78,3 +78,6 @@ Quản trị viên sử dụng hộp thoại xác nhận này để đưa ra quy
 - Spacing giữa tiêu đề, thông điệp và các nút là spacing-lg (24px) tạo bố cục thoáng đãng và có nhịp điệu rõ ràng.
 - Các nút hành động được thiết kế rõ ràng về thứ tự phân cấp thị giác theo Nguyên tắc Báo hiệu (Signaling Principle) giúp Admin dễ dàng nhận thấy nút primary đen tuyền để nhấn xác nhận hoặc hủy.
 - Touch target của nút đạt tối thiểu 44x44px.
+
+
+

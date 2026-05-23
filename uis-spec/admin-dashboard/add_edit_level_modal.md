@@ -119,3 +119,6 @@ Quản trị viên sử dụng hộp thoại nổi này để nhập thông tin 
 - Theo Nguyên tắc Báo hiệu (Signaling Principle), các nhãn lỗi có màu đỏ sáng (#ef4444) nổi bật trên nền vàng ấm giúp Admin dễ nhận biết lỗi sai mà không bị nhầm lẫn.
 - Khoảng cách giữa các trường nhập liệu là spacing-md (16px) đảm bảo không gian thoáng mát cho mắt và tránh gây quá tải nhận thức cho người dùng.
 - Chiều cao các nút hành động là 44px đạt touch target chuẩn mực.
+
+
+

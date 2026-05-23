@@ -164,3 +164,6 @@ Quản trị viên sử dụng màn hình này để nhập thông tin thiết l
 - Việc soạn thảo Mock Test rất đồ sộ, do đó khoảng cách giữa các khối câu hỏi được giãn rộng spacing-xl (32px) để giảm tải nhận thức (Coherence Principle), giúp Admin không bị rối mắt.
 - Các trường bắt buộc được đánh dấu dấu sao đỏ (*), viền đỏ cảnh báo khi trống theo Nguyên tắc Báo hiệu (Signaling Principle) để hướng mắt Admin vào phần cần sửa đổi nhanh nhất.
 - Chiều cao các nút bấm và ô nhập liệu là 44px đảm bảo touch target chuẩn mực.
+
+
+

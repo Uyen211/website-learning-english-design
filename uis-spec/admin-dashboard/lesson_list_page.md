@@ -114,3 +114,6 @@ Quản trị viên sử dụng màn hình này để quản lý danh sách các 
 - Các thẻ bài học được thiết kế bằng phong cách `feature-card-cream` có góc bo rất lớn rounded-xl (24px) và nền surface-card (#f5f0e0), tạo cảm giác mập mạp và đồng điệu với logo 3D đất sét của hệ thống.
 - Khoảng cách thưa spacing-lg (24px) giữa các thẻ bài học đảm bảo sự thoáng mát về thị giác, giảm cảm giác áp lực khi quản trị lượng nội dung khổng lồ.
 - Touch target của tất cả các nút hành động (Cấu hình, Sửa, Xóa) đảm bảo kích thước tối thiểu 44x44px. Nút "Xóa cấu hình" hiển thị màu đỏ (#ef4444) dạng chữ trơn không nền để biểu thị mức độ nghiêm trọng nhưng không làm loãng tiêu điểm thị giác chính.
+
+
+

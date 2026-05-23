@@ -62,7 +62,7 @@ Quản trị viên sử dụng màn hình này để đặt tên bài học, tí
     - *Với Luyện nghe:* Interactive Stories, Trắc nghiệm nghe hiểu, Shadowing.
     - *Với Luyện nói:* Phát âm từ/câu, Hội thoại nhập vai AI.
     - *Với Luyện đọc:* Đọc hiểu thông thường, Đọc báo chí thực tế.
-    - *Với Luyện viết:* Ghép câu (Basic), Viết gợi ý 3 vòng (ZPD), Viết luận chấm AI.
+    - *Với Luyện viết:* Ghép câu (Basic), Viết gợi ý 3 vòng (Cá Voi Thông Thái), Viết luận chấm AI.
 
 - **Tên component:** Vùng soạn thảo chi tiết (Dynamic Form Blocks)
   - **Loại component tham chiếu từ DESIGN.md:** feature-card-cream (nền surface-card #f5f0e0, border 1px hairline #e5e5e5, rounded-xl 24px, padding 24px)
@@ -73,7 +73,7 @@ Quản trị viên sử dụng màn hình này để đặt tên bài học, tí
     - *Khối Kéo thả/Ghép đôi:* Danh sách các cặp Từ - Nghĩa/Ảnh (cho phép bấm nút "Thêm dòng" để tạo nhiều cặp).
     - *Khối Đoán nghĩa ngữ cảnh:* 3-4 ô nhập câu ví dụ ngữ cảnh, khu vực tải tệp âm thanh tương ứng, ô giải thích.
     - *Khối Đọc hiểu thông thường:* Ô nhập văn bản lớn "Đoạn văn đọc hiểu", danh sách câu hỏi trắc nghiệm (cho phép tạo câu hỏi, nhập các tùy chọn A, B, C, D, tích chọn đáp án đúng và nhập lời giải thích chi tiết).
-    - *Khối Viết luận chấm AI:* Ô nhập đề bài luận, các ô chọn tiêu đề, trường nhập danh sách từ khóa bắt buộc/cấu trúc gợi ý để chấm điểm AI, bài viết mẫu.
+    - *Khối Viết luận chấm AI:* Ô nhập đề bài luận, các ô chọn tiêu đề, trường nhập danh sách từ khóa bắt buộc/cấu trúc gợi ý để Cá Voi chấm điểm, bài viết mẫu.
 
 - **Tên component:** Khu vực tải tệp lên (File Uploader)
   - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, border 1px dashed #6a6a6a, rounded-md 12px, height 80px, căn giữa văn bản)
@@ -118,3 +118,6 @@ Quản trị viên sử dụng màn hình này để đặt tên bài học, tí
 - Sử dụng Nguyên tắc Báo hiệu (Signaling Principle) bằng cách in đậm các nhãn trường bắt buộc kèm dấu sao đỏ (*), viền đỏ và nhãn lỗi (#ef4444) nổi bật trên nền canvas để dễ nhận diện lỗi.
 - Đảm bảo khoảng cách spacing-md (16px) giữa các trường nhập liệu và spacing-xl (32px) giữa các khối form để tránh gây cảm giác ngột ngạt và rối mắt cho Admin khi soạn thảo đề bài dài.
 - Chiều cao các trường nhập là 44px, nút uploader có chiều cao 80px để thuận tiện click chọn.
+
+
+

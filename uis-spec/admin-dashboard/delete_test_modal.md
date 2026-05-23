@@ -95,3 +95,6 @@ Quản trị viên sử dụng hộp thoại xác nhận nổi này để đưa 
 - Khoảng cách các vùng được thiết lập thưa thớt spacing-lg (24px) để giảm áp lực nhận thức cho người dùng khi đối diện với các tác vụ hủy hoại dữ liệu.
 - Theo Nguyên tắc Báo hiệu (Signaling Principle), nút Xác nhận xóa là nút primary màu đen, trong khi nút Hủy là nút secondary có màu canvas kem ấm để thu hút sự chú ý của Admin vào đúng hành động mong muốn.
 - Touch target của tất cả các nút được giữ ở mức 44px để tránh nhấn lệch.
+
+
+

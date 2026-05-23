@@ -129,3 +129,6 @@ Quản trị viên sử dụng màn hình này để xem danh sách toàn bộ c
 - Thiết kế lưới thẻ cấp độ rõ ràng với khoảng cách spacing-lg (24px) giữa các thẻ nhằm giảm tải nhận thức và tối ưu hóa phân cấp thị giác theo Nguyên tắc Báo hiệu (Signaling Principle) bằng cách in đậm tên cấp độ.
 - Các nút tương tác "Sửa" và "Xóa" trên thẻ đảm bảo touch target đạt tối thiểu 44x44px bằng cách tăng vùng đệm padding trong suốt xung quanh nút.
 - Không sử dụng các đường viền hay bóng đổ đậm. Ranh giới giữa Sidebar và Content Area chỉ là một đường hairline 1px tinh tế (#e5e5e5).
+
+
+

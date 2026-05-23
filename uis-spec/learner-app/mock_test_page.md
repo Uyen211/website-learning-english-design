@@ -89,7 +89,7 @@ Học viên sử dụng màn hình này để trải qua phiên thi thử quốc
   - **Trạng thái:** Xuất hiện động.
   - **Dữ liệu hiển thị / hành vi:** Yêu cầu học viên nói thử một câu: "Đọc to câu này để kiểm tra Micro: 'I am ready to start the Speaking test.'". Hiển thị vạch đo âm lượng. Đạt yêu cầu sẽ tự động bắt đầu phần thi nói.
 
-- **Tên component:** Giám khảo AI (AI Examiner Card)
+- **Tên component:** Giám khảo AI (Cá Voi Giám khảo Card)
   - **Loại component tham chiếu từ DESIGN.md:** hero-illustration-card (nền surface-soft #faf5e8, rounded-xl 24px)
   - **Vị trí:** Vùng B, trung tâm.
   - **Trạng thái:** Mặc định.
@@ -150,3 +150,6 @@ Học viên sử dụng màn hình này để trải qua phiên thi thử quốc
 - Theo Nguyên tắc Báo hiệu (Signaling Principle), sóng âm soundwave màu đỏ rực (#ef4444) nhấp nháy biểu thị micro đang thu âm để nhắc nhở học viên tập trung nói, đồng hồ đếm ngược to rõ ở Sticky Header giúp theo dõi thời gian dễ dàng.
 - Khóa toàn bộ các nút tua nhạc trong phần thi Listening để đảm bảo tính công bằng nghiêm ngặt của kỳ thi thử.
 - Touch target của nút nộp và các đáp án trắc nghiệm tối thiểu 44px.
+
+
+

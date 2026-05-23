@@ -1,25 +1,25 @@
-# MÀN HÌNH: GRAMMAR LEARNING PAGE (MÀN HÌNH HỌC NGỮ PHÁP QUY NẠP)
+# MÀN HÌNH: GRAMMAR LEARNING PAGE (MÀN HÌNH HỌC NGỮ PHÁP tự nhiên)
 
 ## 1. THÔNG TIN CHUNG
-- Tên màn hình: Grammar Learning Page (Màn hình học ngữ pháp quy nạp - UC-05b)
-- Mã use case liên quan: UC-05b (Học ngữ pháp quy nạp)
-- Mã luồng người dùng liên quan: Flow LN-FL-03 (Học ngữ pháp quy nạp)
+- Tên màn hình: Grammar Learning Page (Màn hình học ngữ pháp tự nhiên - UC-05b)
+- Mã use case liên quan: UC-05b (Học ngữ pháp tự nhiên)
+- Mã luồng người dùng liên quan: Flow LN-FL-03 (Học ngữ pháp tự nhiên)
 - Vai trò người dùng: Learner (Người học / Học viên)
 - Vị trí trong sitemap: Trang chủ -> Dashboard -> Click Unit -> Unit Detail Page -> Click bài học Ngữ pháp -> Grammar Learning Page (URL: /units/{unit_id}/lessons/{lesson_id}/grammar)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Học viên sử dụng màn hình này để trải qua quy trình học ngữ pháp quy nạp 7 giai đoạn nối tiếp nhau (từ làm quen tình huống, nhận diện khuôn mẫu, tự đúc rút quy tắc qua cặp câu tương phản, thực hành nhận diện cấu trúc hạt nhân, gõ chính tả chunk ngữ pháp, đặt câu sản sinh cá nhân hóa có AI ZPD sửa lỗi sai, đến khi hoàn thành để lên lịch ôn tập SRS).
+Học viên sử dụng màn hình này để trải qua hành trình khám phá ngữ pháp tự nhiên 7 chặng đường khám phá (từ làm quen tình huống, nhận diện khuôn mẫu, tự đúc rút quy tắc qua cặp câu tương phản, thực hành nhận diện cấu trúc hạt nhân, gõ chính tả chunk ngữ pháp, đặt câu sản sinh cá nhân hóa có AI Cá Voi Thông Thái sửa lỗi sai, đến khi hoàn thành để lên lịch ôn tập SRS).
 
 ## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Centered card layout (Bố cục một cột căn giữa hoàn toàn theo cả chiều ngang và dọc) sử dụng nền canvas sáng ấm (#fffaf0), kết hợp thanh tiến độ ngang ở đầu màn hình và bảng điều khiển phụ (ZPD AI Feedback Panel) trượt mở từ bên phải.
+- Loại bố cục: Centered card layout (Bố cục một cột căn giữa hoàn toàn theo cả chiều ngang và dọc) sử dụng nền canvas sáng ấm (#fffaf0), kết hợp thanh tiến độ ngang ở đầu màn hình và bảng điều khiển phụ (Gợi ý từ Cá Voi Thông Thái Panel) trượt mở từ bên phải.
 - Các vùng chính trên màn hình:
   - Vùng A: Thanh tiến độ bài học (Progress Header) cố định ở đầu màn hình.
   - Vùng B: Thẻ học tập trung tâm (Central Learning Card Container) hiển thị nội dung của từng giai đoạn học ngữ pháp.
-  - Vùng C: Bảng phản hồi AI ZPD (ZPD AI Feedback Panel) xuất hiện dọc bên phải Central Card trong giai đoạn sản sinh câu.
+  - Vùng C: Bảng gợi ý từ Cá Voi Cá Voi Thông Thái (Gợi ý từ Cá Voi Thông Thái Panel) xuất hiện dọc bên phải Central Card trong giai đoạn sản sinh câu.
   - Vùng D: Thanh điều hướng chân trang (Footer Action Bar) chứa các nút bấm chuyển tiếp.
 - Kích thước / Grid tham khảo:
   - Thẻ học tập trung tâm kích thước cố định: 760px x 500px, góc bo rounded-xl (24px).
-  - Vùng C (ZPD Panel) có chiều rộng 360px khi mở rộng bên phải Central Card.
+  - Vùng C (Bảng Cá Voi) có chiều rộng 360px khi mở rộng bên phải Central Card.
   - Khoảng cách padding trong thẻ học tập: spacing-xl (32px).
   - Sử dụng CSS Flexbox/Grid căn giữa viewport hoàn toàn.
 
@@ -119,7 +119,7 @@ Học viên sử dụng màn hình này để trải qua quy trình học ngữ 
 
 ---
 
-### GIAI ĐOẠN 6: TỰ VIẾT CÂU CÁ HÂN HÓA & TRỢ LÝ ZPD AI (PERSONALIZED PRODUCTION STAGE)
+### GIAI ĐOẠN 6: TỰ VIẾT CÂU CÁ HÂN HÓA & TRỢ LÝ Cá Voi Thông Thái (PERSONALIZED PRODUCTION STAGE)
 - **Tên component:** Khung viết câu ngữ pháp
   - **Loại component tham chiếu từ DESIGN.md:** text-area (nền canvas #fffaf0, text ink #0a0a0a, border 1px hairline #e5e5e5, rounded-md 12px, padding 16px, chiều cao 100px)
   - **Vị trí:** Vùng B.
@@ -128,8 +128,8 @@ Học viên sử dụng màn hình này để trải qua quy trình học ngữ 
 
 ---
 
-### VÙNG C: BẢNG PHẢN HỒI AI ZPD (ZPD AI FEEDBACK PANEL)
-- **Tên component:** Bảng điều khiển ZPD AI (ZPD AI Panel Container)
+### VÙNG C: BẢNG gợi ý từ Cá Voi Cá Voi Thông Thái (Gợi ý từ Cá Voi Thông Thái PANEL)
+- **Tên component:** Bảng điều khiển Cá Voi Thông Thái (Cá Voi Thông Thái Panel Container)
   - **Loại component tham chiếu từ DESIGN.md:** feature-card-ochre (nền brand-ochre #e8b94a nhạt, border-left 1px hairline #e5e5e5, padding 20px)
   - **Vị trí:** Vùng C, hiển thị dọc bên phải Central Card khi chuyển sang Giai đoạn 6.
   - **Trạng thái:** Ẩn mặc định, tự động trượt mở ra ở giai đoạn 6 khi có phản hồi lỗi từ AI.
@@ -162,10 +162,10 @@ Học viên sử dụng màn hình này để trải qua quy trình học ngữ 
   - **Luồng con / rẽ nhánh:** Học viên gõ sai -> Hệ thống báo đỏ viền ô nhập, phát lại audio -> Học viên gõ lại. Nếu gõ sai lần 3 -> Hiển thị hộp đáp án mẫu cưỡng bức để gõ lại đúng chính tả mới được đi tiếp.
 - **Hành động: Giai đoạn 6 - Tự viết câu và click "Nộp câu"**
   - **Luồng chính:** Học viên đặt câu đúng ngữ pháp -> Click "Nộp câu" -> AI phân tích không thấy lỗi -> Nút nộp chuyển sang trạng thái thành công -> Tự động chuyển sang Giai đoạn 7 (Hoàn thành bài học).
-  - **Luồng con / rẽ nhánh (Phản hồi ZPD AI):**
-    - Học viên viết câu có lỗi -> Click "Nộp câu" -> Nút nộp tắt loading, ZPD AI Panel mở rộng ra bên phải.
-    - *Lần sửa 1:* AI bôi đỏ vị trí lỗi trên câu học viên và đưa ra gợi ý gợi mở ở ZPD Panel. Học viên sửa câu -> Bấm nộp lại.
-    - *Lần sửa 2:* AI phát hiện vẫn lỗi -> Bôi đỏ lỗi và đưa ra gợi ý công thức trực tiếp ở ZPD Panel. Học viên sửa lại câu chính xác và bấm nộp -> Chuyển sang Giai đoạn 7.
+  - **Luồng con / rẽ nhánh (Phản hồi Cá Voi Thông Thái):**
+    - Học viên viết câu có lỗi -> Click "Nộp câu" -> Nút nộp tắt loading, Cá Voi Thông Thái Panel mở rộng ra bên phải.
+    - *Lần sửa 1:* AI bôi đỏ vị trí lỗi trên câu học viên và đưa ra gợi ý gợi mở ở Bảng Cá Voi. Học viên sửa câu -> Bấm nộp lại.
+    - *Lần sửa 2:* AI phát hiện vẫn lỗi -> Bôi đỏ lỗi và đưa ra gợi ý công thức trực tiếp ở Bảng Cá Voi. Học viên sửa lại câu chính xác và bấm nộp -> Chuyển sang Giai đoạn 7.
     - *Lần sửa 3 (nếu vẫn sai):* Hệ thống tự động khóa ô đặt câu. Hiển thị câu mẫu của Admin bị khuyết động từ chia. Học viên điền động từ thích hợp vào ô khuyết -> Nhấn xác nhận -> Chuyển sang Giai đoạn 7.
   - **Dữ liệu gửi lên / nhận về:**
     - Gửi đi: `{ "userId": 105, "grammarId": 24, "userSentence": "If it will rain, I will stay home." }`
@@ -173,8 +173,8 @@ Học viên sử dụng màn hình này để trải qua quy trình học ngữ 
 
 ## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
 - **Trạng thái rỗng (empty state):** Không áp dụng.
-- **Trạng thái tải (loading state):** Khi nhấn "Nộp câu" ở Giai đoạn 6, AI đang phân tích cú pháp câu (khoảng 1-2 giây) -> Nút nộp chuyển sang trạng thái Loading (hiển thị spinner, khóa click), ZPD Panel hiển thị các thanh xương skeleton nhấp nháy.
-- **Trạng thái lỗi (error state):** Khi API AI bị mất kết nối mạng -> Hiển thị thông báo đỏ ở chân ZPD Panel: "Lỗi kết nối AI. Chuyển sang chế độ câu mẫu khuyết từ..." để học viên hoàn tất bài học, không bị kẹt lại.
+- **Trạng thái tải (loading state):** Khi nhấn "Nộp câu" ở Giai đoạn 6, AI đang phân tích cú pháp câu (khoảng 1-2 giây) -> Nút nộp chuyển sang trạng thái Loading (hiển thị spinner, khóa click), Bảng Cá Voi hiển thị các thanh xương skeleton nhấp nháy.
+- **Trạng thái lỗi (error state):** Khi API AI bị mất kết nối mạng -> Hiển thị thông báo đỏ ở chân Bảng Cá Voi: "Lỗi kết nối AI. Chuyển sang chế độ câu mẫu khuyết từ..." để học viên hoàn tất bài học, không bị kẹt lại.
 - **Trạng thái thành công (success state):** Giai đoạn 7 chúc mừng hoàn thành bài học, rơi confetti, cộng điểm EXP.
 
 ## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
@@ -185,6 +185,9 @@ Học viên sử dụng màn hình này để trải qua quy trình học ngữ 
 ## 8. LƯU Ý THIẾT KẾ (DESIGN NOTES)
 - Nền sàn của trang sử dụng màu canvas sáng ấm (#fffaf0) đặc trưng.
 - Hộp chứa biểu mẫu học tập Central Card sử dụng phong cách `feature-card-cream` màu surface-card (#f5f0e0), các nút bấm bo góc rounded-md (12px) màu đen ink hoặc canvas hairline mỏng 1px (#e5e5e5).
-- Trong giai đoạn 6, ZPD AI Panel sử dụng màu vàng ấm nhạt của `feature-card-ochre` để tạo sự chú ý vừa phải cho học viên mà không gây cảm giác áp lực khi làm sai câu.
+- Trong giai đoạn 6, Cá Voi Thông Thái Panel sử dụng màu vàng ấm nhạt của `feature-card-ochre` để tạo sự chú ý vừa phải cho học viên mà không gây cảm giác áp lực khi làm sai câu.
 - Theo Nguyên tắc Báo hiệu (Signaling Principle), các ký tự hoặc từ viết sai ngữ pháp được bôi màu đỏ sáng (#ef4444) kết hợp gạch wavy để thu hút tiêu điểm thị giác tức thì giúp học viên tự điều chỉnh lỗi sai.
 - Đảm bảo khoảng cách spacing-lg (24px) giữa câu ví dụ và các trường nhập để tránh chật chội. Touch target của các nút bấm và ô nhập là 44px.
+
+
+

@@ -116,3 +116,6 @@ Học viên sử dụng màn hình này để thực hiện bài thi trắc nghi
 - Các ô số trong Lưới câu hỏi sử dụng hình tròn bo góc tuyệt đối, trạng thái đã làm đổi sang màu đen tuyền (#0a0a0a) tương phản cực cao trên nền canvas để học viên dễ nhận biết các câu bỏ sót (Nguyên tắc Báo hiệu - Signaling Principle).
 - Đồng hồ đếm ngược màu đỏ nổi bật tạo sự cảnh báo trực quan.
 - Touch target của các đáp án và ô số tối thiểu 44px.
+
+
+

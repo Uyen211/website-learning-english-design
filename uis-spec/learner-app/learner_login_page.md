@@ -13,7 +13,7 @@ Người học truy cập màn hình này để đăng nhập vào tài khoản 
 ## 3. BỐ CỤC (LAYOUT)
 - Loại bố cục: Centered card layout (Bố cục một cột căn giữa hoàn toàn theo cả chiều ngang và dọc) trên nền canvas sáng ấm (#fffaf0).
 - Các vùng chính trên màn hình:
-  - Vùng A: Biểu tượng logo chú bạch tuộc và tiêu đề trang căn giữa.
+  - Vùng A: Biểu tượng logo chú Cá Voi Xanh và tiêu đề trang căn giữa.
   - Vùng B: Thẻ biểu mẫu đăng nhập (Login Card Container) chứa các trường nhập liệu, nút bấm đăng nhập và nút đăng nhập bên thứ ba (Google/Facebook).
   - Vùng C: Chân trang tối giản chứa liên kết bản quyền.
 - Kích thước / Grid tham khảo:
@@ -27,7 +27,7 @@ Người học truy cập màn hình này để đăng nhập vào tài khoản 
   - **Loại component tham chiếu từ DESIGN.md:** 3D claymation mascot / image
   - **Vị trí:** Vùng A, nằm trên cùng, căn giữa.
   - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hình ảnh chú bạch tuộc DiveVerse đang đọc sách. Kích thước 100px x 100px.
+  - **Dữ liệu hiển thị / hành vi:** Hình ảnh chú Cá Voi Xanh DiveVerse đang đọc sách. Kích thước 100px x 100px.
 
 - **Tên component:** Tiêu đề trang
   - **Loại component tham chiếu từ DESIGN.md:** display-md (Plain Black display typeface, font Inter weight 500, size 32px, letter-spacing -0.5px)
@@ -126,3 +126,6 @@ Người học truy cập màn hình này để đăng nhập vào tài khoản 
 - Thẻ biểu mẫu được thiết kế mềm mại bằng góc bo lớn rounded-xl (24px) và màu nền surface-card (#f5f0e0), không có bóng đổ thô cứng, chỉ sử dụng đường hairline mỏng nhẹ 1px (#e5e5e5).
 - Nguyên tắc tránh quá tải nhận thức (Coherence Principle): Thiết kế form đăng nhập đơn giản nhất có thể. Các nút đăng nhập mạng xã hội phụ trợ được đặt nhỏ gọn, phân tách rõ ràng bằng đường chia hairline mỏng để không lấn át nút đăng nhập chính.
 - Kích thước touch target của tất cả các trường nhập và nút bấm được đặt ở chiều cao 44px, nút Google và các liên kết đảm bảo kích thước dễ nhấp.
+
+
+

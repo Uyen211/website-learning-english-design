@@ -70,3 +70,6 @@ Học viên sử dụng màn hình này để xem giải nghĩa chi tiết của
 ## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
 - **Empty State:** Trường hợp slug word không tồn tại trong từ điển hệ thống -> Hiển thị trang 404 custom với minh họa 3D Claymation kèm nút "Quay lại tìm kiếm".
 - **Loading State:** Hiển thị skeleton loading cho khối Definition Section khi đang cào dữ liệu từ điển.
+
+
+
