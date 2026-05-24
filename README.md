@@ -1,102 +1,70 @@
-# DiveVerse Design & Specification System
+# DiveVerse: Cosmic Design System & Product Specifications
 
-Thư mục này chứa toàn bộ hệ thống tài liệu phân tích, thiết kế giao diện (UI/UX), cấu trúc luồng người dùng (User Flows) và hệ thống đặc tả các màn hình của ứng dụng học tiếng Anh DiveVerse.
+Tài liệu này là "trung tâm điều khiển" thiết kế và đặc tả sản phẩm cho DiveVerse. Dự án kết hợp phương pháp học tập hiện đại với ngôn ngữ thiết kế **Clay.com** và trải nghiệm **Cá Voi Xanh Vũ Trụ**.
 
 ---
 
-## 📂 Cấu trúc thư mục
+## 📂 Cấu trúc dự án thiết kế
 
 ```text
-project/design/
-├── README.md                 # Tài liệu hướng dẫn này
-├── DESIGN.md                 # Hệ thống thiết kế (màu sắc, typography, spacing, components)
-├── USE_CASES.md              # Đặc tả Use Case chi tiết (UC-01 -> UC-08)
-├── IA-and-routing/           # Kiến trúc thông tin & Định tuyến
-│   ├── sitemap.md            # Cây cấu trúc màn hình & Hộp thoại (Sitemap)
-│   └── user-flows.md         # Luồng tương tác chi tiết giữa các màn hình (User Flows)
-├── design-system/            # Tài nguyên Design System dạng code
-│   └── tokens.json           # Danh sách token CSS (màu, bo góc, khoảng cách, font)
-└── uis-spec/                 # Đặc tả chi tiết giao diện màn hình (UI specs)
-    ├── admin-dashboard/      # Các màn hình phân hệ Admin (13 tệp)
-    └── learner-app/          # Các màn hình phân hệ Learner (18 tệp)
+project/built-ui/design/
+├── README.md                    # Hướng dẫn tổng quan & Mục lục
+├── STICK_PROMPTS_MASTER_LIST.md # Hệ thống Prompt tạo UI cho Google Stick/Stitch
+├── website-detail/              # Tài liệu chi tiết về bản sắc & nghiệp vụ
+│   ├── BRAND_IDENTITY.md        # Bản sắc thương hiệu (Mascot, Tone & Voice)
+│   ├── USE_CASES.md             # Đặc tả nghiệp vụ (Logic & Xử lý phía Server)
+│   └── level_built.md           # Cấu trúc cấp độ học tập
+├── IA-and-routing/              # Kiến trúc Thông tin & Định tuyến
+│   ├── sitemap.md               # Danh mục 32 màn hình & Modal lớp phủ
+│   └── user-flows.md            # Luồng tương tác (Hành trình học viên & Admin)
+├── .stitch/
+│   └── DESIGN.md                # Design Tokens (Màu, Typography, Spacing) - STITCH READY
+├── design-system/               # Tài nguyên hệ thống thiết kế
+│   └── icon-library.json        # Thư viện 67 Icon SVG đồng nhất
+└── uis-spec/                    # Hệ thống 32 file đặc tả giao diện (UI Specs)
+    ├── admin-dashboard/         # Phân hệ quản trị nội dung (13 trang)
+    └── learner-app/             # Phân hệ trải nghiệm người học (19 trang)
 ```
 
 ---
 
-## 📖 Chi tiết các tài liệu cốt lõi
-
-### 1. Hệ thống thiết kế (Clay.com Style Guidelines)
-Tài liệu **[DESIGN.md](file:///d:/Study/research_DiveVerse/project/design/DESIGN.md)** thiết lập bộ quy chuẩn giao diện dựa trên phong cách **Clay.com**:
-- **Nền sàn (Canvas):** Màu kem ấm sáng `#fffaf0` làm màu nền chủ đạo cho toàn bộ ứng dụng.
-- **Màu chữ & CTA chính:** Đen tuyền/Navy đậm `#0a0a0a` mang lại cảm giác hiện đại và độ tương phản cao.
-- **Thẻ tính năng màu sắc (Saturated Cards):** Sử dụng 5 gam màu saturated bắt mắt (Hot Pink `#ff4d8b`, Deep Teal `#1a3a3a`, Lavender `#b8a4ed`, Peach `#ffb084`, Ochre `#e8b94a`).
-- **Hình ảnh thương hiệu:** Sử dụng các hình vẽ minh họa đất sét 3D (3D claymation illustrations) mềm mại.
-- **Bo góc (Border Radius):** Bo góc lớn thân thiện (12px cho nút/input, 16px cho thẻ nội dung, 24px cho thẻ tính năng lớn).
-- **Nguyên lý tương tác:** Không sử dụng đổ bóng đậm (chỉ dùng hairline border 1px `#e5e5e5`), khoảng cách section rộng rãi (96px), touch target tối thiểu 44x44px.
-
-### 2. Đặc tả chức năng hệ thống
-Tài liệu **[USE_CASES.md](file:///d:/Study/research_DiveVerse/project/design/USE_CASES.md)** chi tiết hóa luồng xử lý nghiệp vụ cho 8 Use Case chính (UC-01 đến UC-08):
-- **UC-01 -> UC-04 (Admin):** Quản lý Cấp độ, Quản lý Unit, Cấu hình bài học & bài tập động, Quản lý đề thi.
-- **UC-05 -> UC-08 (Learner):** Quy trình học từ vựng 6 giai đoạn, học ngữ pháp 7 giai đoạn, phòng luyện 4 kỹ năng ( shadow nói đuổi, viết gợi ý ZPD, đọc báo chí), thi cử nghiêm ngặt, và ôn tập lặp lại ngắt quãng SRS.
-
-### 3. Kiến trúc thông tin & Định tuyến
-Thư mục **[IA-and-routing/](file:///d:/Study/research_DiveVerse/project/design/IA-and-routing/)** định hình khung xương và đường đi của ứng dụng:
-- **[sitemap.md](file:///d:/Study/research_DiveVerse/project/design/IA-and-routing/sitemap.md)**: Sơ đồ cây thư mục trang và các modal lớp phủ, dùng để quản lý số lượng màn hình Figma.
-- **[user-flows.md](file:///d:/Study/research_DiveVerse/project/design/IA-and-routing/user-flows.md)**: Chi tiết hóa sơ đồ chuyển đổi màn hình dạng mũi tên (ví dụ: `Đăng nhập -> Dashboard -> Chọn Unit -> Bài học -> Kết quả`) giúp định hướng Figma Prototype và Route của lập trình viên.
-
-### 4. Đặc tả chi tiết màn hình (UI Screen Specifications)
-Thư mục **[uis-spec/](file:///d:/Study/research_DiveVerse/project/design/uis-spec/)** chứa tài liệu mô tả giao diện bằng ngôn ngữ cho từng màn hình riêng biệt, phân chia theo vai trò:
-
-#### 💻 Phân hệ Quản trị viên ([admin-dashboard](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/))
+## 🐋 1. Định hướng Thương hiệu (The Cosmic Whale)
+Hành trình học tập được nhân hóa qua hình tượng **Chú Cá Voi Xanh Vũ Trụ** bơi lội giữa dải ngân hà kiến thức.
+- **Linh vật:** Chú Cá Voi Xanh tròn trịa, thân thiện, đại diện cho sự điềm tĩnh và học sâu.
+- **Phong cách:** Claymation 3D (Đất sét), tối giản, màu sắc tươi sáng trên nền kem ấm.
+- **Tông giọng:** Khuyến khích, truyền cảm hứng, loại bỏ jargon kỹ thuật (ZPD -> Gợi ý từ Cá Voi).
 
 ---
 
-## 🤖 Guide for AI Agents (Instruction for UI Design & Coding)
-
-Nếu bạn là một AI Agent được giao nhiệm vụ thiết kế UI hoặc lập trình frontend cho folder này, hãy tuân thủ quy trình đọc sau để tránh sai sót:
-
-### 1. Luồng đọc tài liệu (Workflow)
-1.  **BẮT ĐẦU từ [DESIGN.md](DESIGN.md):** Nắm vững phong cách "Clay.com Style" (màu Ochre/Peach, bo góc 24px, canvas krem). Mọi input/button/card phải tuân theo style này.
-2.  **HIỂU NGHIỆP VỤ tại [USE_CASES.md](USE_CASES.md):** Đọc kỹ các luồng xử lý (Main Success Scenario) và các trường hợp lỗi (Extension) để biết UI cần hiển thị gì khi thành công hoặc thất bại.
-3.  **XÁC ĐỊNH VỊ TRÍ qua [IA-and-routing/sitemap.md](IA-and-routing/sitemap.md):** Tra cứu mã màn hình (ví dụ: `LN-03`) để biết trang đó nằm ở đâu trong hệ thống.
-4.  **BÁM SÁT TƯƠNG TÁC tại [IA-and-routing/user-flows.md](IA-and-routing/user-flows.md):** Đây là "bản đồ đường đi". Phải xem màn hình trước và sau của trang đang thiết kế là gì để đảm bảo nút "Quay lại" hoặc "Tiếp theo" dẫn đúng chỗ.
-5.  **CHI TIẾT HÓA tại [uis-spec/](uis-spec/):** Mở file MD tương ứng với mã màn hình để xem layout chi tiết (Header, Content, Sidebar) và các trạng thái Component.
-
-### 2. Nguyên tắc quan trọng
-*   **User Flows là bắt buộc:** Không được tự ý tạo luồng đi mới nếu không có trong `user-flows.md`. File này cực kỳ quan trọng để lập trình định tuyến (Routing).
-*   **Trạng thái UI:** Luôn kiểm tra `user-flows.md` để biết khi nào hiện Toast, khi nào hiện Modal, khi nào chuyển trang.
-*   **Nhất quán:** Nếu thiết kế 1 trang mới, hãy kiểm tra các trang cùng nhóm trong `uis-spec` để đảm bảo dùng chung component (ví dụ: `ZPD Feedback Modal`).
-
-Gồm 13 tệp đặc tả chi tiết giao diện quản lý:
-- *Xác thực:* [admin_login_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/admin_login_page.md).
-- *Lộ trình:* [level_list_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/level_list_page.md), [add_edit_level_modal.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/add_edit_level_modal.md), [delete_level_modal.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/delete_level_modal.md).
-- *Unit:* [unit_list_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/unit_list_page.md), [add_edit_unit_modal.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/add_edit_unit_modal.md), [delete_unit_modal.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/delete_unit_modal.md).
-- *Bài học:* [lesson_list_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/lesson_list_page.md), [lesson_configuration_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/lesson_configuration_page.md), [delete_lesson_modal.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/delete_lesson_modal.md).
-- *Đề thi:* [test_list_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/test_list_page.md), [create_edit_test_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/create_edit_test_page.md), [delete_test_modal.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/admin-dashboard/delete_test_modal.md).
-
-#### 📱 Phân hệ Người học ([learner-app](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/))
-Gồm 18 tệp đặc tả chi tiết giao diện học tập:
-- *Xác thực:* [guest_landing_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/guest_landing_page.md), [learner_login_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/learner_login_page.md), [learner_register_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/learner_register_page.md).
-- *Lộ trình:* [learner_dashboard.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/learner_dashboard.md), [unit_detail_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/unit_detail_page.md).
-- *Học quy nạp:* [vocabulary_learning_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/vocabulary_learning_page.md), [grammar_learning_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/grammar_learning_page.md).
-- *Phòng luyện kỹ năng:* [listening_practice_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/listening_practice_page.md), [speaking_practice_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/speaking_practice_page.md), [reading_practice_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/reading_practice_page.md), [writing_practice_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/writing_practice_page.md).
-- *Phòng thi cử:* [pre_test_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/pre_test_page.md), [unit_level_test_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/unit_level_test_page.md), [mock_test_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/mock_test_page.md), [test_result_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/test_result_page.md).
-- *Tra cứu & Ôn tập:* [personal_review_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/personal_review_page.md), [srs_review_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/srs_review_page.md).
-- *Cá nhân:* [profile_settings_page.md](file:///d:/Study/research_DiveVerse/project/design/uis-spec/learner-app/profile_settings_page.md).
+## 🛠 2. Quy trình "Thiết kế bằng AI" (Stitch Flow)
+Hệ thống được thiết kế để **Google Stick (Stitch)** có thể render mã giao diện lập tức:
+1. **Bước 1:** Nạp link GitHub và chạy prompt khởi tạo tại Giai đoạn 0 trong [STICK_PROMPTS_MASTER_LIST.md](STICK_PROMPTS_MASTER_LIST.md).
+2. **Bước 2:** AI tự động đọc Tokens tại [.stitch/DESIGN.md](.stitch/DESIGN.md) và Icons tại [icon-library.json](design-system/icon-library.json).
+3. **Bước 3:** Sử dụng các lệnh render chỉ điểm trực tiếp vào từng file trong thư mục `uis-spec/`.
 
 ---
 
-## 🎯 Hướng dẫn sử dụng cho các vị trí
+## 📝 3. Hệ thống Đặc tả chi tiết (UI Specifications)
 
-1. **UX Designer (Thiết kế sản phẩm):**
-   - Đọc kỹ `DESIGN.md` để nắm bắt hệ thống font, màu sắc và linh hồn thiết kế Clay.com.
-   - Đối chiếu với sơ đồ `IA-and-routing/sitemap.md` để biết tổng số trang và modal cần vẽ trên Figma.
-   - Đọc các tệp tương ứng trong `uis-spec/` để nắm rõ bố cục, vị trí các nút, và các trạng thái đặc biệt cần thiết kế (empty state, loading state, error state).
+### 🎓 Phân hệ Người học (Learner App - 19 trang)
+Dẫn dắt người học qua lộ trình khám phá ngôn ngữ tự nhiên:
+- **Khởi hành:** [guest_landing_page.md](uis-spec/learner-app/guest_landing_page.md), [learner_login_page.md](uis-spec/learner-app/learner_login_page.md), [learner_register_page.md](uis-spec/learner-app/learner_register_page.md).
+- **Trạm điều khiển:** [learner_dashboard.md](uis-spec/learner-app/learner_dashboard.md), [unit_detail_page.md](uis-spec/learner-app/unit_detail_page.md).
+- **Phòng luyện kỹ năng:** 
+    - [vocabulary_learning_page.md](uis-spec/learner-app/vocabulary_learning_page.md) (Luồng 6 bước).
+    - [grammar_learning_page.md](uis-spec/learner-app/grammar_learning_page.md) (Hành trình 7 chặng).
+    - Luyện [Nghe](uis-spec/learner-app/listening_practice_page.md), [Nói](uis-spec/learner-app/speaking_practice_page.md), [Đọc](uis-spec/learner-app/reading_practice_page.md), [Viết](uis-spec/learner-app/writing_practice_page.md) tích hợp hỗ trợ AI.
+- **Đánh giá & Ôn tập:** [pre_test_page.md](uis-spec/learner-app/pre_test_page.md), [unit_level_test_page.md](uis-spec/learner-app/unit_level_test_page.md), [mock_test_page.md](uis-spec/learner-app/mock_test_page.md), [test_result_page.md](uis-spec/learner-app/test_result_page.md), [srs_review_page.md](uis-spec/learner-app/srs_review_page.md), [personal_review_page.md](uis-spec/learner-app/personal_review_page.md).
+- **Cài đặt & Tiện ích:** [dictionary_page.md](uis-spec/learner-app/dictionary_page.md), [profile_settings_page.md](uis-spec/learner-app/profile_settings_page.md).
 
-2. **UI Prototyper (Thiết kế luồng tương tác):**
-   - Đọc tệp `IA-and-routing/user-flows.md` làm nền tảng để thiết kế các liên kết tương tác (Figma Prototyping) chạy từ trang này qua trang khác đúng theo hành động của người dùng.
+### 🛠 Phân hệ Quản trị (Admin Dashboard - 13 trang)
+Công cụ quản lý nội dung khoa học cho quản trị viên:
+- **Danh sách:** [level_list_page.md](uis-spec/admin-dashboard/level_list_page.md), [unit_list_page.md](uis-spec/admin-dashboard/unit_list_page.md), [lesson_list_page.md](uis-spec/admin-dashboard/lesson_list_page.md), [test_list_page.md](uis-spec/admin-dashboard/test_list_page.md).
+- **Cấu hình & Soạn thảo:** [lesson_configuration_page.md](uis-spec/admin-dashboard/lesson_configuration_page.md), [create_edit_test_page.md](uis-spec/admin-dashboard/create_edit_test_page.md).
+- **Modals (Lớp phủ):** Toàn bộ các hộp thoại Add/Edit/Delete cho Level, Unit, Lesson và Test.
 
-3. **Frontend Developer (Lập trình viên Giao diện):**
-   - Import file `design-system/tokens.json` vào dự án để thiết lập các biến CSS Variables hoặc TailwindConfig (nếu được yêu cầu).
-   - Xem cấu trúc chia vùng layout trong mục **## 3. BỐ CỤC (LAYOUT)** của từng tệp đặc tả màn hình để viết code HTML/CSS Grid.
-   - Cài đặt các xử lý lỗi, validate form ở mục **## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION DETAILS)** và **## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)** để đảm bảo ứng dụng vận hành đúng nghiệp vụ.
+---
+
+## 🎨 4. Design System (Clay.com Style)
+- **Cốt lõi:** Canvas kem ấm `#fffaf0`, Chữ mực Navy `#0a0a0a`.
+- **Tương tác:** Bo góc cực đại `24px`, không gian thở rộng rãi, sử dụng Component thẻ (Card) làm đơn vị cơ bản.
