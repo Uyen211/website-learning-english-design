@@ -1,134 +1,116 @@
-# MÀN HÌNH: LEVEL LIST PAGE (MÀN HÌNH DANH SÁCH CẤP ĐỘ)
+# MÀN HÌNH: LEVEL LIST PAGE (MÀN HÌNH DANH SÁCH CẤP ĐỘ HỌC)
 
 ## 1. THÔNG TIN CHUNG
-- Tên màn hình: Level List Page (Màn hình danh sách cấp độ)
-- Mã use case liên quan: UC-01a, UC-01b, UC-01c
-- Mã luồng người dùng liên quan: Flow AD-FL-01, Flow AD-FL-02
-- Vai trò người dùng: Admin
-- Vị trí trong sitemap: Trang chủ quản trị -> AD-01: Level List Page
+- **Tên màn hình:** Level List Page (Màn hình danh sách cấp độ học)
+- **Mã use case liên quan:** UC-01a, UC-01b, UC-01c
+- **Mã luồng người dùng liên quan:** Flow AD-FL-01, Flow AD-FL-02
+- **Vai trò người dùng:** Admin (Quản trị viên)
+- **Vị trí trong sitemap:** Trang chủ quản trị $\rightarrow$ AD-01: Level List Page (URL: `/admin/levels`)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Quản trị viên sử dụng màn hình này để xem danh sách toàn bộ các cấp độ học (lộ trình) trong hệ thống, thực hiện sắp xếp, truy cập danh sách Unit của từng cấp độ, hoặc kích hoạt các chức năng thêm, sửa, xóa cấp độ học.
+Quản trị viên sử dụng màn hình này để xem danh sách toàn bộ các cấp độ học (lộ trình Basic, Intermediate, Advanced) trong hệ thống DiveVerse. Admin có thể thực hiện theo dõi nhanh thông tin quy chiếu điểm thi quốc tế (IELTS/TOEIC) của từng cấp độ, truy cập sâu vào danh sách Unit của cấp độ tương ứng, hoặc kích hoạt các chức năng thêm mới, chỉnh sửa và xóa bỏ cấp độ học.
 
-## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Bố cục cột kép gồm Sidebar cố định bên trái và Vùng nội dung chính cuộn dọc bên phải.
-- Các vùng chính trên màn hình:
-  - Vùng A: Sidebar điều hướng (Fixed Navigation Sidebar) nằm bên trái.
-  - Vùng B: Thanh đầu trang (Header / Breadcrumbs bar) ở trên cùng vùng bên phải.
-  - Vùng C: Thanh công cụ nội dung (Content Toolbar) hiển thị tiêu đề và nút hành động.
-  - Vùng D: Vùng lưới danh sách các cấp độ học (Level Cards Grid) hiển thị thông tin chi tiết các cấp độ dưới dạng thẻ.
-- Kích thước / Grid tham khảo:
-  - Sidebar: cố định chiều rộng 260px.
-  - Vùng bên phải chiếm phần chiều rộng còn lại, căn giữa tối đa 1280px, sử dụng lưới 12 cột.
-  - Khoảng cách các phần tử: spacing-lg (24px) và spacing-xl (32px).
+## 3. BỐ CỤC TỔNG THỂ (LAYOUT ARCHITECTURE)
+- **Triết lý bố cục:** Bố cục cột kép chia tỷ lệ gồm Sidebar cố định bên trái chiếm chiều rộng nhỏ và Vùng nội dung chính cuộn dọc chiếm phần còn lại bên phải.
+- **Màu nền chung:** Nền trang chính sử dụng tông màu `{colors.canvas}` (`#F9F7FE`) dịu mát, được phủ lớp dải sương mờ `{gradients.atmosphere-haze}`.
+- **Phân bổ các vùng chính (Layout Zones):**
+  - **Zone 1: Left Navigation Sidebar (Vùng A):** Sidebar điều hướng cố định bên trái, chiều rộng `260px`.
+  - **Zone 2: Top Bar & Breadcrumbs (Vùng B):** Thanh dẫn đường dẫn và avatar quản trị viên ở góc trên cùng bên phải.
+  - **Zone 3: Content Action Toolbar (Vùng C):** Thanh tiêu đề phân hệ quản trị và nút hành động chính "Thêm cấp độ mới".
+  - **Zone 4: Level Cards Grid (Vùng D):** Lưới thẻ hiển thị danh sách các cấp độ học hiện có dưới dạng thẻ lơ lửng.
+- **Kích thước tham khảo:**
+  - Sidebar: chiều rộng cố định `260px`, viền phải hairline tinh tế `1px solid rgba(155, 93, 224, 0.1)`.
+  - Vùng nội dung bên phải: căn giữa tối đa `1200px`, sử dụng lưới 12 cột.
+  - Khoảng cách giữa các thẻ cấp độ: `{spacing.lg}` (24px).
 
-## 4. THÀNH PHẦN GIAO DIỆN (UI COMPONENTS)
-- **Tên component:** Logo & Wordmark DiveVerse
-  - **Loại component tham chiếu từ DESIGN.md:** top-nav brand component
-  - **Vị trí:** Vùng A, ở trên cùng của Sidebar
-  - **Trạng thái:** Mặc định
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị Logo 3D claymation và chữ "DiveVerse Admin" dạng vector màu ink.
+---
 
-- **Tên component:** Danh sách liên kết điều hướng Sidebar
-  - **Loại component tham chiếu từ DESIGN.md:** nav-link / category-tab
-  - **Vị trí:** Vùng A, phần thân Sidebar
-  - **Trạng thái:**
-    - Cấp độ học: category-tab-active (nền surface-card #f5f0e0, chữ ink #0a0a0a)
-    - Bài kiểm tra: category-tab (trong suốt, chữ muted #6a6a6a)
-    - Báo cáo học tập: category-tab (trong suốt, chữ muted #6a6a6a)
-  - **Dữ liệu hiển thị / hành vi:** Các liên kết chuyển đổi phân hệ quản trị. Nhấp "Bài kiểm tra" chuyển sang AD-04.
+## 4. THÀNH PHẦN GIAO DIỆN CHI TIẾT (UI COMPONENTS)
 
-- **Tên component:** Thanh Breadcrumbs
-  - **Loại component tham chiếu từ DESIGN.md:** body-sm (màu muted #6a6a6a)
-  - **Vị trí:** Vùng B, góc trên bên trái
-  - **Trạng thái:** Mặc định
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị dòng chữ dẫn đường dạng text-link: "Admin / Lộ trình học / Danh sách cấp độ".
+### 4.1 Thanh điều hướng Sidebar quản trị (Navigation Sidebar - Vùng A)
+- **Đặc tả Visual:**
+  - Nền Sidebar: Kính mờ `{colors.glass}` (`rgba(255, 255, 255, 0.7)`) kết hợp `backdrop-filter: blur(8px)`.
+  - Viền phải: `1px solid rgba(155, 93, 224, 0.1)`.
+- **Thành phần:**
+  - **Logo & Wordmark DiveVerse:**
+    - Logo: Sử dụng ảnh Cá Voi Vũ Trụ gốc [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) kích thước `40px x 40px` ở góc trên cùng.
+    - Wordmark: Chữ "DiveVerse Admin" dạng `{typography.title-lg}` màu `{colors.text-primary}` (`#1A1A2E`).
+  - **Danh sách liên kết điều hướng (Nav Links):**
+    - Mỗi dòng liên kết có chiều cao `48px` để tối ưu hóa việc nhấp chuột.
+    - *Tab "Cấp độ học" (Active):* Nền chuyển sang `{colors.surface}` (`#FFFFFF`), chữ màu `{colors.primary}` (`#4E56C0`) (weight 600) kèm hiệu ứng tỏa sáng nhẹ `{elevation.glow}`.
+    - *Tab "Bài kiểm tra" (Inactive):* Nền trong suốt, chữ màu `{colors.text-secondary}` (`#5A5A7A`). Hover chuyển sang chữ màu `{colors.accent}` (`#D78FEE`).
+    - *Tab "Báo cáo học tập" (Inactive):* Tương tự bài kiểm tra.
 
-- **Tên component:** Avatar quản trị viên
-  - **Loại component tham chiếu từ DESIGN.md:** rounded-full (avatar size 36px)
-  - **Vị trí:** Vùng B, góc trên bên phải
-  - **Trạng thái:** Mặc định
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị ảnh đại diện admin, nhấp vào hiển thị dropdown menu "Đăng xuất".
+### 4.2 Thanh Breadcrumbs & Đầu trang (Top Breadcrumbs Bar - Vùng B)
+- **Thành phần:**
+  - **Breadcrumbs:** Dòng chữ dẫn đường dạng `{typography.caption}` (12px), màu `{colors.text-secondary}`. Hiển thị: *"Admin / Lộ trình học / Danh sách cấp độ"*.
+  - **Avatar quản trị viên:** Ảnh đại diện tròn `{rounded.full}` đường kính `36px` ở góc phải. Khi click sẽ xổ dropdown menu "Đăng xuất".
 
-- **Tên component:** Tiêu đề trang
-  - **Loại component tham chiếu từ DESIGN.md:** display-md (Plain Black display typeface, size 40px, weight 500, letter-spacing -1px)
-  - **Vị trí:** Vùng C, góc bên trái
-  - **Trạng thái:** Mặc định, màu chữ là ink
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị tiêu đề "Cấp độ học".
+### 4.3 Thanh hành động Toolbar (Content Toolbar - Vùng C)
+- **Thành phần:**
+  - **Tiêu đề phân hệ:** Dạng chữ `{typography.display-md}` (Manrope, 36px, weight 700, letter-spacing -1px), màu `{colors.text-primary}`. Hiển thị: *"Cấp độ học"*.
+  - **Nút "Thêm cấp độ mới":** Style `button-primary` nền `{colors.primary}` (`#4E56C0`), chữ trắng, cao `44px`, bo góc `{rounded.lg}` (16px). Mặc định tỏa sáng `{elevation.active-glow}`. Hover tỏa sáng mạnh `{elevation.hover-glow}`. Bấm vào mở Modal `AD-01-M1`.
 
-- **Tên component:** Nút thêm cấp độ mới
-  - **Loại component tham chiếu từ DESIGN.md:** button-primary (background #0a0a0a, text #ffffff, rounded-md 12px, font Inter 14px/600)
-  - **Vị trí:** Vùng C, góc bên phải, thẳng hàng với tiêu đề
-  - **Trạng thái:** Mặc định, hover
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị text "Thêm cấp độ mới". Nhấp vào để kích hoạt Modal AD-01-M1.
+### 4.4 Lưới thẻ cấp độ học (Level Cards Grid - Vùng D)
+- **Đặc tả Grid:**
+  - Hiển thị dạng lưới 3 cột ở màn hình desktop lớn, tự động chuyển về 2 cột ở tablet và 1 cột ở mobile.
+- **Thẻ cấp độ học (Level Card Item):**
+  - Nền thẻ: `{colors.surface}` (`#FFFFFF`).
+  - Bo góc: `{rounded.xl}` (24px).
+  - Viền mờ: `1px solid rgba(155, 93, 224, 0.1)`. Padding: `{spacing.lg}` (24px).
+  - Hiệu ứng nâng: Mặc định `{elevation.glow}`. Hover tỏa sáng mượt `{elevation.hover-glow}`.
+  - **Nội dung thẻ:**
+    - **Tên cấp độ học:** Dạng chữ `{typography.title-lg}` (24px, Manrope, weight 700), màu `{colors.text-primary}`. Nhấp vào tên cấp độ để mở màn hình danh sách Unit của cấp độ đó (`AD-02`).
+    - **Mô tả ngắn:** Dạng chữ `{typography.body-sm}` (14px, Inter, màu `{colors.text-secondary}`).
+    - **Khung điểm mục tiêu (Spec Badges Area):**
+      - Hiển thị các badge viên thuốc `{rounded.pill}`, nền nhạt `{colors.light-accent}` (`#FDCFFA`), chữ màu `{colors.primary}`.
+      - Các badge gồm: *"IELTS Target: {ielts_score}"*, *"TOEIC Target: {toeic_score}"*, *"Tối đa: {units_count} Units"*.
+    - **Bộ nút hành động chân thẻ:**
+      - *Nút "Sửa":* Style `button-secondary` nền `{colors.surface}`, viền `1px solid rgba(78, 86, 192, 0.2)`, chữ `{colors.primary}`, cao `44px`, bo góc `{rounded.lg}`. Bấm vào mở Modal sửa `AD-01-M2`.
+      - *Nút "Xóa":* Style liên kết văn bản trơn, chữ màu `{colors.error}` (`#EF4444`) (weight 600), cao `44px` (bao gồm padding trong suốt) để đạt touch target. Bấm vào kích hoạt luồng xóa `UC-01c`.
 
-- **Tên component:** Lưới thẻ cấp độ học (Level Cards Grid)
-  - **Loại component tham chiếu từ DESIGN.md:** grid 3-up (desktop) / 2-up (tablet)
-  - **Vị trí:** Vùng D, trung tâm vùng nội dung
-  - **Trạng thái:** Mặc định
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị danh sách các thẻ cấp độ học. Mỗi thẻ cấp độ được thiết kế dạng `feature-card-cream` (nền surface-card #f5f0e0, border-radius 24px) chứa các thông tin cụ thể bên dưới.
+---
 
-- **Tên component:** Tên cấp độ trên thẻ
-  - **Loại component tham chiếu từ DESIGN.md:** title-lg (font Inter 24px/600, letter-spacing -0.3px)
-  - **Vị trí:** Vùng D, nằm ở đầu mỗi thẻ cấp độ
-  - **Trạng thái:** Mặc định, màu ink
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị tên cấp độ (ví dụ: "Cơ bản (A1 - A2)", "Trung cấp (B1 - B2)"). Admin nhấp vào tên cấp độ để mở màn hình danh sách Unit tương ứng (AD-02).
+## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION DETAILS)
+- **Hành động: Click vào tên cấp độ học trên thẻ**
+  - Hệ thống chuyển hướng Admin sang trang danh sách Unit `/admin/levels/{level_id}/units` (`AD-02`).
+- **Hành động: Click nút "Thêm cấp độ mới"**
+  - Hiển thị Modal `AD-01-M1` nổi đè lên trên màn hình hiện tại.
+- **Hành động: Click nút "Sửa" trên thẻ cấp độ**
+  - Hiển thị Modal `AD-01-M2` điền sẵn dữ liệu cũ nổi đè lên trên màn hình hiện tại.
+- **Hành động: Click nút "Xóa" trên thẻ cấp độ**
+  - Hệ thống tự động kiểm tra điều kiện xóa:
+    - *Nếu cấp độ đang có học viên hoạt động:* Báo lỗi dạng Toast đỏ màu `{colors.error}` ở góc trên bên phải: *"Không thể xóa cấp độ này vì đang có [X] học viên hoạt động trên lộ trình!"*.
+    - *Nếu cấp độ trống hợp lệ:* Hiển thị Modal xác nhận xóa `AD-01-M3`.
 
-- **Tên component:** Nội dung mô tả cấp độ
-  - **Loại component tham chiếu từ DESIGN.md:** body-md (font Inter 16px, màu body #3a3a3a)
-  - **Vị trí:** Vùng D, nằm dưới tên cấp độ trên thẻ
-  - **Trạng thái:** Mặc định
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị đoạn mô tả ngắn của cấp độ đó.
+---
 
-- **Tên component:** Điểm số và số Unit quy chiếu (Tags)
-  - **Loại component tham chiếu từ DESIGN.md:** badge-pill (nền #faf5e8 hoặc canvas, rounded-pill, font caption 13px/500)
-  - **Vị trí:** Vùng D, nằm ở giữa thẻ cấp độ
-  - **Trạng thái:** Mặc định
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị các nhãn điểm mục tiêu như "IELTS Target: 4.5", "TOEIC Target: 450", "Tối đa: 15 Units".
+## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
+- **Trạng thái danh sách trống (Empty State):**
+  - Khi chưa có cấp độ học nào được tạo trong cơ sở dữ liệu:
+    - Ẩn lưới thẻ. Hiển thị hình ảnh minh họa chú cá voi [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) (`160px x 160px`) đang bay lơ lửng giữa khoảng không vũ trụ trống rỗng.
+    - Dòng chữ thông báo: *"Hệ thống chưa có cấp độ học nào được khởi tạo. Hãy nhấn nút 'Thêm cấp độ mới' để bắt đầu lộ trình!"* dạng `{typography.body-md}` màu `{colors.text-secondary}`.
+- **Trạng thái tải trang (Loading State):** Hiển thị 3 thẻ khung xương Skeleton màu xám nhạt `{colors.canvas}` nhấp nháy mờ dịu mắt.
+- **Trạng thái lỗi kết nối (Error State):** Hiển thị bảng thông tin lỗi đỏ kèm nút "Tải lại trang" style `button-secondary`.
 
-- **Tên component:** Nút Sửa trên thẻ
-  - **Loại component tham chiếu từ DESIGN.md:** button-secondary (background #fffaf0, border 1px hairline #e5e5e5, rounded-sm 8px, font Inter 14px/600)
-  - **Vị trí:** Vùng D, góc dưới bên trái của mỗi thẻ cấp độ
-  - **Trạng thái:** Mặc định, hover
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị chữ "Sửa". Nhấn vào để mở Modal AD-01-M2 chỉnh sửa cấp độ đó.
+---
 
-- **Tên component:** Nút Xóa trên thẻ
-  - **Loại component tham chiếu từ DESIGN.md:** button-text-link / text-link (màu error #ef4444, font Inter 14px/600)
-  - **Vị trí:** Vùng D, góc dưới bên phải của mỗi thẻ cấp độ
-  - **Trạng thái:** Mặc định, hover
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị chữ "Xóa". Nhấn vào để kích hoạt luồng xóa cấp độ (UC-01c).
+## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
+- **Đến từ:** Màn hình đăng nhập quản trị viên hoặc click tab "Cấp độ học" ở Sidebar từ các phân hệ khác.
+- **Đi đến:**
+  - [unit_list_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/unit_list_page.md) khi click chọn tên một cấp độ.
+  - [test_list_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/test_list_page.md) khi click chọn tab "Bài kiểm tra" trên Sidebar.
 
-## 5. CHI TIẾT TƯƠNG TÁC
-- **Hành động:** Nhấp vào tên một Cấp độ học trên thẻ
-  - **Luồng chính:** Admin nhấp chuột vào tên cấp độ -> Chuyển hướng sang màn hình AD-02 (Unit List Page của cấp độ đã chọn).
-  - **Dữ liệu gửi lên / nhận về:** Gửi đi ID cấp độ học được chọn.
-- **Hành động:** Nhấp nút "Thêm cấp độ mới"
-  - **Luồng chính:** Admin nhấp nút -> Hiển thị Modal AD-01-M1 đè lên giao diện hiện tại.
-- **Hành động:** Nhấp nút "Sửa" trên thẻ cấp độ
-  - **Luồng chính:** Admin nhấp nút -> Hiển thị Modal AD-01-M2 chứa dữ liệu của cấp độ được chọn đè lên giao diện hiện tại.
-- **Hành động:** Nhấp nút "Xóa" trên thẻ cấp độ
-  - **Luồng chính:** Admin nhấp nút -> Hệ thống kiểm tra điều kiện xóa (UC-01c):
-    - Nếu cấp độ đang có học viên học -> Hiển thị thông báo báo lỗi: "Không thể xóa cấp độ này vì đang có [X] người học hoạt động...".
-    - Nếu cấp độ trống hợp lệ -> Hiển thị Modal xác nhận xóa AD-01-M3.
+---
 
-## 6. CÁC TRẠNG THÁI ĐẶC BIỆT
-- **Trạng thái rỗng (empty state):** Khi CSDL chưa có cấp độ học nào -> Vùng D ẩn lưới thẻ, hiển thị hình ảnh minh họa 3D claymation tối giản kèm dòng chữ "Chưa có cấp độ học nào được tạo. Hãy nhấn nút 'Thêm cấp độ mới' phía trên để bắt đầu." ở chính giữa màn hình.
-- **Trạng thái tải (loading state):** Khi đang tải dữ liệu cấp độ học từ máy chủ -> Các thẻ cấp độ được hiển thị dưới dạng khung xương xám mờ (Skeleton Cards) nhấp nháy nhẹ.
-- **Trạng thái lỗi (error state):** Khi kết nối máy chủ thất bại -> Vùng D hiển thị thông báo lỗi "Không thể tải danh sách cấp độ học. Vui lòng kiểm tra lại kết nối mạng." kèm theo nút "Tải lại trang" (button-secondary).
-- **Trạng thái thành công (success state):** Khi thêm, sửa hoặc xóa cấp độ thành công từ các Modal và quay lại màn hình này -> Hệ thống hiển thị Toast thông báo màu xanh lá (#22c55e) ở góc trên bên phải màn hình: "Thực hiện thành công!".
+## 8. LƯU Ý THIẾT KẾ CHO LẬP TRÌNH VIÊN (DO'S AND DON'TS)
+- **NÊN:** Đảm bảo viền phân cách Sidebar và Vùng nội dung chỉ là đường kẻ hairline siêu mờ `rgba(155, 93, 224, 0.1)` để không gian luôn cảm giác thoáng đãng và thanh khiết.
+- **KHÔNG ĐƯỢC:** Sử dụng bất kỳ bóng đổ vật lý màu đen hay xám đậm nào. Toàn bộ hiệu ứng chiều sâu bắt buộc dùng dải phát sáng dịu nhẹ `{elevation.glow}` và viền mờ theo định hướng hệ thống Light Mode Universe.
 
-## 7. THAM CHIẾU LUỒNG
-- **Đến từ màn hình nào trước đó?** Từ Admin Login Page (TR-04) sau khi đăng nhập thành công.
-- **Sau khi hoàn thành hành động, đi đến màn hình nào?**
-  - Chuyển sang màn hình AD-02 (Unit List Page) sau khi nhấp vào một tên cấp độ.
-  - Chuyển sang màn hình AD-04 (Test List Page) khi nhấp chọn liên kết bài kiểm tra trên Sidebar.
-- **Các màn hình liên quan khác:** Modal AD-01-M1, AD-01-M2, AD-01-M3 hiển thị trực tiếp đè trên màn hình này.
-
-## 8. LƯU Ý THIẾT KẾ
-- Nền sàn của trang sử dụng màu canvas sáng ấm (#fffaf0) đặc trưng để tạo sự dễ chịu.
-- Thiết kế lưới thẻ cấp độ rõ ràng với khoảng cách spacing-lg (24px) giữa các thẻ nhằm giảm tải nhận thức và tối ưu hóa phân cấp thị giác theo Nguyên tắc Báo hiệu (Signaling Principle) bằng cách in đậm tên cấp độ.
-- Các nút tương tác "Sửa" và "Xóa" trên thẻ đảm bảo touch target đạt tối thiểu 44x44px bằng cách tăng vùng đệm padding trong suốt xung quanh nút.
-- Không sử dụng các đường viền hay bóng đổ đậm. Ranh giới giữa Sidebar và Content Area chỉ là một đường hairline 1px tinh tế (#e5e5e5).
-
-
-
+## ÁNH XẠ DỮ LIỆU MOCK (MOCK DATA BINDING)
+- **Danh sách Cấp độ (Levels Management Table):** Liên kết với mảng `adminDashboardData.levelsList`. Mỗi cấp độ hiển thị các trường:
+  - Tên cấp độ: `{name}`
+  - Số lượng Unit hiện có: `{unitsCount}`
+  - Số học viên hoạt động: `{activeUsers}`
+  - Mục tiêu IELTS: `{ieltsTarget}`
+  - Mục tiêu TOEIC: `{toeicTarget}`

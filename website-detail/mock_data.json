@@ -1,0 +1,551 @@
+{
+  "landingPage": {
+    "stats": [
+      { "value": "10,000+", "label": "Học viên đang hoạt động" },
+      { "value": "98.5%", "label": "Tỷ lệ đạt mục tiêu đầu ra" },
+      { "value": "500+", "label": "Bài học tương tác đa phương tiện" }
+    ],
+    "features": [
+      {
+        "id": "feat_srs",
+        "title": "Spaced Repetition (SRS)",
+        "desc": "Thuật toán lặp lại ngắt quãng thông minh giúp tối ưu hóa chu kỳ ghi nhớ từ vựng và cấu trúc ngữ pháp cốt lõi.",
+        "icon": "calendar"
+      },
+      {
+        "id": "feat_zpd",
+        "title": "Gợi ý 3 Vòng ZPD",
+        "desc": "Hệ thống phản hồi nội dung học tập an toàn, không phán xét lỗi sai, dẫn dắt từng bước giúp người học tự sửa lỗi.",
+        "icon": "sparkles"
+      },
+      {
+        "id": "feat_universe",
+        "title": "Vũ Trụ Ánh Sáng",
+        "desc": "Trải nghiệm học tập lơ lửng, bay bổng giữa các chòm sao, biến mỗi chặng đường học tập thành một chuyến khám phá kỳ ảo.",
+        "icon": "globe"
+      }
+    ],
+    "testimonials": [
+      {
+        "name": "Nguyễn Hoàng Nam",
+        "role": "Lập trình viên Frontend tại TechCorp",
+        "quote": "Giao diện Vũ Trụ Ánh Sáng của DiveVerse làm mình cực kỳ hứng thú. Việc học từ vựng qua ngữ cảnh 6 bước rất dễ đi vào trí nhớ.",
+        "avatar": "/images/avatars/nam_nguyen.png"
+      },
+      {
+        "name": "Trần Thị Mai",
+        "role": "Sinh viên Đại học Ngoại Thương",
+        "quote": "Tính năng ôn tập SRS giúp mình ghi nhớ collocations tự nhiên mà không cần học vẹt. Đặc biệt chú cá voi mascot siêu đáng yêu!",
+        "avatar": "/images/avatars/mai_tran.png"
+      }
+    ]
+  },
+  "auth": {
+    "loginErrors": {
+      "emailInvalid": "Định dạng email không hợp lệ. Vui lòng nhập đúng email (Ví dụ: name@domain.com).",
+      "passwordShort": "Mật khẩu phải chứa ít nhất 8 ký tự.",
+      "credentialsIncorrect": "Email hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại."
+    },
+    "registerErrors": {
+      "emailTaken": "Email này đã được đăng ký trên hệ thống.",
+      "passwordMismatch": "Mật khẩu xác nhận không khớp. Vui lòng nhập lại.",
+      "weakPassword": "Mật khẩu yếu. Hãy kết hợp chữ hoa, chữ thường và chữ số."
+    }
+  },
+  "levels": [
+    {
+      "id": "level_basic",
+      "name": "Basic (A1 - A2)",
+      "shortDescription": "Giao tiếp sinh tồn, hiểu ý chính các đoạn hội thoại ngắn hằng ngày.",
+      "detailDescription": "Lộ trình thiết lập nền tảng vững chắc nhất về phát âm cơ bản, các thì hiện tại/quá khứ đơn và vốn từ vựng thiết yếu trong đời sống.",
+      "ieltsTarget": "3.0 - 3.5",
+      "toeicTarget": "100 - 540",
+      "maxUnits": 25,
+      "units": [
+        {
+          "id": "unit_1",
+          "sequence": "Unit 01",
+          "name": "Greetings & Introductions",
+          "theme": "Greetings",
+          "vocabularyTopic": "Chào hỏi, quốc tịch, nghề nghiệp",
+          "grammarTopic": "Động từ To be (Present Simple), Mạo từ a/an",
+          "targetSkill": "IELTS (Listening P1: Spelling names & numbers)"
+        },
+        {
+          "id": "unit_2",
+          "sequence": "Unit 02",
+          "name": "Family & Friends",
+          "theme": "Relationships",
+          "vocabularyTopic": "Thành viên gia đình, tính cách cơ bản",
+          "grammarTopic": "Sở hữu cách ('s), Đại từ chỉ định this/that/these/those",
+          "targetSkill": "IELTS (Speaking P1: Describe family members)"
+        },
+        {
+          "id": "unit_3",
+          "sequence": "Unit 03",
+          "name": "Numbers, Time & Money",
+          "theme": "Measurement",
+          "vocabularyTopic": "Số đếm, số thứ tự, thời gian, giá tiền",
+          "grammarTopic": "Câu hỏi Yes/No và Wh- questions, Giới từ thời gian at/on/in",
+          "targetSkill": "TOEIC (Listening Part 2: Questions about time)"
+        },
+        {
+          "id": "unit_4",
+          "sequence": "Unit 04",
+          "name": "Daily Routines",
+          "theme": "Everyday Life",
+          "vocabularyTopic": "Hoạt động hằng ngày, thói quen sinh hoạt",
+          "grammarTopic": "Thì Hiện tại đơn (Present Simple)",
+          "targetSkill": "IELTS (Reading P1: Timetables & simple logs)"
+        }
+      ]
+    },
+    {
+      "id": "level_intermediate",
+      "name": "Intermediate (B1 - B2)",
+      "shortDescription": "Người dùng độc lập, giao tiếp tự tin và làm việc trôi chảy trong môi trường chuyên nghiệp.",
+      "detailDescription": "Lộ trình nâng cấp ngữ pháp phức hợp, collocations nâng cao, rèn luyện tư duy lập luận mạch lạc cho bài luận viết và phỏng vấn.",
+      "ieltsTarget": "5.5 - 6.5",
+      "toeicTarget": "550 - 940",
+      "maxUnits": 35,
+      "units": []
+    },
+    {
+      "id": "level_advanced",
+      "name": "Advanced (C1 - C2)",
+      "shortDescription": "Sử dụng tiếng Anh chuyên gia, linh hoạt cho học thuật chuyên sâu và lãnh đạo doanh nghiệp.",
+      "detailDescription": "Lộ trình hoàn thiện khả năng kiểm soát sắc thái ngôn ngữ (Register control) và tính gắn kết (Cohesion) trong văn phong bản xứ.",
+      "ieltsTarget": "7.5 - 9.0",
+      "toeicTarget": "945 - 990",
+      "maxUnits": 40,
+      "units": []
+    }
+  ],
+  "lessons": {
+    "unit_1": [
+      {
+        "id": "lesson_vocab",
+        "category": "VOCABULARY",
+        "name": "Vocabulary: Basic Greetings & Job Titles",
+        "status": "configured",
+        "exercises": {
+          "step1_contextualGuessing": {
+            "targetWord": "collaborate",
+            "audioUrl": "/audio/vocab/collaborate.mp3",
+            "ipa": "/kəˈlæb.ə.reɪt/",
+            "translation": "Cộng tác, hợp tác",
+            "contextSentences": [
+              {
+                "en": "We need to collaborate on this project to finish it in time.",
+                "vi": "Chúng ta cần hợp tác trong dự án này để hoàn thành đúng hạn."
+              },
+              {
+                "en": "Designers and developers collaborate closely in this company.",
+                "vi": "Các nhà thiết kế và nhà phát triển hợp tác chặt chẽ trong công ty này."
+              }
+            ]
+          },
+          "step2_flashcard": {
+            "word": "collaborate",
+            "ipa": "/kəˈlæb.ə.reɪt/",
+            "pos": "động từ (verb)",
+            "definition": "Làm việc chung với người khác để tạo ra hoặc đạt được thứ gì đó.",
+            "collocations": ["collaborate with somebody", "collaborate on something"],
+            "register": "Trang trọng (Formal)",
+            "imageUrl": "/images/vocab/collaborate.png"
+          },
+          "step3_multipleChoice": {
+            "question": "Chọn từ đồng nghĩa với từ 'collaborate':",
+            "options": ["work together", "compete", "agree", "discuss"],
+            "correctAnswer": "work together",
+            "explanation": "'Collaborate' nghĩa là hợp tác, đồng nghĩa với 'work together'."
+          },
+          "step4_dictation": {
+            "audioUrl": "/audio/vocab/collaborate.mp3",
+            "correctText": "collaborate",
+            "explanation": "Hãy viết chính xác từ 'collaborate' (gấp đôi chữ 'l')."
+          },
+          "step5_asrPronunciation": {
+            "targetSentence": "We need to collaborate on this project.",
+            "ipa": "/wiː niːd tuː kəˈlæb.ə.reɪt ɒn ðɪs ˈprɒdʒ.ekt/",
+            "targetPhonemes": ["we", "need", "to", "collaborate", "on", "this", "project"]
+          },
+          "step6_zpdFeedback": {
+            "prompt": "Hãy tự viết một câu sử dụng từ 'collaborate' bám sát thực tế của bạn.",
+            "adminSample": "I collaborate with the design team to build websites.",
+            "zpdHints": [
+              {
+                "errorPattern": "collaborate to",
+                "hint": "Lưu ý giới từ: Hãy sử dụng 'collaborate with' (ai đó) hoặc 'collaborate on' (dự án/công việc)."
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "lesson_grammar",
+        "category": "GRAMMAR",
+        "name": "Grammar: Present Simple with Verb Be",
+        "status": "configured",
+        "exercises": {
+          "stage1_contrastivePairs": {
+            "sentenceA": "I am a software engineer.",
+            "meaningA": "Tôi hiện tại là một kỹ sư phần mềm (Định danh nghề nghiệp hiện tại).",
+            "sentenceB": "I was a software engineer.",
+            "meaningB": "Tôi đã từng là một kỹ sư phần mềm (Hiện tại không còn nữa).",
+            "explanation": "Thì Hiện tại đơn với 'am' chỉ thực tế ở hiện tại, còn 'was' ở Quá khứ đơn chỉ điều đã chấm dứt."
+          },
+          "stage2_conceptChecking": {
+            "question": "Nếu nói 'He is friendly', thì đây là tính cách nhất thời hay đặc điểm lâu dài của anh ấy?",
+            "options": ["Nhất thời", "Lâu dài/Thường xuyên"],
+            "correctAnswer": "Lâu dài/Thường xuyên"
+          },
+          "stage3_inductionDiscovery": {
+            "examples": [
+              "I am happy today.",
+              "She is a doctor.",
+              "They are students."
+            ],
+            "prompt": "Nhìn các ví dụ trên và chọn quy luật đúng cho động từ 'be' ở hiện tại đơn:",
+            "options": [
+              "Giữ nguyên dạng 'be' với mọi chủ ngữ",
+              "Biến đổi thành 'am', 'is', 'are' phụ thuộc vào chủ ngữ"
+            ],
+            "correctAnswer": "Biến đổi thành 'am', 'is', 'are' phụ thuộc vào chủ ngữ"
+          },
+          "stage4_focusFormula": {
+            "formulaName": "Thì Hiện tại đơn của động từ Be",
+            "structure": "S + am / is / are + Noun / Adj",
+            "breakdown": {
+              "S (Subject)": "I / He, She, It / You, We, They",
+              "Verb Be": "am / is / are",
+              "Complement": "Danh từ hoặc Tính từ chỉ trạng thái"
+            }
+          },
+          "stage5_inputProcessing": {
+            "passage": "My name is Jane. I [am/is/are] a designer. My team members [am/is/are] very supportive. We [am/is/are] ready for the new project.",
+            "blanks": [
+              { "options": ["am", "is", "are"], "correctAnswer": "am" },
+              { "options": ["am", "is", "are"], "correctAnswer": "are" },
+              { "options": ["am", "is", "are"], "correctAnswer": "are" }
+            ]
+          },
+          "stage6_controlledProduction": {
+            "prompt": "Dịch câu sau sang tiếng Anh dùng động từ Be: 'Họ là những người bạn tốt.'",
+            "hint": "friend (n) -> friends (plural)",
+            "correctAnswer": "They are good friends.",
+            "inputPlaceholder": "Nhập câu tiếng Anh..."
+          },
+          "stage7_zpdWritingFeedback": {
+            "prompt": "Hãy viết 1 câu giới thiệu tên và nghề nghiệp của bạn sử dụng động từ Be.",
+            "adminSample": "My name is Nam and I am an engineer.",
+            "zpdHints": [
+              {
+                "errorPattern": "I is",
+                "hint": "Lưu ý chủ ngữ: Chủ ngữ 'I' đi kèm động từ be dạng 'am'."
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "lesson_listening",
+        "category": "LISTENING",
+        "name": "Listening: At the Tech Conference",
+        "status": "configured",
+        "audioUrl": "/audio/lessons/tech_conference.mp3",
+        "exercises": {
+          "interactiveStory": {
+            "preListening": "Từ vựng quan trọng: conference (hội nghị), network (kết nối).",
+            "chunks": [
+              {
+                "timestamp": "0:00 - 0:15",
+                "text": "Hi everyone! Welcome to the annual Tech Conference. It is great to see so many developers here today.",
+                "question": "Sự kiện đang diễn ra là gì?",
+                "options": ["Lễ khai mạc hội chợ", "Hội nghị công nghệ thường niên", "Cuộc họp nội bộ"],
+                "correctAnswer": "Hội nghị công nghệ thường niên"
+              }
+            ]
+          },
+          "comprehensionQuiz": {
+            "questions": [
+              {
+                "id": "l_q1",
+                "question": "Alex hợp tác với bộ phận nào tại hội nghị?",
+                "options": ["Design Team", "Sales Team", "Marketing Team"],
+                "correctAnswer": "Design Team"
+              }
+            ]
+          },
+          "shadowing": {
+            "lines": [
+              {
+                "id": "sh_1",
+                "text": "I collaborate with the design team here.",
+                "startTime": "0:05",
+                "endTime": "0:08"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "lesson_speaking",
+        "category": "SPEAKING",
+        "name": "Speaking: ASR & Roleplay with Whale AI",
+        "status": "configured",
+        "exercises": {
+          "asrPractice": {
+            "promptSentence": "Nice to meet you. I am a frontend developer.",
+            "ipa": "/naɪs tuː miːt juː. aɪ æm ə ˌfrʌntˈend dɪˈvel.ə.pər./",
+            "audioModelUrl": "/audio/lessons/model_nice_to_meet.mp3"
+          },
+          "roleplay": {
+            "context": "Giả lập hội thoại giới thiệu bản thân tại sảnh sự kiện.",
+            "whaleLine": "Hello! I am a developer from Tokyo. What about you?",
+            "suggestedAnswers": [
+              "Hi! I am a designer from Hanoi.",
+              "Nice to meet you. I work as a systems analyst."
+            ]
+          }
+        }
+      },
+      {
+        "id": "lesson_reading",
+        "category": "READING",
+        "name": "Reading: Working Remotely in 2026",
+        "status": "configured",
+        "exercises": {
+          "passage": {
+            "title": "Working Remotely in 2026",
+            "content": "Working remotely has changed the global tech industry. Software engineers can now collaborate across continents without leaving their homes. This structure provides flexibility but also requires high discipline.",
+            "annotations": [
+              { "word": "collaborate", "definition": "cộng tác, hợp tác làm việc chung" },
+              { "word": "flexibility", "definition": "sự linh hoạt, dễ thích ứng" }
+            ]
+          },
+          "comprehensionQuiz": {
+            "questions": [
+              {
+                "id": "r_q1",
+                "question": "Lợi ích được nhắc đến của làm việc từ xa là gì?",
+                "options": ["Sự linh hoạt (flexibility)", "Giảm chi phí internet", "Không cần họp hành"],
+                "correctAnswer": "Sự linh hoạt (flexibility)"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "lesson_writing",
+        "category": "WRITING",
+        "name": "Writing: Write a Brief Introduction Email",
+        "status": "configured",
+        "exercises": {
+          "writingPrompt": {
+            "title": "Viết email giới thiệu bản thân",
+            "instruction": "Hãy viết một đoạn email ngắn khoảng 50 từ giới thiệu tên, quốc tịch, vị trí hiện tại và mong muốn hợp tác với đối tác mới."
+          },
+          "zpdHints": {
+            "level1_grammar": "Bắt đầu email bằng 'Dear [Tên],' và kết thúc bằng 'Best regards,'.",
+            "level2_vocabulary": "Sử dụng cụm từ 'I am a...' để giới thiệu nghề nghiệp và 'I look forward to collaborating...' để kết bài.",
+            "level3_structure": "Ví dụ mẫu: 'Dear Mr. John, My name is Nam and I am a developer from Vietnam. I look forward to collaborating with you on the next project.'"
+          },
+          "aiAssessment": {
+            "rubrics": [
+              { "criterion": "Từ vựng", "maxScore": 9.0, "weight": 0.25 },
+              { "criterion": "Ngữ pháp", "maxScore": 9.0, "weight": 0.25 },
+              { "criterion": "Độ mạch lạc", "maxScore": 9.0, "weight": 0.25 },
+              { "criterion": "Đáp ứng đề bài", "maxScore": 9.0, "weight": 0.25 }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "srsReviewQueue": [
+    {
+      "wordId": 45,
+      "word": "collaborate",
+      "ipa": "/kəˈlæb.ə.reɪt/",
+      "partOfSpeech": "verb",
+      "definition": "Hợp tác, cộng tác làm việc cùng người khác để tạo ra thứ gì đó.",
+      "collocations": ["collaborate with somebody", "collaborate on something"],
+      "contextSentence": "We need to [ ______ ] on this project to finish it in time.",
+      "translationHint": "Chúng ta cần hợp tác..."
+    },
+    {
+      "wordId": 82,
+      "word": "alternative",
+      "ipa": "/ɒlˈtɜː.nə.tɪv/",
+      "partOfSpeech": "noun",
+      "definition": "Sự lựa chọn thay thế giữa hai hoặc nhiều khả năng.",
+      "collocations": ["alternative to something", "safe alternative"],
+      "contextSentence": "Solar power is a clean [ ______ ] to fossil fuels.",
+      "translationHint": "Năng lượng mặt trời là một sự thay thế..."
+    }
+  ],
+  "dictionary": {
+    "collaborate": {
+      "word": "collaborate",
+      "ipa": "/kəˈlæb.ə.reɪt/",
+      "partOfSpeech": "Động từ (Verb)",
+      "definition": "Hợp tác, cộng tác làm việc cùng người khác để tạo ra hoặc đạt được thứ gì đó.",
+      "examples": [
+        {
+          "en": "The two companies agreed to collaborate on the project.",
+          "vi": "Hai công ty đồng ý hợp tác cùng nhau trong dự án này."
+        },
+        {
+          "en": "Researchers from different fields collaborate with each other.",
+          "vi": "Các nhà nghiên cứu từ các ngành khác nhau hợp tác với nhau."
+        }
+      ],
+      "collocations": [
+        "collaborate with somebody",
+        "collaborate on something",
+        "collaborative effort"
+      ],
+      "commonMistakes": "Tránh dùng sai giới từ: Không viết 'collaborate to', hãy dùng 'collaborate on/with' để diễn đạt sự hợp tác làm việc gì/với ai."
+    },
+    "alternative": {
+      "word": "alternative",
+      "ipa": "/ɒlˈtɜː.nə.tɪv/",
+      "partOfSpeech": "Danh từ (Noun)",
+      "definition": "Sự lựa chọn thay thế hoặc giải pháp thay thế.",
+      "examples": [
+        {
+          "en": "Is there an alternative to this plan?",
+          "vi": "Có giải pháp nào thay thế cho kế hoạch này không?"
+        }
+      ],
+      "collocations": [
+        "alternative to something",
+        "viable alternative"
+      ],
+      "commonMistakes": "Lưu ý giới từ đi kèm: Dùng 'alternative to' thay vì 'alternative with'."
+    }
+  },
+  "profile": {
+    "name": "Nguyễn Văn A",
+    "email": "nguyenvana@gmail.com",
+    "level": "Basic (A1 - A2)",
+    "stats": {
+      "exp": 1250,
+      "streak": 12,
+      "studyHours": 24.5,
+      "goalXP": 20
+    },
+    "studyHistory": [
+      {
+        "testName": "Mini-exam cuối Unit 2: Everyday Work",
+        "score": "85 / 100 EXP",
+        "date": "24-05-2026",
+        "result": "Đạt",
+        "detailsUrl": "/units/2/exams/1/result"
+      },
+      {
+        "testName": "Mini-exam cuối Unit 1: Greetings",
+        "score": "95 / 100 EXP",
+        "date": "18-05-2026",
+        "result": "Đạt",
+        "detailsUrl": "/units/1/exams/1/result"
+      }
+    ],
+    "errorMemoryList": [
+      {
+        "wordId": 45,
+        "word": "collaborate",
+        "ipa": "/kəˈlæb.ə.reɪt/",
+        "failCount": 4
+      },
+      {
+        "wordId": 82,
+        "word": "alternative",
+        "ipa": "/ɒlˈtɜː.nə.tɪv/",
+        "failCount": 3
+      }
+    ]
+  },
+  "tests": [
+    {
+      "id": "test_pre",
+      "name": "Pre-test Đánh giá Năng lực Đầu vào",
+      "type": "Pre-test",
+      "typeLabel": "Đánh giá đầu vào",
+      "duration": 45,
+      "questionsCount": 30,
+      "maxScore": "100 EXP",
+      "questions": [
+        {
+          "id": "pre_q1",
+          "text": "Choose the word that best completes the sentence: 'She ___ to school every day.'",
+          "options": ["go", "goes", "going", "gone"],
+          "correctAnswer": "goes"
+        }
+      ]
+    },
+    {
+      "id": "test_1",
+      "name": "Mini-exam cuối Unit 2: Everyday Work",
+      "type": "Mini-test",
+      "typeLabel": "Mini-test cuối Unit",
+      "levelUnit": "Unit 2",
+      "duration": 30,
+      "questionsCount": 15,
+      "maxScore": "100 EXP",
+      "dateCreated": "15-05-2026"
+    },
+    {
+      "id": "test_2",
+      "name": "IELTS Mock Test Academic Vol 1",
+      "type": "Mock test",
+      "typeLabel": "Đề thi thử IELTS",
+      "levelUnit": "Intermediate / Academic",
+      "duration": 180,
+      "questionsCount": 80,
+      "maxScore": "9.0 IELTS",
+      "dateCreated": "20-05-2026"
+    }
+  ],
+  "testResult": {
+    "testId": "test_1",
+    "testName": "Mini-exam cuối Unit 2: Everyday Work",
+    "score": "85/100 EXP",
+    "correctCount": 12,
+    "incorrectCount": 3,
+    "timeSpent": "18 phút 45 giây",
+    "cefrEquivalent": "A2",
+    "skillsBreakdown": {
+      "listening": 90,
+      "reading": 80,
+      "writing": 75,
+      "speaking": 85
+    },
+    "incorrectDetails": [
+      {
+        "questionText": "Fill in the blank with a preposition: 'We arrive ___ the airport at 9 PM.'",
+        "userAnswer": "in",
+        "correctAnswer": "at",
+        "explanation": "Ta dùng giới từ 'at' trước địa điểm cụ thể nhỏ hẹp như 'airport'."
+      }
+    ]
+  },
+  "adminDashboardData": {
+    "levelsList": [
+      { "id": "level_basic", "name": "Basic (A1 - A2)", "unitsCount": 25, "activeUsers": 120, "ieltsTarget": "3.0-3.5", "toeicTarget": "100-540" },
+      { "id": "level_intermediate", "name": "Intermediate (B1 - B2)", "unitsCount": 35, "activeUsers": 340, "ieltsTarget": "5.5-6.5", "toeicTarget": "550-940" },
+      { "id": "level_advanced", "name": "Advanced (C1 - C2)", "unitsCount": 40, "activeUsers": 95, "ieltsTarget": "7.5-9.0", "toeicTarget": "945-990" }
+    ],
+    "unitsList": [
+      { "id": "unit_1", "sequence": "Unit 01", "name": "Greetings & Introductions", "levelId": "level_basic", "lessonsCount": 6, "status": "active" }
+    ],
+    "lessonsList": [
+      { "id": "lesson_vocab", "name": "Vocabulary: Basic Greetings & Job Titles", "unitId": "unit_1", "category": "VOCABULARY", "status": "configured" },
+      { "id": "lesson_reading", "name": "Reading: Working Remotely in 2026", "unitId": "unit_1", "category": "READING", "status": "unconfigured" }
+    ],
+    "testsList": [
+      { "id": "test_1", "name": "Mini-exam cuối Unit 2: Everyday Work", "type": "Mini-test", "levelUnit": "Unit 2", "duration": 30, "status": "active" }
+    ]
+  }
+}

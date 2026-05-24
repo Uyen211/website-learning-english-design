@@ -1,193 +1,128 @@
-# MÀN HÌNH: GRAMMAR LEARNING PAGE (MÀN HÌNH HỌC NGỮ PHÁP tự nhiên)
+# MÀN HÌNH: GRAMMAR LEARNING PAGE (MÀN HÌNH HỌC NGỮ PHÁP 7 CHẶNG)
 
 ## 1. THÔNG TIN CHUNG
-- Tên màn hình: Grammar Learning Page (Màn hình học ngữ pháp tự nhiên - UC-05b)
-- Mã use case liên quan: UC-05b (Học ngữ pháp tự nhiên)
-- Mã luồng người dùng liên quan: Flow LN-FL-03 (Học ngữ pháp tự nhiên)
-- Vai trò người dùng: Learner (Người học / Học viên)
-- Vị trí trong sitemap: Trang chủ -> Dashboard -> Click Unit -> Unit Detail Page -> Click bài học Ngữ pháp -> Grammar Learning Page (URL: /units/{unit_id}/lessons/{lesson_id}/grammar)
+- **Tên màn hình:** Grammar Learning Page (Màn hình học ngữ pháp 7 chặng)
+- **Mã use case liên quan:** UC-05b (Học ngữ pháp quy nạp)
+- **Mã luồng người dùng liên quan:** LN-FL-02 (Khám phá Ngữ pháp)
+- **Vai trò người dùng:** Learner (Người học)
+- **Vị trí trong sitemap:** Trang chủ $\rightarrow$ Dashboard $\rightarrow$ Click Unit $\rightarrow$ Unit Detail $\rightarrow$ Click bài học Ngữ pháp (URL: `/units/{unit_id}/lessons/{lesson_id}/grammar`)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Học viên sử dụng màn hình này để trải qua hành trình khám phá ngữ pháp tự nhiên 7 chặng đường khám phá (từ làm quen tình huống, nhận diện khuôn mẫu, tự đúc rút quy tắc qua cặp câu tương phản, thực hành nhận diện cấu trúc hạt nhân, gõ chính tả chunk ngữ pháp, đặt câu sản sinh cá nhân hóa có AI Cá Voi Thông Thái sửa lỗi sai, đến khi hoàn thành để lên lịch ôn tập SRS).
+Học viên trải qua lộ trình học ngữ pháp quy nạp (inductive grammar) tự nhiên gồm 7 chặng khép kín. Hành trình giúp người học tự đúc rút quy tắc từ tình huống thực tế, xây dựng Mental Model về cấu trúc qua các bài tập tương tác, tự đặt câu cá nhân hóa dưới sự hỗ trợ của trợ lý AI và lưu trữ cấu trúc vào Spaced Repetition (SRS - UC-08).
 
-## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Centered card layout (Bố cục một cột căn giữa hoàn toàn theo cả chiều ngang và dọc) sử dụng nền canvas sáng ấm (#fffaf0), kết hợp thanh tiến độ ngang ở đầu màn hình và bảng điều khiển phụ (Gợi ý từ Cá Voi Thông Thái Panel) trượt mở từ bên phải.
-- Các vùng chính trên màn hình:
-  - Vùng A: Thanh tiến độ bài học (Progress Header) cố định ở đầu màn hình.
-  - Vùng B: Thẻ học tập trung tâm (Central Learning Card Container) hiển thị nội dung của từng giai đoạn học ngữ pháp.
-  - Vùng C: Bảng gợi ý từ Cá Voi Cá Voi Thông Thái (Gợi ý từ Cá Voi Thông Thái Panel) xuất hiện dọc bên phải Central Card trong giai đoạn sản sinh câu.
-  - Vùng D: Thanh điều hướng chân trang (Footer Action Bar) chứa các nút bấm chuyển tiếp.
-- Kích thước / Grid tham khảo:
-  - Thẻ học tập trung tâm kích thước cố định: 760px x 500px, góc bo rounded-xl (24px).
-  - Vùng C (Bảng Cá Voi) có chiều rộng 360px khi mở rộng bên phải Central Card.
-  - Khoảng cách padding trong thẻ học tập: spacing-xl (32px).
-  - Sử dụng CSS Flexbox/Grid căn giữa viewport hoàn toàn.
-
-## 4. THÀNH PHẦN GIAO DIỆN (UI COMPONENTS)
-
-### THÀNH PHẦN CHUNG (PROGRESS HEADER & CONTROLS)
-- **Tên component:** Thanh tiến độ bài học (Lesson Progress Bar)
-  - **Loại component tham chiếu từ DESIGN.md:** progress-bar (nền surface-strong #ebe6d6, thanh tiến độ xanh success #22c55e, height 8px)
-  - **Vị trí:** Vùng A, chạy ngang đầu màn hình.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị số lượng ngữ pháp đã hoàn thành (ví dụ: "Ngữ pháp 1 / 3 - Hoàn thành 33%").
-
-- **Tên component:** Nút đóng bài học (Exit Button)
-  - **Loại component tham chiếu từ DESIGN.md:** rounded-full (icon button 36px x 36px, màu muted #6a6a6a)
-  - **Vị trí:** Vùng A, góc trên bên phải.
-  - **Trạng thái:** Mặc định, hover.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị icon dấu "X" màu ink. Nhấn vào sẽ thoát bài học, hiển thị popup xác nhận trước khi quay lại màn hình LN-02.
+## 3. BỐ CỤC TỔNG THỂ (LAYOUT ARCHITECTURE)
+- **Triết lý bố cục:** Bố cục thẻ căn giữa linh hoạt (Centered Card Layout). Trong các chặng 1-5, màn hình hiển thị Central Card duy nhất. Ở chặng 6 (Viết câu), màn hình mở rộng sang bố cục 2 cột (Tỉ lệ 7:5 trên Desktop) để hiển thị thêm Bảng Phản hồi AI ở bên phải.
+- **Màu nền chung:** Nền trang sử dụng `{colors.canvas}` (`#F9F7FE`) phối dải chuyển màu mờ `{gradients.atmosphere-haze}`.
+- **Phân bổ các vùng chính (Layout Zones):**
+  - **Zone 1: Progress Header (Thanh tiến độ bài học)**
+    - Ghim cố định ở sát mép trên. Chiều cao: `64px`. Chứa thanh tiến độ ngang và nút thoát.
+  - **Zone 2: Central Card (Thẻ học tập trung tâm)**
+    - Kích thước: `760px x 500px` (Rộng hơn trang từ vựng một chút để chứa các câu văn dài). Căn giữa hoàn hảo bằng Flexbox.
+  - **Zone 3: ZPD AI Feedback Panel (Bảng phản hồi Cá Voi bên phải)**
+    - Rộng `360px`, ghim sát lề phải Vùng B. Trượt mở mượt mà từ phải sang khi học viên nộp câu viết ở chặng 6.
+  - **Zone 4: Footer Toolbar (Thanh hành động chân trang)**
+    - Nằm ở sát mép dưới Central Card, chứa các nút điều hướng chuyển chặng.
 
 ---
 
-### GIAI ĐOẠN 1: NHẬN DIỆN TÌNH HUỐNG (SITUATIONAL IDENTIFICATION STAGE)
-- **Tên component:** Phương tiện ngữ cảnh (Contextual Video/Image)
-  - **Loại component tham chiếu từ DESIGN.md:** hero-illustration-card (nền surface-soft #faf5e8, rounded-lg 16px)
-  - **Vị trí:** Vùng B, nằm trên cùng Central Card.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị một video ngắn hoặc hình ảnh 3D claymation minh họa một tình huống giao tiếp (ví dụ: Một người đang vội vã chạy để bắt xe buýt, câu thoại xuất hiện trên đầu: "If I run fast, I will catch the bus."). Tuyệt đối không hiển thị tên cấu trúc ngữ pháp hay công thức.
+## 4. THÀNH PHẦN GIAO DIỆN CHI TIẾT (UI COMPONENTS)
 
-- **Tên component:** Câu hỏi trắc nghiệm tình huống
-  - **Loại component tham chiếu từ DESIGN.md:** title-sm (font Inter weight 600, màu ink #0a0a0a)
-  - **Vị trí:** Vùng B, nằm dưới phần hình ảnh.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị câu hỏi: "Tình huống này diễn ra khi nào?" kèm các lựa chọn trắc nghiệm A, B, C dưới dạng nút `button-secondary` xếp dọc. Người dùng nhấp chọn đáp án đúng để mở nút "Tiếp tục".
+### 4.1 Thanh điều hướng & Tiến độ bài học (Progress Header)
+- **Đặc tả Visual:**
+  - Nền: Kính mờ `{colors.glass}` (`rgba(255, 255, 255, 0.7)`), có `backdrop-filter: blur(8px)`.
+  - Viền dưới mờ `1px solid rgba(155, 93, 224, 0.1)`. Chiều cao: `64px`.
+- **Thành phần:**
+  - **Logo & Breadcrumbs:** Logo cá voi chính [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) (`36px`) kèm dòng text `{typography.caption}`: *"Unit 2 / Lesson 2 / Học Ngữ pháp"*.
+  - **Thanh tiến độ ngang:** Nằm cố định viền sát mép trên thanh Nav. Cao `6px`. Nền `{colors.light-accent}`. Phần hoàn thành chạy màu dải ngân hà `{gradients.galactic-glow}` thể hiện tỷ số (ví dụ: *"Chặng 3 / 7"*).
+  - **Nút thoát bài học (Exit Button):** Icon Lucide `x` màu `{colors.text-secondary}`, touch target `44px`. Click vào mở popup xác thực dừng học.
 
----
+### 4.2 Thẻ học tập trung tâm (Central Card)
+- **Đặc tả Visual:**
+  - Nền: `{colors.surface}` (`#FFFFFF`). Bo góc: `{rounded.xl}` (24px).
+  - Viền: `1px solid rgba(155, 93, 224, 0.1)`.
+  - Hiệu ứng nâng: `{elevation.glow}` (Soft glow tím).
+  - Padding bên trong: `{spacing.xl}` (32px).
+- **Nội dung thay đổi theo 7 chặng học tập (Mapped to UC-05b):**
 
-### GIAI ĐOẠN 2: NHẬN DIỆN KHUÔN MẪU (PATTERN RECOGNITION STAGE)
-- **Tên component:** Bảng ví dụ khuôn mẫu (Pattern Sentences Box)
-  - **Loại component tham chiếu từ DESIGN.md:** product-mockup-card (nền canvas #fffaf0, rounded-lg 16px, border 1px hairline #e5e5e5, padding 20px)
-  - **Vị trí:** Vùng B, thân Central Card.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị 3 câu ví dụ có cấu trúc tương tự nhau:
-    - 1. *If it rains, we will stay at home.*
-    - 2. *If you study hard, you will pass the exam.*
-    - 3. *If she arrives early, she will call us.*
+#### CHẶNG 1: NHẬN DIỆN TÌNH HUỐNG (SITUATIONAL IDENTIFICATION)
+- **Phương tiện ngữ cảnh:** Hiển thị video ngắn, hình ảnh minh họa 3D Clay, hoặc mẩu hội thoại ngắn chứa cấu trúc ngữ pháp mục tiêu (ví dụ: cấu trúc câu điều kiện loại 1). *Tuyệt đối không hiển thị tên cấu trúc hay công thức ở chặng này.*
+- **Câu hỏi nhận diện:** Một câu hỏi trắc nghiệm khách quan dạng `{typography.body-md}` yêu cầu người học nhận xét trạng thái tình huống đang diễn ra trong ngữ cảnh.
+- **Nút hành động:** Nút các lựa chọn đáp án (`button-secondary` style), click chọn đáp án đúng để mở nút *"Tiếp tục"* sang Chặng 2.
 
-- **Tên component:** Câu hỏi nhận diện đặc điểm chung
-  - **Loại component tham chiếu từ DESIGN.md:** button-secondary (xếp 3-4 tùy chọn trắc nghiệm)
-  - **Vị trí:** Vùng B, dưới bảng ví dụ.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Yêu cầu học viên phát hiện điểm chung về mặt hình thức: "Đặc điểm chung của động từ ở mệnh đề IF trong các câu trên là gì?". Học viên nhấp chọn đáp án đúng (ví dụ: "Chia ở thì Hiện tại đơn") để chuyển sang Giai đoạn 3.
+#### CHẶNG 2: NHẬN DIỆN KHUÔN MẪU (PATTERN RECOGNITION)
+- **Khối ví dụ song song:** Hiển thị 3 câu ví dụ thực tế có cấu trúc ngữ pháp tương tự nhau (ví dụ: 3 câu điều kiện loại 1 khác nhau về từ vựng nhưng đồng điệu cấu trúc).
+- **Yêu cầu đúc rút:** Hệ thống yêu cầu học viên tích chọn điểm chung về mặt hình thức giữa 3 câu (ví dụ: phát hiện sự xuất hiện của từ *"If"*, động từ chia ở hiện tại đơn ở vế 1, và *"will"* ở vế 2).
 
----
+#### CHẶNG 3: ĐÚC RÚT QUY TẮC (RULE EXTRACTION)
+- **Cặp câu tương phản (Contrastive Pairs):** Hiển thị cặp câu có sự khác biệt nhỏ về mặt ngữ pháp để làm nổi bật sự khác biệt về sắc thái ý nghĩa (ví dụ: vế dùng *will* so với vế dùng *going to*).
+- **Bảng đúc rút quy tắc chính thức:** Hiển thị công thức ngữ pháp dạng trực quan hóa đồ họa, đặt tên cấu trúc và giới thiệu các cấu trúc câu hạt nhân (Grammar Chunks) thường dùng.
+- **Mascot hướng dẫn:** Chú cá voi chính [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) (`64px`) xuất hiện giải thích quy luật bằng ngôn từ dễ hiểu, thân thiện.
 
-### GIAI ĐOẠN 3: ĐỐI CHIẾU & ĐÚC RÚT QUY TẮC (RULE EXTRACTION STAGE)
-- **Tên component:** Cặp câu tương phản (Contrastive Pairs Grid)
-  - **Loại component tham chiếu từ DESIGN.md:** grid 2-up (hai thẻ nhỏ đặt song song)
-  - **Vị trí:** Vùng B, phần trên của Central Card.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị 2 câu có sự tương phản sắc thái ngữ pháp để học viên so sánh:
-    - *Thẻ trái:* "If it rains, I will stay home." (Có thể xảy ra ở tương lai).
-    - *Thẻ phải:* "If it rained, I would stay home." (Trái thực tế ở hiện tại).
+#### CHẶNG 4: THỰC HÀNH NHẬN DIỆN (ACTIVE PRACTICE - BASIC)
+- **Focus Mode / Drag & Drop:**
+  - Hệ thống ẩn đi các thành phần phụ trong câu, chỉ hiển thị cấu trúc câu hạt nhân (Subject + Verb + Object).
+  - Học viên tương tác kéo thả các từ để xây dựng Mental Model về cấu trúc cho đến khi hoàn thành chính xác.
+  - Các ô trạm (nodes) tương tác có bo góc `{rounded.md}` (12px), chọn đúng đổi viền màu xanh `{colors.success}` (`#22C55E`), chọn sai viền đỏ `{colors.error}` (`#EF4444`).
 
-- **Tên component:** Bảng quy tắc & Cấu trúc hạt nhân (Grammar Chunk Box)
-  - **Loại component tham chiếu từ DESIGN.md:** feature-card-cream (nền surface-card #f5f0e0, rounded-lg 16px, padding 20px)
-  - **Vị trí:** Vùng B, thân Central Card.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** 
-    - Hiển thị tên gọi chính thức: "Câu điều kiện loại 1 (Conditional Sentence Type 1)".
-    - Hiển thị công thức trực quan: **If + S + V(s/es), S + will/can + V-infinitive**.
-    - Các cấu trúc hạt nhân (Grammar Chunks): "If you need help, ...", "If I have time, ...".
+#### CHẶNG 5: THỰC HÀNH NÂNG CAO (ACTIVE PRACTICE - INTERMEDIATE/ADVANCED)
+- **Active Identification / Sentence Transformation:**
+  - Hiển thị bài tập viết lại câu (Sentence Transformation) dựa trên câu gốc có sẵn, yêu cầu viết lại tương đương cấu trúc.
+  - Học viên nhập câu viết lại vào ô nhập liệu `{rounded.lg}` (16px), chiều cao `44px` (`input-height`).
 
----
+#### CHẶNG 6: CHÍNH TẢ CHUNK (DICTATION - GHI NHỚ ÂM THANH)
+- **Giao diện:** 
+  - Hệ thống phát âm thanh của một chunk ngữ pháp hạt nhân cố định.
+  - Học viên nghe và gõ lại chính xác chunk ngữ pháp vào ô nhập liệu Dictation Input.
+  - Trạng thái lỗi (Nếu gõ sai quá 3 lần): Hiển thị đáp án đúng chính thức của Admin kèm lời giải thích, bắt buộc gõ lại đúng để đi tiếp.
 
-### GIAI ĐOẠN 4: THỰC HÀNH NHẬN DIỆN (ACTIVE PRACTICE STAGE)
-*Màn hình hiển thị hình thức bài tập tương ứng do Admin cấu hình:*
+#### CHẶNG 7: TỰ VIẾT CÂU & TRỢ LÝ AI (PERSONALIZED OUTPUT & ZPD AI FEEDBACK)
+- **Khung viết câu ngữ pháp:** 
+  - Khung nhập văn bản (Textarea) nền `{colors.surface}`, bo góc `{rounded.xl}` (24px), viền mờ `1px solid rgba(155, 93, 224, 0.2)`.
+  - Hướng dẫn của Admin: *"Hãy tự đặt một câu mới sử dụng cấu trúc ngữ pháp vừa học."* dạng `{typography.body-sm}`.
+- **Nút "Nộp câu" (CTA):** Nền `{colors.primary}`, chữ trắng, bo góc `{rounded.lg}` (16px), default `{elevation.active-glow}`.
+- **Bảng phản hồi AI (Wise Whale AI Feedback Panel - Vùng Zone 3):**
+  - Trượt ra từ lề phải màn hình. Đặc tả Visual: Nền kính mờ `{colors.glass}`, bo góc `{rounded.xl}` (24px), hiệu ứng `{elevation.glass}`.
+  - Trợ lý Cá Voi Xanh sử dụng ảnh [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) (`64px`) ở đỉnh Panel, hiển thị các bong bóng chat hướng dẫn gợi mở 3 vòng:
+    - *Vòng 1 (Gợi ý loại lỗi):* AI bôi đỏ `{colors.error}` vị trí lỗi cấu trúc/ngữ pháp và phân loại lỗi.
+    - *Vòng 2 (Gợi ý cấu trúc):* AI gợi ý công thức viết lại cho đúng.
+    - *Vòng 3 (Đáp án mẫu):* Hiển thị câu gợi ý mẫu khuyết cấu trúc ngữ pháp vừa học để học viên điền nốt.
 
-- **Tên component:** Giao diện kéo thả Focus Mode
-  - **Loại component tham chiếu từ DESIGN.md:** product-mockup-card (các từ được đặt trong các badge-pill nhỏ bo tròn)
-  - **Vị trí:** Vùng B.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hệ thống ẩn đi các thành phần phụ, chỉ hiển thị cấu trúc câu hạt nhân (S+V+O). Học viên kéo thả các thẻ từ xáo trộn để xây dựng mô hình tâm trí cấu trúc câu chuẩn.
-
-- **Tên component:** Biểu mẫu Viết lại câu (Sentence Transformation Input)
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, height 44px, rounded-md 12px)
-  - **Vị trí:** Vùng B.
-  - **Trạng thái:** Mặc định, focus, error.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị câu gốc: "She doesn't study hard, so she will fail." và câu gợi ý viết lại: "If she...". Học viên gõ phần còn lại vào ô nhập liệu: "studies hard, she will pass the exam".
-
----
-
-### GIAI ĐOẠN 5: NGHE GÕ CHUNK NGỮ PHÁP (DICTATION STAGE)
-- **Tên component:** Ô nhập Dictation Chunk
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, text ink #0a0a0a, rounded-md 12px, border 1px hairline #e5e5e5, height 44px, font Inter size 16px, căn giữa)
-  - **Vị trí:** Vùng B.
-  - **Trạng thái:** Mặc định, focus, error (viền đỏ màu error #ef4444).
-  - **Dữ liệu hiển thị / hành vi:** Hệ thống phát audio của một chunk ngữ pháp (ví dụ: "If you need help"). Học viên gõ lại chính xác chunk vào ô trống. Nếu gõ sai lần 3 -> Hiển thị hộp đáp án mẫu cưỡng bức bắt buộc gõ lại chính xác để đi tiếp.
+#### CHẶNG 8 (HOÀN THÀNH): HOÀN THÀNH BÀI HỌC (COMPLETION & EXP / SRS)
+- **Khối chúc mừng (Completion Card):**
+  - Nền: Dải gradient rực rỡ `{gradients.morning-nebula}`. Bo góc `{rounded.xxl}` (32px).
+  - Hiệu ứng: Pulsing phát sáng `{elevation.active-glow}` kèm pháo hoa giấy mờ ảo.
+  - Mascot Cá Voi Xanh [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) (`160px`) nhún nhảy chậm.
+- **Nội dung phần thưởng:** Hiển thị badge cộng điểm *"EXP +15"* và thông báo *"Cấu trúc ngữ pháp đã được lưu vào danh sách SRS cá nhân!"*.
+- **Nút CTA chính:** Nút *"Hoàn thành bài học"* (`button-primary` style) dẫn quay về Unit Detail Page.
 
 ---
-
-### GIAI ĐOẠN 6: TỰ VIẾT CÂU CÁ HÂN HÓA & TRỢ LÝ Cá Voi Thông Thái (PERSONALIZED PRODUCTION STAGE)
-- **Tên component:** Khung viết câu ngữ pháp
-  - **Loại component tham chiếu từ DESIGN.md:** text-area (nền canvas #fffaf0, text ink #0a0a0a, border 1px hairline #e5e5e5, rounded-md 12px, padding 16px, chiều cao 100px)
-  - **Vị trí:** Vùng B.
-  - **Trạng thái:** Mặc định, focus, error.
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Hãy tự viết một câu mới sử dụng cấu trúc Câu điều kiện loại 1 kể về kế hoạch thực tế của bạn *". Placeholder: "Ví dụ: If I have free time this weekend, I will..."
-
----
-
-### VÙNG C: BẢNG gợi ý từ Cá Voi Cá Voi Thông Thái (Gợi ý từ Cá Voi Thông Thái PANEL)
-- **Tên component:** Bảng điều khiển Cá Voi Thông Thái (Cá Voi Thông Thái Panel Container)
-  - **Loại component tham chiếu từ DESIGN.md:** feature-card-ochre (nền brand-ochre #e8b94a nhạt, border-left 1px hairline #e5e5e5, padding 20px)
-  - **Vị trí:** Vùng C, hiển thị dọc bên phải Central Card khi chuyển sang Giai đoạn 6.
-  - **Trạng thái:** Ẩn mặc định, tự động trượt mở ra ở giai đoạn 6 khi có phản hồi lỗi từ AI.
-  - **Dữ liệu hiển thị / hành vi:** Chứa tiêu đề "Phân tích ngữ pháp AI", bôi đỏ vị trí lỗi sai của học viên (ví dụ: viết "If I will have time, I go" -> bôi đỏ "will have" và "go"), và đưa ra gợi ý nâng đỡ qua 3 vòng:
-    - *Vòng 1:* Báo lỗi cấu trúc (ví dụ: "Mệnh đề IF trong câu điều kiện loại 1 không dùng động từ khuyết thiếu will. Hãy sửa lại!").
-    - *Vòng 2:* Gợi ý công thức chi tiết (ví dụ: "Mệnh đề IF chia Hiện tại đơn: If + S + V(s/es). Mệnh đề chính dùng: will + V. Hãy sửa lại câu của bạn!").
-    - *Vòng 3:* Khóa ô nhập tự do, hiển thị câu mẫu khuyết của Admin để điền từ (ví dụ: "If I _____ (have) time, I will go. Hãy điền từ chia động từ thích hợp vào chỗ trống!").
-
----
-
-### GIAI ĐOẠN 7: HOÀN THÀNH BÀI HỌC (LESSON COMPLETION PAGE)
-- **Tên component:** Khối chúc mừng hoàn thành (Congratulatory Box)
-  - **Loại component tham chiếu từ DESIGN.md:** cta-band-illustrated (nền surface-soft #faf5e8, rounded-xl 24px, padding 40px)
-  - **Vị trí:** Vùng B.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** 
-    - Tiêu đề: "Chúc mừng! Bạn đã làm chủ cấu trúc này!" (display-sm 32px, màu ink #0a0a0a).
-    - Cập nhật EXP: "+15 EXP" (badge-pill success).
-    - Trạng thái SRS: "Cấu trúc 'Conditional Sentence Type 1' đã được lưu vào lịch ôn tập SRS cá nhân của bạn.".
-
-- **Tên component:** Nút "Hoàn thành bài học"
-  - **Loại component tham chiếu từ DESIGN.md:** button-primary (nền primary #0a0a0a, chữ màu on-primary #ffffff, height 44px, rounded-md 12px)
-  - **Vị trí:** Vùng D.
-  - **Trạng thái:** Mặc định, hover.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị text "Hoàn thành & Quay lại". Nhấp chuột để thoát màn hình và quay về Unit Detail Page (LN-02).
 
 ## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION DETAILS)
-- **Hành động: Giai đoạn 5 - Nhập chính tả và click "Kiểm tra"**
-  - **Luồng chính:** Học viên nghe audio chunk -> Nhập đúng vào ô nhập liệu -> Click nút "Kiểm tra" -> Hệ thống hiện viền xanh success (#22c55e), phát âm thanh báo đúng -> Central Card tự động chuyển sang Giai đoạn 6 sau 1 giây.
-  - **Luồng con / rẽ nhánh:** Học viên gõ sai -> Hệ thống báo đỏ viền ô nhập, phát lại audio -> Học viên gõ lại. Nếu gõ sai lần 3 -> Hiển thị hộp đáp án mẫu cưỡng bức để gõ lại đúng chính tả mới được đi tiếp.
-- **Hành động: Giai đoạn 6 - Tự viết câu và click "Nộp câu"**
-  - **Luồng chính:** Học viên đặt câu đúng ngữ pháp -> Click "Nộp câu" -> AI phân tích không thấy lỗi -> Nút nộp chuyển sang trạng thái thành công -> Tự động chuyển sang Giai đoạn 7 (Hoàn thành bài học).
-  - **Luồng con / rẽ nhánh (Phản hồi Cá Voi Thông Thái):**
-    - Học viên viết câu có lỗi -> Click "Nộp câu" -> Nút nộp tắt loading, Cá Voi Thông Thái Panel mở rộng ra bên phải.
-    - *Lần sửa 1:* AI bôi đỏ vị trí lỗi trên câu học viên và đưa ra gợi ý gợi mở ở Bảng Cá Voi. Học viên sửa câu -> Bấm nộp lại.
-    - *Lần sửa 2:* AI phát hiện vẫn lỗi -> Bôi đỏ lỗi và đưa ra gợi ý công thức trực tiếp ở Bảng Cá Voi. Học viên sửa lại câu chính xác và bấm nộp -> Chuyển sang Giai đoạn 7.
-    - *Lần sửa 3 (nếu vẫn sai):* Hệ thống tự động khóa ô đặt câu. Hiển thị câu mẫu của Admin bị khuyết động từ chia. Học viên điền động từ thích hợp vào ô khuyết -> Nhấn xác nhận -> Chuyển sang Giai đoạn 7.
-  - **Dữ liệu gửi lên / nhận về:**
-    - Gửi đi: `{ "userId": 105, "grammarId": 24, "userSentence": "If it will rain, I will stay home." }`
-    - Nhận về: `{ "isValid": false, "errorCount": 1, "errors": [{ "text": "will rain", "index": 7, "suggestion": "rains", "type": "tense_error" }], "hint": "Mệnh đề IF trong câu điều kiện loại 1 không dùng..." }`
+- **Hành động: Chọn nút "Nộp câu" ở Chặng 7**
+  - **Luồng:** Nộp câu $\rightarrow$ Nút chuyển loading $\rightarrow$ AI phân tích dữ liệu $\rightarrow$ Bảng AI bên phải trượt mở $\rightarrow$ AI hiển thị lỗi bôi màu đỏ `{colors.error}` hoặc báo thành công màu xanh `{colors.success}`.
+  - **Dữ liệu API gửi đi:** `POST /api/learning/grammar/validate-sentence`
+    - Payload: `{ "grammar_id": 12, "sentence": "If I will go, I call you." }`
+    - Response: `{ "isValid": false, "errors": [{"text": "will go", "type": "tense-error", "correction": "go"}], "suggestions": "In first conditional, the if-clause uses present simple." }`
 
-## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
-- **Trạng thái rỗng (empty state):** Không áp dụng.
-- **Trạng thái tải (loading state):** Khi nhấn "Nộp câu" ở Giai đoạn 6, AI đang phân tích cú pháp câu (khoảng 1-2 giây) -> Nút nộp chuyển sang trạng thái Loading (hiển thị spinner, khóa click), Bảng Cá Voi hiển thị các thanh xương skeleton nhấp nháy.
-- **Trạng thái lỗi (error state):** Khi API AI bị mất kết nối mạng -> Hiển thị thông báo đỏ ở chân Bảng Cá Voi: "Lỗi kết nối AI. Chuyển sang chế độ câu mẫu khuyết từ..." để học viên hoàn tất bài học, không bị kẹt lại.
-- **Trạng thái thành công (success state):** Giai đoạn 7 chúc mừng hoàn thành bài học, rơi confetti, cộng điểm EXP.
+## 6. CÁC TRẠNG THÁI ĐẶC BIỆT
+- **Trạng thái tải (Loading state):** Hiển thị loading spinner trên nút CTA, các trường nhập liệu tạm thời bị khóa.
+- **Trạng thái lỗi (Error state):** Các trường nhập sai hoặc gõ sai chính tả viền đỏ `{colors.error}`.
 
 ## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
-- **Đến từ màn hình nào trước đó?** Từ Unit Detail Page (LN-02) sau khi học viên nhấp chọn bài học Ngữ pháp và bấm nút "Bắt đầu học".
-- **Sau khi hoàn thành hành động, đi đến màn hình nào?** Chuyển hướng quay trở lại Unit Detail Page (LN-02) khi bấm nút "Hoàn thành bài học" ở Giai đoạn 7.
-- **Các màn hình liên quan khác:** LN-02.
+- **Đến từ:** [unit_detail_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/learner-app/unit_detail_page.md)
+- **Đi đến:** [unit_detail_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/learner-app/unit_detail_page.md) (sau khi hoàn thành).
 
-## 8. LƯU Ý THIẾT KẾ (DESIGN NOTES)
-- Nền sàn của trang sử dụng màu canvas sáng ấm (#fffaf0) đặc trưng.
-- Hộp chứa biểu mẫu học tập Central Card sử dụng phong cách `feature-card-cream` màu surface-card (#f5f0e0), các nút bấm bo góc rounded-md (12px) màu đen ink hoặc canvas hairline mỏng 1px (#e5e5e5).
-- Trong giai đoạn 6, Cá Voi Thông Thái Panel sử dụng màu vàng ấm nhạt của `feature-card-ochre` để tạo sự chú ý vừa phải cho học viên mà không gây cảm giác áp lực khi làm sai câu.
-- Theo Nguyên tắc Báo hiệu (Signaling Principle), các ký tự hoặc từ viết sai ngữ pháp được bôi màu đỏ sáng (#ef4444) kết hợp gạch wavy để thu hút tiêu điểm thị giác tức thì giúp học viên tự điều chỉnh lỗi sai.
-- Đảm bảo khoảng cách spacing-lg (24px) giữa câu ví dụ và các trường nhập để tránh chật chội. Touch target của các nút bấm và ô nhập là 44px.
+## 8. LƯU Ý THIẾT KẾ CHO LẬP TRÌNH VIÊN (DO'S AND DON'TS)
+- **NÊN:** Thiết kế các chuyển động trượt mở (slide-in) của AI Panel cực kỳ mượt mà (`0.3s` `ease-in-out`). Đảm bảo toàn bộ touch target trên di động tối thiểu là `44px`.
+- **KHÔNG ĐƯỢC:** Sử dụng màu sắc bên ngoài bộ quy chuẩn tokens. Bóng đổ đen vật lý bị cấm tuyệt đối, chỉ dùng glow màu theo quy chuẩn.
 
-
-
+## ÁNH XẠ DỮ LIỆU MOCK (MOCK DATA BINDING)
+- **Thông tin bài học (Lesson Header):** Liên kết với `lessons.unit_1[1]` (các trường `{name}`, `{category}`).
+- **Hành trình ngữ pháp quy nạp 7 chặng (7-Stage Exercises Data):**
+  - Chặng 1: Cặp câu tương phản -> `{lessons.unit_1[1].exercises.stage1_contrastivePairs}` (câu A, câu B, giải thích sắc thái).
+  - Chặng 2: Kiểm tra khái niệm -> `{lessons.unit_1[1].exercises.stage2_conceptChecking}` (câu hỏi MCQ kiểm tra hiểu nhanh).
+  - Chặng 3: Nhận diện khuôn mẫu -> `{lessons.unit_1[1].exercises.stage3_inductionDiscovery}` (câu ví dụ song song để phát hiện cấu trúc).
+  - Chặng 4: Công thức hạt nhân -> `{lessons.unit_1[1].exercises.stage4_focusFormula}` (công thức dạng S + Be + N/Adj, phân tích thành phần).
+  - Chặng 5: Nhận diện trong ngữ cảnh -> `{lessons.unit_1[1].exercises.stage5_inputProcessing}` (đoạn văn có các ô chọn thả be).
+  - Chặng 6: Viết câu có kiểm soát -> `{lessons.unit_1[1].exercises.stage6_controlledProduction}` (câu hỏi dịch, từ gợi ý, đáp án).
+  - Chặng 7: Đặt câu cá nhân hóa ZPD -> `{lessons.unit_1[1].exercises.stage7_zpdWritingFeedback}` (yêu cầu đặt câu, phản hồi gợi ý từ AI).

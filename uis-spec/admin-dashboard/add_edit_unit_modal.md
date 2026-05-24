@@ -1,134 +1,95 @@
 # MÀN HÌNH: ADD / EDIT UNIT MODAL (HỘP THOẠI THÊM/SỬA UNIT)
 
 ## 1. THÔNG TIN CHUNG
-- Tên màn hình: Add / Edit Unit Modal (Hộp thoại thêm/sửa Unit)
-- Mã use case liên quan: UC-02a, UC-02b
-- Mã luồng người dùng liên quan: Flow AD-FL-02 (Quản lý Unit)
-- Vai trò người dùng: Admin (Quản trị viên)
-- Vị trí trong sitemap: Trang chủ quản trị -> AD-01: Level List Page -> Click tên cấp độ -> AD-02: Unit List Page -> Modal AD-02-M1 (Thêm) / AD-02-M2 (Sửa)
+- **Tên màn hình:** Add / Edit Unit Modal (Hộp thoại thêm/sửa Unit)
+- **Mã use case liên quan:** UC-02a, UC-02b
+- **Mã luồng người dùng liên quan:** Flow AD-FL-02 (Quản lý Unit)
+- **Vai trò người dùng:** Admin (Quản trị viên)
+- **Vị trí trong sitemap:** Trang chủ quản trị $\rightarrow$ AD-01: Level List Page $\rightarrow$ Click tên cấp độ $\rightarrow$ AD-02: Unit List Page $\rightarrow$ Modal AD-02-M1 (Thêm mới) / AD-02-M2 (Chỉnh sửa)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Quản trị viên sử dụng hộp thoại nổi này để nhập thông tin thiết lập cho một Unit mới trong cấp độ học, hoặc chỉnh sửa thông tin của một Unit hiện có.
+Quản trị viên sử dụng hộp thoại nổi đè lên màn hình này để nhập thông tin cấu hình cho một Unit mới (ví dụ: *Greetings, Family, Daily Routines* theo `level_built.md`) thuộc một Cấp độ học cụ thể, hoặc chỉnh sửa thông tin của một Unit hiện có.
 
-## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Hộp thoại lớp phủ căn giữa (Centered Modal Overlay) đè lên màn hình danh sách Unit AD-02.
-- Các vùng chính trên màn hình:
-  - Vùng A: Lớp nền tối mờ (Overlay Backdrop) che phủ và làm mờ màn hình AD-02 phía sau.
-  - Vùng B: Tiêu đề hộp thoại và nút hủy nhanh (Header của Modal).
-  - Vùng C: Thân hộp thoại (Form Body) chứa các trường nhập liệu dạng biểu mẫu dọc 1 cột.
-  - Vùng D: Chân hộp thoại (Footer của Modal) chứa nhóm nút hành động lưu và hủy.
-- Kích thước / Grid tham khảo:
-  - Chiều rộng cố định của hộp thoại: 560px.
-  - Chiều cao tự động co giãn theo nội dung form.
-  - Khoảng cách padding trong modal: spacing-xl (32px).
-  - Các trường nhập liệu được xếp dọc, khoảng cách giữa các trường: spacing-md (16px).
+## 3. BỐ CỤC TỔNG THỂ (LAYOUT ARCHITECTURE)
+- **Triết lý bố cục:** Hộp thoại lớp phủ nổi căn giữa (Centered Modal Overlay) đè lên giao diện màn hình danh sách Unit `AD-02`.
+- **Phân bổ các vùng chính (Layout Zones):**
+  - **Zone 1: Overlay Backdrop (Vùng A):** Lớp nền tối mờ che phủ toàn bộ màn hình phía dưới.
+  - **Zone 2: Modal Header (Vùng B):** Tiêu đề hộp thoại và nút đóng (X).
+  - **Zone 3: Form Body (Vùng C):** Thân hộp thoại chứa các trường nhập liệu sắp xếp dọc một cột.
+  - **Zone 4: Modal Actions Footer (Vùng D):** Chân hộp thoại chứa cặp nút Lưu/Hủy căn lề phải.
+- **Kích thước tham khảo:**
+  - Chiều rộng cố định của hộp thoại: `560px`.
+  - Chiều cao tự động co giãn theo form nhập liệu.
+  - Khoảng cách padding trong modal: `{spacing.xl}` (32px).
+  - Khoảng cách dọc giữa các trường nhập liệu: `{spacing.md}` (16px).
 
-## 4. THÀNH PHẦN GIAO DIỆN (UI COMPONENTS)
-- **Tên component:** Lớp nền tối mờ (Backdrop)
-  - **Loại component tham chiếu từ DESIGN.md:** overlay / backdrop (màu tối navy nhạt có độ mờ thấp)
-  - **Vị trí:** Vùng A, che phủ toàn màn hình.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Nhấp chuột ra ngoài vùng modal sẽ đóng modal tương tự nút "Hủy".
+---
 
-- **Tên component:** Tiêu đề hộp thoại
-  - **Loại component tham chiếu từ DESIGN.md:** title-lg (font Inter size 22px, weight 600, màu ink #0a0a0a)
-  - **Vị trí:** Vùng B, góc trên bên trái của hộp thoại.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị "Thêm Unit mới" (đối với Modal AD-02-M1) hoặc "Chỉnh sửa Unit" (đối với Modal AD-02-M2).
+## 4. THÀNH PHẦN GIAO DIỆN CHI TIẾT (UI COMPONENTS)
 
-- **Tên component:** Trường Số thứ tự Unit (Unit Sequence)
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền surface-strong #ebe6d6, màu chữ muted #6a6a6a, border 1px hairline #e5e5e5, rounded-md 12px, height 44px, chế độ read-only)
-  - **Vị trí:** Vùng C, trường nhập liệu đầu tiên.
-  - **Trạng thái:** Disabled / Read-only (không thể chỉnh sửa, con trỏ chuột dạng blocked).
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Số thứ tự Unit". Tự động hiển thị số thứ tự tăng dần tiếp theo (ví dụ: "03" đối với thêm mới) hoặc số thứ tự hiện tại của Unit đó đối với chỉnh sửa.
+### 4.1 Lớp nền tối mờ (Overlay Backdrop - Vùng A)
+- **Đặc tả Visual:**
+  - Nền overlay: Tông màu tối `{colors.dark-floor}` (`#1C1B2E`) ở mức `50%` opacity làm backdrop.
+  - Hiệu ứng: `backdrop-filter: blur(8px)` kính mờ xuyên thấu.
+  - Hành vi: Nhấp chuột ra ngoài vùng hộp thoại sẽ đóng modal tương đương hành động "Hủy".
 
-- **Tên component:** Trường nhập Tên Unit (Unit Name)
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, màu chữ ink #0a0a0a, border 1px hairline #e5e5e5, rounded-md 12px, height 44px)
-  - **Vị trí:** Vùng C, trường nhập thứ hai.
-  - **Trạng thái:** 
-    - Mặc định: viền màu hairline, placeholder hiển thị "Ví dụ: Unit 1: Pronoun Basics..." màu muted-soft (#9a9a9a).
-    - Focus: viền đổi sang màu primary (#0a0a0a) 1.5px.
-    - Error: viền đỏ màu error (#ef4444).
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Tên Unit *". Đây là trường bắt buộc.
+### 4.2 Thẻ Modal chính & Tiêu đề (Modal Container & Header - Vùng B)
+- **Đặc tả Visual:**
+  - Nền hộp thoại: `{colors.surface}` (`#FFFFFF`).
+  - Bo góc lớn: `{rounded.xl}` (24px).
+  - Viền mờ: `1px solid rgba(155, 93, 224, 0.15)`.
+  - Hiệu ứng nâng: `{elevation.hover-glow}` (glow phát quang mạnh).
+- **Tiêu đề:**
+  - Dạng chữ `{typography.title-lg}` (22px, weight 600, màu `{colors.text-primary}`).
+  - Hiển thị: *"Thêm Unit mới"* (đối với Modal thêm) hoặc *"Chỉnh sửa Unit"* (đối với Modal sửa).
 
-- **Tên component:** Trường nhập Chủ đề lớn (Major Theme)
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, màu chữ ink #0a0a0a, border 1px hairline #e5e5e5, rounded-md 12px, height 44px)
-  - **Vị trí:** Vùng C, trường nhập thứ ba.
-  - **Trạng thái:** Mặc định, focus, error.
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Chủ đề lớn *". Placeholder: "Ví dụ: Đời sống thường ngày / Giao tiếp công sở...". Đây là trường bắt buộc.
+### 4.3 Thân biểu mẫu nhập liệu (Form Body - Vùng C)
+Các trường nhập liệu đều dạng `text-input`, chiều cao `44px`, bo góc `{rounded.lg}` (16px). Viền mặc định `1px solid rgba(155, 93, 224, 0.2)`. Focus viền đổi sang màu `{colors.primary}` (`#4E56C0`) kèm `{elevation.active-glow}`.
+- **Trường Số thứ tự Unit (read-only):**
+  - Đặc tả: Nền nhạt `{colors.light-accent}` (`#FDCFFA`) ở mức 15% opacity, chữ màu `{colors.text-secondary}`. Con trỏ dạng blocked.
+  - Nội dung: Tự động hiển thị sequence (ví dụ: *"05"* đối với tạo mới, hoặc sequence hiện tại của Unit đối với chỉnh sửa).
+- **Trường nhập Tên Unit:** Nhãn *"Tên Unit *"* (dấu sao đỏ bắt buộc). Nền `{colors.canvas}` (`#F9F7FE`). Placeholder: *"Ví dụ: Greetings & Introductions..."*.
+- **Trường nhập Chủ đề lớn:** Nhãn *"Chủ đề lớn *"* (bắt buộc). Nền `{colors.canvas}`. Placeholder: *"Ví dụ: Greetings / Everyday Work..."*.
+- **Trường nhập Chủ điểm từ vựng:** Nhãn *"Chủ điểm từ vựng"*. Placeholder: *"Ví dụ: Chào hỏi, nghề nghiệp..."*.
+- **Trường nhập Chủ điểm ngữ pháp:** Nhãn *"Chủ điểm ngữ pháp"*. Placeholder: *"Ví dụ: Present Simple / Passive Voice..."*.
+- **Trường chọn Kỹ năng thi áp dụng:**
+  - Loại: Dropdown/Select cao `44px`. Nhãn *"Kỹ năng thi áp dụng"*. Lựa chọn: *"IELTS"* hoặc *"TOEIC"*.
 
-- **Tên component:** Trường nhập Chủ điểm từ vựng (Vocabulary Topic)
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, màu chữ ink #0a0a0a, border 1px hairline #e5e5e5, rounded-md 12px, height 44px)
-  - **Vị trí:** Vùng C, trường nhập thứ tư.
-  - **Trạng thái:** Mặc định, focus.
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Chủ điểm từ vựng". Placeholder: "Ví dụ: Family / Work / Food...". Trường không bắt buộc.
+### 4.4 Chân nút hành động (Modal Actions Footer - Vùng D)
+- **Nút "Lưu" / "Lưu thay đổi":**
+  - Style `button-primary` nền `{colors.primary}` (`#4E56C0`), chữ trắng, cao `44px`, bo góc `{rounded.lg}` (16px).
+  - Hiệu ứng: `{elevation.active-glow}`. Hover tỏa sáng mạnh `{elevation.hover-glow}`.
+- **Nút "Hủy":**
+  - Style `button-secondary` nền `{colors.surface}`, viền mờ, chữ `{colors.primary}`, cao `44px`, bo góc `{rounded.lg}`.
 
-- **Tên component:** Trường nhập Chủ điểm ngữ pháp (Grammar Topic)
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, màu chữ ink #0a0a0a, border 1px hairline #e5e5e5, rounded-md 12px, height 44px)
-  - **Vị trí:** Vùng C, trường nhập thứ năm.
-  - **Trạng thái:** Mặc định, focus.
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Chủ điểm ngữ pháp". Placeholder: "Ví dụ: Present Simple / Passive Voice...". Trường không bắt buộc.
-
-- **Tên component:** Trường chọn Kỹ năng thi (Test Skill Target)
-  - **Loại component tham chiếu từ DESIGN.md:** dropdown / select (nền canvas #fffaf0, màu chữ ink #0a0a0a, border 1px hairline #e5e5e5, rounded-md 12px, height 44px)
-  - **Vị trí:** Vùng C, trường nhập thứ sáu.
-  - **Trạng thái:** Mặc định, focus.
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Kỹ năng thi áp dụng". Cho phép chọn một trong hai tùy chọn: "IELTS" hoặc "TOEIC".
-
-- **Tên component:** Nút "Lưu" / "Lưu thay đổi"
-  - **Loại component tham chiếu từ DESIGN.md:** button-primary (nền primary #0a0a0a, chữ màu on-primary #ffffff, font Inter size 14px, weight 600, rounded-md 12px, height 44px)
-  - **Vị trí:** Vùng D, góc dưới bên phải.
-  - **Trạng thái:**
-    - Mặc định: nền đen, chữ trắng.
-    - Hover: nền chuyển sang xám đen sẫm.
-    - Loading: xoay spinner trắng ở giữa, vô hiệu hóa nút bấm.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị "Lưu" (Modal thêm) hoặc "Lưu thay đổi" (Modal sửa). Nhấn để gửi dữ liệu về hệ thống.
-
-- **Tên component:** Nút "Hủy"
-  - **Loại component tham chiếu từ DESIGN.md:** button-secondary (nền canvas #fffaf0, border 1px hairline #e5e5e5, chữ ink #0a0a0a, rounded-md 12px, height 44px)
-  - **Vị trí:** Vùng D, nằm cạnh nút Lưu về bên trái.
-  - **Trạng thái:** Mặc định, hover.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị chữ "Hủy". Nhấn để đóng modal, bỏ qua dữ liệu đang nhập.
-
-- **Tên component:** Nhãn thông báo lỗi (Error Message)
-  - **Loại component tham chiếu từ DESIGN.md:** body-sm (màu error #ef4444, font Inter weight 500, size 13px)
-  - **Vị trí:** Vùng C, hiển thị dưới viền đỏ của trường bị lỗi.
-  - **Trạng thái:** Ẩn mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị thông điệp "Tên Unit và Chủ đề lớn không được để trống!".
+---
 
 ## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION DETAILS)
-- **Hành động:** Nhấp chuột vào nút "Lưu" hoặc "Lưu thay đổi"
-  - **Luồng chính:**
-    1. Admin điền đầy đủ các trường Tên Unit và Chủ đề lớn.
-    2. Click nút "Lưu".
-    3. Nút Lưu kích hoạt trạng thái Loading.
-    4. Hệ thống thực hiện gửi yêu cầu lưu qua API.
-    5. API phản hồi thành công.
-    6. Đóng Modal.
-    7. Màn hình AD-02 hiển thị Toast thông báo thành công và tự động tải lại danh sách Unit hiển thị thông tin mới.
-  - **Luồng con / rẽ nhánh:**
-    - *Trường hợp thiếu Tên Unit hoặc Chủ đề lớn:* Hệ thống ngăn chặn nộp form, giữ nguyên Modal. Bôi đỏ viền trường bị thiếu (#ef4444) và hiển thị thông báo lỗi "Tên Unit và Chủ đề lớn không được để trống" ngay bên dưới trường tương ứng.
-  - **Dữ liệu gửi lên / nhận về:**
-    - Gửi đi: ` { "id": 12 (chỉ đối với sửa), "name": "Unit 1: Pronouns", "theme": "Daily Life", "vocabularyTopic": "Family", "grammarTopic": "Personal Pronouns", "targetSkill": "IELTS" }`
-    - Nhận về: `{ "success": true, "data": { "id": 12, ... } }`
-- **Hành động:** Nhấp nút "Hủy" hoặc nhấp ngoài vùng Modal
-  - **Luồng chính:** Hệ thống đóng Modal -> Quay lại màn hình AD-02 -> Mọi dữ liệu đang nhập dở bị hủy bỏ, danh sách Unit giữ nguyên.
+- **Hành động: Click nút "Lưu" hoặc "Lưu thay đổi"**
+  - Admin click nút Lưu $\rightarrow$ Hệ thống kiểm tra dữ liệu:
+    - *Nhánh thiếu Tên Unit hoặc Chủ đề lớn (Rẽ nhánh E-1):* Bôi đỏ viền ô nhập bị lỗi màu `{colors.error}` (`#EF4444`) kèm dòng chữ lỗi đỏ: *"Tên Unit và Chủ đề lớn không được để trống!"* ngay dưới trường.
+    - *Nhánh hợp lệ:* Nút Lưu hiển thị Loading (xoay spinner mờ, khóa click) $\rightarrow$ Gọi API lưu trữ dữ liệu $\rightarrow$ Thành công $\rightarrow$ Đóng Modal $\rightarrow$ Quay về màn danh sách `AD-02` $\rightarrow$ Hiện Toast màu xanh lá `{colors.success}`: *"Lưu thông tin Unit thành công!"* $\rightarrow$ Tự động làm mới danh sách Unit.
+  - **API Lưu Unit:** `POST /api/units/save`
+    - Payload: `{ "id": 12 (nếu là sửa), "name": "Greetings", "theme": "Daily Life", "vocabularyTopic": "Greetings", "grammarTopic": "Present Simple", "targetSkill": "IELTS" }`
+    - Response: `{ "success": true }`
+
+---
 
 ## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
-- **Trạng thái rỗng (empty state):** Đối với Modal thêm mới, các trường nhập liệu (trừ Số thứ tự) để trống và hiển thị placeholder xám. Đối với Modal sửa, các trường được điền sẵn dữ liệu lấy từ Unit được chọn.
-- **Trạng thái tải (loading state):** Khi đang gửi dữ liệu lên máy chủ, nút Lưu chuyển sang trạng thái Loading (hiển thị spinner xoay và vô hiệu hóa click) để tránh nộp form hai lần.
-- **Trạng thái lỗi (error state):** Khi API báo lỗi dữ liệu đầu vào hoặc lỗi kết nối, viền ô nhập bị lỗi chuyển sang màu đỏ và hiển thị text thông báo lỗi đỏ (#ef4444) để người dùng sửa đổi.
+- **Trạng thái khởi tạo (Empty / Fill State):** Ở Modal thêm mới, các trường nhập mặc định trống kèm placeholder. Ở Modal chỉnh sửa, hệ thống tự động điền sẵn các giá trị cấu hình cũ của Unit được chọn vào form.
+- **Trạng thái tải (Loading State):** Khi bấm nút Lưu, nút chuyển sang loading và vô hiệu hóa click để tránh gửi trùng lặp.
+
+---
 
 ## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
-- **Đến từ màn hình nào trước đó?** Từ màn hình danh sách Unit AD-02 sau khi Admin click nút "Thêm Unit mới" hoặc nút "Sửa" trên thẻ Unit.
-- **Sau khi hoàn thành hành động, đi đến màn hình nào?** Đóng Modal và quay trở lại màn hình AD-02.
-- **Các màn hình liên quan khác:** AD-02.
+- **Đến từ:** [unit_list_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/unit_list_page.md) sau khi click "Thêm Unit mới" hoặc click "Sửa" trên thẻ Unit.
+- **Đi đến:** Quay lại [unit_list_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/unit_list_page.md) sau khi đóng modal.
 
-## 8. LƯU Ý THIẾT KẾ (DESIGN NOTES)
-- Nền hộp thoại sử dụng màu surface-card (#f5f0e0), viền bao quanh được bo tròn góc bo lớn rounded-lg (16px) hoặc rounded-xl (24px) để tạo cảm giác mềm mại thân thiện giống thiết kế Clay.
-- Theo Nguyên tắc Báo hiệu (Signaling Principle), các nhãn lỗi có màu đỏ sáng (#ef4444) nổi bật trên nền vàng ấm giúp Admin dễ nhận biết lỗi sai mà không bị nhầm lẫn.
-- Khoảng cách giữa các trường nhập liệu là spacing-md (16px) đảm bảo không gian thoáng và tránh gây quá tải nhận thức cho người dùng.
-- Chiều cao các nút hành động là 44px đạt touch target chuẩn mực.
+---
 
+## 8. LƯU Ý THIẾT KẾ CHO LẬP TRÌNH VIÊN (DO'S AND DON'TS)
+- **NÊN:** Thiết kế khoảng cách dọc giữa các trường nhập liệu cân đối `{spacing.md}` (16px) và các nhãn lỗi đỏ rõ ràng để Admin dễ quan sát và sửa đổi.
+- **KHÔNG ĐƯỢC:** Sử dụng bóng đổ xám đen thô ráp. Chỉ sử dụng hiệu ứng phát sáng mờ `{elevation.hover-glow}` với màu nhạt để tạo cảm giác hộp thoại đang lơ lửng bồng bềnh trong vũ trụ của DiveVerse.
 
-
+## ÁNH XẠ DỮ LIỆU MOCK (MOCK DATA BINDING)
+- **Biểu mẫu chỉnh sửa Unit (Unit Add/Edit Form Fields):** Liên kết với các trường dữ liệu của Unit được chọn trong mảng `levels[0].units[0]` để điền sẵn thông tin: `{sequence}`, `{name}`, `{theme}`, `{vocabularyTopic}`, `{grammarTopic}`, `{targetSkill}`.

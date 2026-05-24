@@ -1,119 +1,97 @@
 # MÀN HÌNH: LESSON LIST PAGE (MÀN HÌNH DANH SÁCH BÀI HỌC THEO UNIT)
 
 ## 1. THÔNG TIN CHUNG
-- Tên màn hình: Lesson List Page (Màn hình danh sách bài học theo Unit)
-- Mã use case liên quan: UC-03a, UC-03b, UC-03c
-- Mã luồng người dùng liên quan: Flow AD-FL-03 (Cấu hình Bài học và Luyện tập)
-- Vai trò người dùng: Admin (Quản trị viên)
-- Vị trí trong sitemap: Trang chủ quản trị -> AD-01: Level List Page -> Click cấp độ -> AD-02: Unit List Page -> Click Unit -> AD-03: Lesson List Page (URL: /admin/units/{unit_id}/lessons)
+- **Tên màn hình:** Lesson List Page (Màn hình danh sách bài học theo Unit)
+- **Mã use case liên quan:** UC-03a, UC-03b, UC-03c
+- **Mã luồng người dùng liên quan:** Flow AD-FL-03 (Cấu hình Bài học và Luyện tập)
+- **Vai trò người dùng:** Admin (Quản trị viên)
+- **Vị trí trong sitemap:** Trang chủ quản trị $\rightarrow$ AD-01: Level List Page $\rightarrow$ Click cấp độ $\rightarrow$ AD-02: Unit List Page $\rightarrow$ Click Unit $\rightarrow$ AD-03: Lesson List Page (URL: `/admin/units/{unit_id}/lessons`)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Quản trị viên sử dụng màn hình này để quản lý danh sách các bài học (Từ vựng, Ngữ pháp, Nghe, Nói, Đọc, Viết) trong một Unit cụ thể, xem trạng thái cấu hình của từng bài học và kích hoạt thao tác cấu hình mới, chỉnh sửa hoặc xóa bỏ cấu hình bài tập của bài học đó.
+Quản trị viên sử dụng màn hình này để quản lý danh sách 6 bài học bắt buộc (Từ vựng, Ngữ pháp, Nghe, Nói, Đọc, Viết) trong một Unit cụ thể. Admin có thể xem trạng thái cấu hình của từng bài học (Đã cấu hình / Chưa cấu hình) và kích hoạt các trang cấu hình chi tiết bài tập, hoặc xóa sạch cấu hình bài tập cũ để làm lại từ đầu.
 
-## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Bố cục cột kép (Sidebar cố định bên trái chiếm 260px và Vùng nội dung chính cuộn dọc bên phải chiếm phần còn lại).
-- Các vùng chính trên màn hình:
-  - Vùng A: Sidebar điều hướng (Fixed Navigation Sidebar) hiển thị danh mục quản trị.
-  - Vùng B: Thanh đầu trang (Header / Breadcrumbs bar) hiển thị đường dẫn thư mục và thông tin tài khoản admin.
-  - Vùng C: Thanh thông tin Unit (Unit Info Banner) hiển thị Tên Unit, Chủ đề lớn và các thống kê tóm tắt.
-  - Vùng D: Lưới danh sách các Bài học (Lesson Grid Layout) hiển thị thông tin và trạng thái cấu hình bài học dưới dạng các thẻ.
-- Kích thước / Grid tham khảo:
-  - Vùng nội dung chính có chiều rộng tối đa 1280px.
-  - Lưới bài học sử dụng lưới 3 cột ở màn hình desktop (3-up Grid), tự động co về 2 cột ở tablet và 1 cột ở mobile.
-  - Khoảng cách spacing-lg (24px) giữa các phần tử lưới.
+## 3. BỐ CỤC TỔNG THỂ (LAYOUT ARCHITECTURE)
+- **Triết lý bố cục:** Bố cục cột kép gồm Sidebar cố định bên trái (`260px`) và Vùng nội dung chính cuộn dọc bên phải.
+- **Màu nền chung:** Nền trang chính sử dụng tông màu `{colors.canvas}` (`#F9F7FE`) phối dải chuyển màu mờ `{gradients.atmosphere-haze}`.
+- **Phân bổ các vùng chính (Layout Zones):**
+  - **Zone 1: Left Navigation Sidebar (Vùng A):** Sidebar điều hướng cố định bên trái.
+  - **Zone 2: Header Breadcrumbs Bar (Vùng B):** Thanh dẫn thư mục và thông tin tài khoản admin.
+  - **Zone 3: Unit Info Banner (Vùng C):** Banner thông tin Unit hiển thị tên Unit, chủ đề, kỹ năng thi quy chiếu và thống kê tiến độ cấu hình bài học.
+  - **Zone 4: Lesson Cards Grid (Vùng D):** Lưới 6 thẻ bài học tương ứng với 6 kỹ năng cốt lõi.
+- **Kích thước tham khảo:**
+  - Chiều rộng tối đa của vùng nội dung chính bên phải: `1200px`.
+  - Lưới bài học: Sử dụng lưới 3 cột ở màn hình desktop (3-up Grid), tự động co về 2 cột ở tablet và 1 cột ở mobile.
+  - Khoảng cách giữa các thẻ bài học: `{spacing.lg}` (24px).
 
-## 4. THÀNH PHẦN GIAO DIỆN (UI COMPONENTS)
-- **Tên component:** Thanh dẫn Breadcrumbs
-  - **Loại component tham chiếu từ DESIGN.md:** body-sm (màu muted #6a6a6a)
-  - **Vị trí:** Vùng B (Header), góc trên bên trái.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị dòng chữ: "Admin / Lộ trình học / {Tên Cấp độ} / {Tên Unit} / Danh sách bài học". Admin có thể click vào các liên kết để quay lại màn hình AD-01 hoặc AD-02.
+---
 
-- **Tên component:** Thẻ Banner thông tin Unit
-  - **Loại component tham chiếu từ DESIGN.md:** feature-card-ochre (nền brand-ochre #e8b94a, chữ màu ink #0a0a0a, rounded-xl 24px, padding 32px)
-  - **Vị trí:** Vùng C.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị Tiêu đề "Chi tiết bài học của Unit: {Tên Unit}" (Plain Black, size 24px, weight 500), kèm các tag nhỏ màu canvas ghi: "Chủ đề: {Chủ đề lớn}" và "Kỹ năng: {IELTS / TOEIC}".
+## 4. THÀNH PHẦN GIAO DIỆN CHI TIẾT (UI COMPONENTS)
 
-- **Tên component:** Lưới thẻ Bài học (Lesson Cards Grid)
-  - **Loại component tham chiếu từ DESIGN.md:** grid 3-up (desktop)
-  - **Vị trí:** Vùng D.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Chứa 6 thẻ tương đương 6 bài học bắt buộc trong mỗi Unit: Từ vựng, Ngữ pháp, Luyện nghe, Luyện nói, Luyện đọc, Luyện viết.
+### 4.1 Thanh Breadcrumbs điều hướng đầu trang (Breadcrumbs Header - Vùng B)
+- **Breadcrumbs:** Dòng chữ dạng `{typography.caption}` (12px), màu `{colors.text-secondary}`. Hiển thị: *"Admin / Lộ trình học / {Tên Cấp độ} / {Tên Unit} / Danh sách bài học"*.
+- Admin có thể click vào các liên kết để quay lại màn hình `AD-01` hoặc danh sách Unit `AD-02`.
 
-- **Tên component:** Thẻ bài học (Lesson Card Item)
-  - **Loại component tham chiếu từ DESIGN.md:** feature-card-cream (nền surface-card #f5f0e0, border 1px hairline #e5e5e5, rounded-xl 24px, padding 24px)
-  - **Vị trí:** Vùng D, nằm trong lưới.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Mỗi thẻ bài học hiển thị:
-    - Loại kỹ năng (dưới dạng Badge: Từ vựng, Ngữ pháp, Nghe, Nói, Đọc, Viết).
-    - Tên bài học do admin cấu hình hoặc mặc định (ví dụ: "Vocabulary: Everyday Objects").
-    - Trạng thái cấu hình (Badge: "Đã cấu hình" màu success hoặc "Chưa cấu hình" màu muted).
-    - Bộ nút hành động nằm dưới cùng của thẻ bài học.
+### 4.2 Thẻ Banner thông tin Unit (Unit Info Banner - Vùng C)
+- **Đặc tả Visual:**
+  - Nền banner: `{colors.surface}` (`#FFFFFF`).
+  - Bo góc lớn: `{rounded.xxl}` (32px). Padding: `{spacing.xl}` (32px).
+  - Viền trái dày `6px` màu chủ đạo `{colors.primary}` (`#4E56C0`) để tạo điểm nhấn chuyên nghiệp.
+  - Hiệu ứng nâng: `{elevation.glow}` (soft glow nhẹ).
+- **Nội dung:**
+  - **Tiêu đề Unit:** Dạng chữ `{typography.title-lg}` (24px, Manrope, weight 700), màu `{colors.text-primary}`. Hiển thị: *"Chi tiết bài học của Unit: {Tên Unit}"*.
+  - **Nhãn thông tin bổ trợ:** Hiển thị các badge viên thuốc `{rounded.pill}` nền nhạt `{colors.light-accent}` (`#FDCFFA`), chữ màu `{colors.primary}` ghi: *"Chủ đề: {Chủ đề lớn}"*, *"Kỹ năng thi: {IELTS / TOEIC}"*.
+  - **Mascot nhỏ cổ vũ:** Ảnh Cá Voi Vũ Trụ [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) (`60px x 60px`) lấp ló góc phải banner để mang lại nguồn năng lượng vui tươi.
 
-- **Tên component:** Nhãn kỹ năng (Lesson Category Badge)
-  - **Loại component tham chiếu từ DESIGN.md:** badge-pill (nền canvas #fffaf0, rounded-pill, font caption size 13px, weight 600)
-  - **Vị trí:** Vùng D, góc trên bên trái trong mỗi thẻ bài học.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị văn bản: "VOCABULARY", "GRAMMAR", "LISTENING", "SPEAKING", "READING", hoặc "WRITING".
+### 4.3 Lưới thẻ bài học (Lesson Cards Grid - Vùng D)
+- **Thẻ bài học (Lesson Card Item):**
+  - Nền thẻ: `{colors.surface}` (`#FFFFFF`).
+  - Bo góc: `{rounded.xl}` (24px).
+  - Viền mờ: `1px solid rgba(155, 93, 224, 0.1)`. Padding: `{spacing.lg}` (24px).
+  - Hiệu ứng nâng: Mặc định `{elevation.glow}`. Hover tỏa sáng `{elevation.hover-glow}`.
+  - **Thành phần bên trong thẻ:**
+    - **Nhãn loại kỹ năng (Category Badge):** Badge viên thuốc `{rounded.pill}` ở góc trái trên, nền nhạt `{colors.light-accent}` (`#FDCFFA`), chữ màu `{colors.primary}`. Hiển thị: *"VOCABULARY"*, *"GRAMMAR"*, *"LISTENING"*, *"SPEAKING"*, *"READING"*, *"WRITING"*.
+    - **Nhãn trạng thái cấu hình (Status Badge):**
+      - *Đã cấu hình:* Nền nhạt `{colors.success}` ở mức 10% opacity, chữ màu `{colors.success}` (`#22C55E`), ghi *"Đã cấu hình"*.
+      - *Chưa cấu hình:* Nền nhạt `{colors.text-secondary}` ở mức 10% opacity, chữ màu `{colors.text-secondary}` (`#5A5A7A`), ghi *"Chưa cấu hình"*.
+    - **Tiêu đề bài học:** Dạng chữ `{typography.title-md}` (18px, weight 600, màu `{colors.text-primary}`). Hiển thị tên bài học cụ thể (ví dụ: *"Vocabulary: Greetings & Introductions"*).
+    - **Cụm nút điều khiển chân thẻ (chiều cao nút 44px):**
+      - *Trường hợp Chưa cấu hình:* Hiển thị 1 nút "Cấu hình bài học" trải rộng 100%. Style `button-primary` nền `{colors.primary}` (`#4E56C0`), chữ trắng, có `{elevation.active-glow}`. Bấm vào chuyển hướng sang trang soạn thảo `AD-03-Form`.
+      - *Trường hợp Đã cấu hình:* Hiển thị 2 nút xếp ngang:
+        - Nút "Sửa": Style `button-secondary` (rộng 48%), viền mờ, chữ `{colors.primary}`. Bấm vào chuyển hướng sang trang soạn thảo `AD-03-Form` ở chế độ chỉnh sửa.
+        - Nút "Xóa cấu hình": Style liên kết văn bản trơn (rộng 48%), chữ màu `{colors.error}` (`#EF4444`) (weight 600). Bấm vào kích hoạt luồng xóa cấu hình `UC-03c`.
 
-- **Tên component:** Nhãn trạng thái cấu hình (Configuration Status Badge)
-  - **Loại component tham chiếu từ DESIGN.md:** badge-pill (nền thay đổi theo trạng thái, rounded-pill, font caption size 12px)
-  - **Vị trí:** Vùng D, góc trên bên phải trong mỗi thẻ bài học.
-  - **Trạng thái:**
-    - Trạng thái đã cấu hình: nền success nhẹ, chữ success sẫm (#22c55e), text "Đã cấu hình".
-    - Trạng thái chưa cấu hình: nền surface-strong #ebe6d6, chữ muted #6a6a6a, text "Chưa cấu hình".
-
-- **Tên component:** Tiêu đề bài học trên thẻ
-  - **Loại component tham chiếu từ DESIGN.md:** title-md (font Inter 18px, weight 600, màu ink #0a0a0a)
-  - **Vị trí:** Vùng D, ở giữa thẻ bài học.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị tên bài học (ví dụ: "Bài học từ vựng Unit 1" hoặc "Luyện đọc hiểu đoạn văn ngắn").
-
-- **Tên component:** Nút "Cấu hình" (dành cho bài chưa cấu hình)
-  - **Loại component tham chiếu từ DESIGN.md:** button-primary (nền primary #0a0a0a, chữ màu on-primary #ffffff, rounded-md 12px, height 44px, width 100%)
-  - **Vị trí:** Vùng D, ở đáy thẻ bài học chưa cấu hình.
-  - **Trạng thái:** Mặc định, hover.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị text "Cấu hình bài học". Nhấp vào để chuyển hướng đến màn hình soạn thảo cấu hình AD-03-Form.
-
-- **Tên component:** Nút "Sửa cấu hình" (dành cho bài đã cấu hình)
-  - **Loại component tham chiếu từ DESIGN.md:** button-secondary (nền canvas #fffaf0, border 1px hairline #e5e5e5, chữ ink #0a0a0a, rounded-md 12px, height 44px, width 48% của vùng chứa nút)
-  - **Vị trí:** Vùng D, góc dưới bên trái thẻ bài học đã cấu hình.
-  - **Trạng thái:** Mặc định, hover.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị chữ "Sửa". Nhấn vào để chuyển hướng đến màn hình chỉnh sửa AD-03-Form với các dữ liệu cũ đã được tải sẵn.
-
-- **Tên component:** Nút "Xóa cấu hình" (dành cho bài đã cấu hình)
-  - **Loại component tham chiếu từ DESIGN.md:** button-text-link (màu error #ef4444, font Inter 14px, weight 600, padding dọc đảm bảo touch target 44px)
-  - **Vị trí:** Vùng D, góc dưới bên phải thẻ bài học đã cấu hình.
-  - **Trạng thái:** Mặc định, hover.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị chữ "Xóa cấu hình". Nhấn vào để kích hoạt luồng xóa cấu hình bài học (UC-03c).
+---
 
 ## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION DETAILS)
-- **Hành động:** Nhấp nút "Cấu hình" hoặc "Sửa cấu hình"
-  - **Luồng chính:** Admin nhấp chuột vào nút -> Chuyển hướng trình duyệt đến màn hình AD-03-Form (Lesson Configuration Page) của bài học đã chọn.
-- **Hành động:** Nhấp nút "Xóa cấu hình"
-  - **Luồng chính:** Hệ thống kiểm tra điều kiện xóa (Bài học này đã có dữ liệu làm bài và điểm số của học viên hay chưa):
-    - *Nhánh bài học đã có học viên học:* Hệ thống ngăn chặn xóa và hiển thị cảnh báo lỗi Toast màu đỏ: "Không thể xóa cấu hình vì bài học đã có tiến trình học tập của học viên".
-    - *Nhánh bài học trống hợp lệ:* Xuất hiện Modal xác nhận xóa cấu hình AD-03-M1 đè lên giao diện hiện tại.
+- **Hành động: Click nút "Cấu hình" hoặc "Sửa"**
+  - Hệ thống chuyển hướng Admin sang trang cấu hình bài học tương ứng tại `/admin/lessons/{lesson_id}/configure` (`AD-03-Form`).
+- **Hành động: Click nút "Xóa cấu hình"**
+  - Hệ thống kiểm tra điều kiện xóa cấu hình:
+    - *Nếu bài học đã có học viên học và nộp câu trả lời:* Ngăn chặn xóa, hiển thị Toast cảnh báo màu `{colors.error}`: *"Không thể xóa cấu hình vì bài học đã có tiến trình học tập của học viên được ghi nhận!"*.
+    - *Nếu bài học trống hợp lệ:* Hiển thị Modal xác nhận xóa cấu hình `AD-03-M1`.
+
+---
 
 ## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
-- **Trạng thái rỗng (empty state):** Không áp dụng trực tiếp cho danh sách này vì số lượng thẻ bài học cố định là 6 kỹ năng/bài học nền tảng bắt buộc theo kiến trúc chương trình.
-- **Trạng thái tải (loading state):** Khi tải trạng thái của các bài học từ máy chủ, các thẻ bài học hiển thị Skeleton xám mờ và các nút bấm bị ẩn đi.
-- **Trạng thái lỗi (error state):** Khi mất kết nối API, lưới bài học ẩn đi và hiển thị dòng chữ thông báo lỗi "Không thể tải danh sách bài học. Vui lòng kiểm tra lại đường truyền." kèm nút "Tải lại".
-- **Trạng thái thành công (success state):** Khi xóa cấu hình bài học thành công và quay lại trang này, hiển thị Toast thông báo xanh lá góc phải màn hình: "Xóa cấu hình bài học thành công!". Trạng thái thẻ chuyển về "Chưa cấu hình" và nút chuyển thành "Cấu hình bài học".
+- **Trạng thái tải trang (Loading State):** Lưới hiển thị các thẻ bài học có Skeleton mờ che phủ tiêu đề và nhãn, các nút bấm tạm thời ẩn.
+- **Trạng thái thành công (Success State):** Khi xóa cấu hình bài học thành công từ Modal `AD-03-M1` và quay lại màn hình này $\rightarrow$ Hiện Toast màu xanh lá `{colors.success}`: *"Xóa cấu hình bài học thành công!"* $\rightarrow$ Thẻ bài học cập nhật badge thành "Chưa cấu hình" và đổi nút thành "Cấu hình bài học".
+
+---
 
 ## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
-- **Đến từ màn hình nào trước đó?** Từ màn hình AD-02 (Unit List Page) sau khi Admin click vào tên một Unit cụ thể.
-- **Sau khi hoàn thành hành động, đi đến màn hình nào?**
-  - Đi đến màn hình AD-03-Form (Lesson Configuration Page) để viết bài học.
-  - Quay lại màn hình AD-02 (Unit List Page) khi click vào Breadcrumbs "Danh sách Unit".
-- **Các màn hình liên quan khác:** Modal AD-03-M1 hiển thị trực tiếp đè trên màn hình này.
+- **Đến từ:** [unit_list_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/unit_list_page.md) sau khi click chọn tên một Unit cụ thể.
+- **Đi đến:**
+  - [lesson_configuration_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/lesson_configuration_page.md) khi click nút cấu hình hoặc chỉnh sửa.
+  - [unit_list_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/unit_list_page.md) khi click Breadcrumbs "Danh sách Unit".
 
-## 8. LƯU Ý THIẾT KẾ (DESIGN NOTES)
-- Nền sàn của trang sử dụng màu canvas sáng ấm (#fffaf0) đặc trưng của Clay.com.
-- Các thẻ bài học được thiết kế bằng phong cách `feature-card-cream` có góc bo rất lớn rounded-xl (24px) và nền surface-card (#f5f0e0), tạo cảm giác mập mạp và đồng điệu với logo 3D đất sét của hệ thống.
-- Khoảng cách thưa spacing-lg (24px) giữa các thẻ bài học đảm bảo sự thoáng mát về thị giác, giảm cảm giác áp lực khi quản trị lượng nội dung khổng lồ.
-- Touch target của tất cả các nút hành động (Cấu hình, Sửa, Xóa) đảm bảo kích thước tối thiểu 44x44px. Nút "Xóa cấu hình" hiển thị màu đỏ (#ef4444) dạng chữ trơn không nền để biểu thị mức độ nghiêm trọng nhưng không làm loãng tiêu điểm thị giác chính.
+---
 
+## 8. LƯU Ý THIẾT KẾ CHO LẬP TRÌNH VIÊN (DO'S AND DON'TS)
+- **NÊN:** Đảm bảo lưới thẻ bài học hiển thị rõ ràng, cân xứng, khoảng cách dọc ngang `{spacing.lg}` (24px) giúp giao diện sạch sẽ, thoáng mắt và dễ định vị bài học.
+- **KHÔNG ĐƯỢC:** Sử dụng bất cứ bóng đổ đen thô ráp nào. Mọi thẻ bài đều sử dụng hiệu ứng phát sáng mờ `{elevation.glow}` với sắc tím nhạt đặc trưng của DiveVerse.
 
-
+## ÁNH XẠ DỮ LIỆU MOCK (MOCK DATA BINDING)
+- **Danh sách Bài học thuộc Unit (Lessons Management Table):** Liên kết với mảng `adminDashboardData.lessonsList`. Mỗi bài học hiển thị:
+  - Tên bài học: `{name}`
+  - Thể loại kỹ năng: `{category}` (VOCABULARY, GRAMMAR, LISTENING, etc.)
+  - Trạng thái cấu hình: `{status}` (configured / unconfigured)

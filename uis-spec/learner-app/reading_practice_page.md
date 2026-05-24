@@ -1,117 +1,106 @@
 # MÀN HÌNH: READING PRACTICE PAGE (MÀN HÌNH LUYỆN ĐỌC)
 
 ## 1. THÔNG TIN CHUNG
-- Tên màn hình: Reading Practice Page (Màn hình luyện đọc)
-- Mã use case liên quan: UC-06c (Luyện đọc)
-- Mã luồng người dùng liên quan: Flow LN-FL-06 (Luyện tập kỹ năng Đọc)
-- Vai trò người dùng: Learner (Người học / Học viên)
-- Vị trí trong sitemap: Trang chủ -> Dashboard -> Click Unit -> Unit Detail Page -> Click bài học Luyện Đọc -> Reading Practice Page (URL: /units/{unit_id}/lessons/{lesson_id}/reading)
+- **Tên màn hình:** Reading Practice Page (Màn hình luyện đọc)
+- **Mã use case liên quan:** UC-06c (Luyện đọc)
+- **Mã luồng người dùng liên quan:** Flow LN-FL-03 (Trạm luyện Kỹ năng - Đọc)
+- **Vai trò người dùng:** Learner (Người học)
+- **Vị trí trong sitemap:** Trang chủ $\rightarrow$ Dashboard $\rightarrow$ Click Unit $\rightarrow$ Unit Detail $\rightarrow$ Click Luyện Đọc (URL: `/units/{unit_id}/lessons/{lesson_id}/reading`)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Học viên sử dụng màn hình này để nâng cao kỹ năng đọc hiểu qua hai hình thức: Đọc hiểu văn bản thông thường và Đọc báo chí thực tế, tích hợp công cụ tra nghĩa từ điển nhanh tại chỗ và giải đáp thắc mắc bằng Người bạn Cá Voi.
+Học viên rèn luyện kỹ năng đọc hiểu qua hai hình thức: Đọc hiểu văn bản thông thường (Reading Comprehension) và Đọc báo chí thực tế (News-based Learning) kết hợp tính năng bôi đen tra từ điển nhanh tại chỗ và bảng chat Cá Voi Hỏi Đáp để giải đáp các cấu trúc ngữ pháp khó.
 
-## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Bố cục chia đôi màn hình (Split Screen 50/50 Layout) rất phổ biến trong các đề thi đọc hiểu chuẩn quốc tế.
-- Các vùng chính trên màn hình:
-  - Vùng A: Thanh dẫn Breadcrumbs và tiến độ ở đầu trang.
-  - Vùng B: Vùng nội dung đọc hiểu bên trái (Left Passage Panel) chứa văn bản đọc, hỗ trợ bôi đen tra cứu.
-  - Vùng C: Vùng câu hỏi tương tác bên phải (Right Question Panel) chứa các câu hỏi trắc nghiệm/điền từ.
-  - Vùng D: Hộp thoại xem từ điển nhanh (Popup Dictionary Tooltip) hiển thị nổi tại vị trí bôi đen văn bản.
-  - Vùng E: Bảng chat Người bạn Cá Voi hỏi đáp (Cá Voi Thông Thái Side Chat Panel) trượt mở từ bên phải khi ở trang kết quả.
-- Kích thước / Grid tham khảo:
-  - Chia tỷ lệ màn hình 50% bên trái ( Passage Panel) và 50% bên phải (Question Panel) bằng CSS Grid 12 cột.
-  - Khi xem kết quả, Vùng E (AI Panel) mở rộng chiếm 360px bên phải màn hình.
-  - Khoảng cách padding trong mỗi vùng: spacing-lg (24px).
-
-## 4. THÀNH PHẦN GIAO DIỆN (UI COMPONENTS)
-
-### THÀNH PHẦN CHUNG (PROGRESS HEADER)
-- **Tên component:** Thanh tiến trình đọc (Reading Progress Bar)
-  - **Loại component tham chiếu từ DESIGN.md:** progress-bar (nền surface-strong #ebe6d6, thanh tiến độ xanh success #22c55e, height 8px)
-  - **Vị trí:** Vùng A.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị tỉ lệ câu hỏi đã hoàn thành (ví dụ: "Câu hỏi 3 / 8").
+## 3. BỐ CỤC TỔNG THỂ (LAYOUT ARCHITECTURE)
+- **Triết lý bố cục:** Bố cục chia đôi màn hình (Split Screen 50/50 Layout) để học viên vừa đối chiếu văn bản vừa làm bài tập mà không cần cuộn trang lên xuống liên tục.
+- **Màu nền chung:** Nền trang sử dụng `{colors.canvas}` (`#F9F7FE`) phối dải chuyển màu mờ `{gradients.atmosphere-haze}`.
+- **Phân bổ các vùng chính (Layout Zones):**
+  - **Zone 1: Progress Header (Thanh dẫn Breadcrumbs và tiến độ ở đầu trang)**
+    - Ghim cố định ở sát mép trên. Chiều cao: `64px`.
+  - **Zone 2: Left Passage Panel (Cột hiển thị bài đọc bên trái)**
+    - Chiếm 50% màn hình desktop, hỗ trợ cuộn dọc độc lập. Cho phép bôi đen văn bản để tra cứu.
+  - **Zone 3: Right Question Panel (Cột hiển thị bài tập bên phải)**
+    - Chiếm 50% màn hình, chứa các câu hỏi tương tác.
+  - **Zone 4: Popup Dictionary Tooltip (Cửa sổ tra từ điển nhanh)**
+    - Hiển thị nổi đè lên tại vị trí bôi đen văn bản ở Vùng B.
+  - **Zone 5: ZPD AI Feedback Panel (Bảng chat Cá Voi giải thích bên phải)**
+    - Trượt mở rộng chiếm 360px bên phải màn hình khi học viên xem trang kết quả.
 
 ---
 
-### PHÂN HỆ VĂN BẢN VÀ CÂU HỎI (VÙNG B & C)
+## 4. THÀNH PHẦN GIAO DIỆN CHI TIẾT (UI COMPONENTS)
 
-#### 1. READING COMPREHENSION MODE (LUỒNG ĐỌC HIỂU THÔNG THƯỜNG)
-- **Tên component:** Vùng văn bản đọc (Passage Reader Box)
-  - **Loại component tham chiếu từ DESIGN.md:** product-mockup-card (nền canvas #fffaf0, border 1px hairline #e5e5e5, rounded-lg 16px, padding 24px, scrollable vertical)
-  - **Vị trí:** Vùng B (cột trái).
-  - **Trạng thái:** Mặc định. Cho phép bôi đen hoặc double-click vào từ mới để tra cứu.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị bài đọc tiếng Anh (độ dài theo cấp độ: 500 từ đối với Basic, 1500 từ đối với Intermediate). Font chữ Inter size 16px, line-height 1.55 giúp đọc thoải mái.
+### 4.1 Thanh tiến trình đọc (Progress Header)
+- **Đặc tả Visual:**
+  - Nền: Kính mờ `{colors.glass}` (`rgba(255, 255, 255, 0.7)`), có `backdrop-filter: blur(8px)`.
+  - Chiều cao: `nav-height` (64px). Viền dưới mờ `1px solid rgba(155, 93, 224, 0.1)`.
+- **Thành phần:**
+  - **Thanh tiến trình ngang:** Nằm sát cạnh đỉnh Nav. Cao `6px`. Nền `{colors.light-accent}`. Phần hoàn thành chạy màu dải ngân hà `{gradients.galactic-glow}` thể hiện tỷ lệ hoàn thành (ví dụ: *"Câu hỏi 3 / 8"*).
+  - **Nút thoát bài học (Exit Button):** Icon Lucide `x` màu `{colors.text-secondary}`. Click để thoát về Unit Detail Page.
 
-- **Tên component:** Cửa sổ tra từ điển nhanh (Popup Dictionary Tooltip)
-  - **Loại component tham chiếu từ DESIGN.md:** overlay / tooltip (nền surface-card #f5f0e0, border 1px hairline #e5e5e5, rounded-md 12px, padding 16px, drop shadow mờ nhẹ)
-  - **Vị trí:** Vùng D, xuất hiện nổi ngay trên vị trí từ được bôi đen ở Vùng B.
-  - **Trạng thái:** Ẩn mặc định, hiển thị khi người học bôi đen một từ.
-  - **Dữ liệu hiển thị / hành vi:** 
-    - Hiển thị từ vựng, phiên âm IPA (ví dụ: "Fascinating /ˈfæs.ən.eɪ.tɪŋ/").
-    - Định nghĩa ngắn: "Hấp dẫn, lôi cuốn".
-    - Nút "Lưu từ vào SRS" (`button-primary` dạng nhỏ).
+### 4.2 Cột hiển thị bài đọc bên trái (Left Passage Panel - Vùng B)
+Nội dung thay đổi theo 2 chế độ luyện đọc:
 
-- **Tên component:** Khối câu hỏi đọc hiểu (Question Board)
-  - **Loại component tham chiếu từ DESIGN.md:** feature-card-cream (nền surface-card #f5f0e0, border 1px hairline #e5e5e5, rounded-lg 16px, padding 24px, scrollable)
-  - **Vị trí:** Vùng C (cột phải).
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Danh sách các câu hỏi điền từ vào chỗ trống hoặc trắc nghiệm A, B, C, D. Học viên điền/chọn đáp án trực tiếp.
+#### CHẾ ĐỘ 1: READING COMPREHENSION (ĐỌC HIỂU THÔNG THƯỜNG)
+- **Đặc tả Visual:**
+  - Nền: `{colors.surface}` (`#FFFFFF`). Bo góc: `{rounded.xl}` (24px). Viền mờ `1px solid rgba(155, 93, 224, 0.1)`. Padding: `{spacing.lg}` (24px). Có thanh cuộn dọc.
+  - Văn bản: Font chữ `{typography.body-md}` (Inter, 16px, line-height 1.6), màu `{colors.text-primary}` để tránh mỏi mắt.
+  - Độ dài bài đọc: Basic 500 từ, Intermediate 1500 từ (theo `level_built.md`).
+- **Tương tác tra từ:** Học viên bôi đen hoặc double-click vào một từ/cụm từ mới để mở Popup tra từ điển nhanh. Các từ đã lưu vào SRS sẽ được highlight màu hồng nhạt `{colors.light-accent}` trong văn bản để biểu thị trạng thái đã lưu.
 
-#### 2. NEWS-BASED LEARNING MODE (LUỒNG ĐỌC BÁO CHÍ THỰC TẾ)
-- **Tên component:** Văn bản báo chí đã lọc từ nhiễu (Filtered News Article)
-  - **Loại component tham chiếu từ DESIGN.md:** product-mockup-card
-  - **Vị trí:** Vùng B.
-  - **Trạng thái:** Mặc định. Các từ vựng quá phức tạp ngoài cấp độ học (nhiễu) được hệ thống tự động làm mờ nhẹ hoặc thay thế bằng từ đồng nghĩa tương ứng.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị bài báo thực tế kèm hình ảnh 3D claymation minh họa ở đầu bài báo.
+#### CHẾ ĐỘ 2: NEWS-BASED LEARNING (ĐỌC BÁO CHÍ THỰC TẾ - DÀNH CHO ADVANCED)
+- **Bài báo gốc tự động lọc từ nhiễu (Filtered News Article):** 
+  - Hệ thống tự động làm mờ nhẹ hoặc thay thế các từ vựng quá phức tạp ngoài cấp độ học (nhiễu) bằng từ đồng nghĩa tương ứng.
+  - Hình ảnh minh họa 3D Claymation phong cách DiveVerse được nhúng ở đầu bài viết.
+- **Tra cứu từ học thuật nâng cao:** Hỗ trợ bôi đen tra cứu các cụm Collocations/Idioms học thuật lớn.
 
-- **Tên component:** Câu hỏi phân tích sâu (Deep Analytical Questions)
-  - **Loại component tham chiếu từ DESIGN.md:** feature-card-cream
-  - **Vị trí:** Vùng C.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị câu hỏi phân tích thái độ/quan điểm tác giả, hoặc câu hỏi ghép tiêu đề đoạn văn (Matching Headings).
+### 4.3 Cột hiển thị bài tập bên phải (Right Question Panel - Vùng C)
+- **Đặc tả Visual:**
+  - Nền: `{colors.surface}` (`#FFFFFF`). Bo góc: `{rounded.xl}` (24px).
+  - Viền mờ, padding `{spacing.lg}`. Có thanh cuộn dọc độc lập.
+- **Nội dung bài tập:**
+  - Chứa danh sách câu hỏi trắc nghiệm A, B, C, D hoặc điền khuyết dựa trên nội dung bài đọc.
+  - Các ô trắc nghiệm có touch target tối thiểu `44px` (`button-min-height`). Chọn đáp án đổi viền sang màu `{colors.primary}`.
+
+### 4.4 Cửa sổ tra từ điển nhanh (Popup Dictionary Tooltip - Vùng D)
+- **Đặc tả Visual:**
+  - Nền: Kính mờ `{colors.glass}`, bo góc `{rounded.md}` (12px), viền mảnh `1px solid rgba(155, 93, 224, 0.2)`. Padding: `{spacing.md}` (16px).
+- **Nội dung:**
+  - Tiêu đề: Từ vựng và phiên âm IPA (ví dụ: *"Fascinating /ˈfæs.ən.eɪ.tɪŋ/"*).
+  - Nghĩa ngắn: *"Hấp dẫn, lôi cuốn"*.
+  - **Nút "Lưu vào SRS":** Nút nhỏ nền `{colors.primary}`, chữ trắng, bo góc `{rounded.lg}`. Click để đưa từ vào SRS cá nhân.
+
+### 4.5 Bảng kết quả & Hỏi AI (Reading Result Showcase - Zone 5)
+Xuất hiện ở cột phải sau khi nộp bài:
+- **Bảng tổng hợp kết quả (Reading Result Table):**
+  - Chấm điểm tự động, hiển thị số câu đúng/sai. Câu trả lời đúng của học viên bôi màu xanh `{colors.success}`, câu sai bôi đỏ `{colors.error}` kèm đáp án đúng chính thức và lời giải thích chi tiết của Admin.
+- **Khung chat Người bạn Cá Voi (Cá Voi Thông Thái Side Chat Panel):**
+  - Trượt ra từ lề phải màn hình. Đặc tả Visual: Nền kính mờ `{colors.glass}`, bo góc `{rounded.xl}` (24px), hiệu ứng `{elevation.glass}`.
+  - Trợ lý Cá Voi Xanh [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) (`64px`) hiển thị bong bóng chat hỗ trợ giải đáp từ vựng/ngữ pháp xuất hiện trong bài đọc. Học viên gõ câu hỏi vào ô input cao `44px` ở dưới cùng panel.
 
 ---
-
-### TRANG KẾT QUẢ & HỎI AI (READING RESULT PAGE)
-- **Tên component:** Bảng tổng hợp kết quả đọc hiểu
-  - **Loại component tham chiếu từ DESIGN.md:** product-mockup-card
-  - **Vị trí:** Vùng C (thay thế Question Board khi kết thúc).
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Chấm điểm tự động, hiển thị số câu đúng/sai, bôi màu xanh lá cho câu trả lời đúng của học viên, bôi đỏ câu sai kèm đáp án đúng chính thức và giải thích chi tiết của Admin.
-
-- **Tên component:** Khung chat Người bạn Cá Voi (Cá Voi Thông Thái Side Chat Panel)
-  - **Loại component tham chiếu từ DESIGN.md:** feature-card-ochre (nền brand-ochre #e8b94a nhạt, border-left 1px hairline #e5e5e5, padding 20px)
-  - **Vị trí:** Vùng E (bên phải).
-  - **Trạng thái:** Hiển thị ở trang kết quả.
-  - **Dữ liệu hiển thị / hành vi:** Khung chat giúp học viên gõ câu hỏi để AI giải thích các cấu trúc ngữ pháp/từ vựng khó xuất hiện trong bài đọc.
 
 ## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION DETAILS)
 - **Hành động: Bôi đen một từ mới trong bài đọc để tra cứu**
-  - **Luồng chính:** Học viên bôi đen từ "fascinating" ở Vùng B -> Popup Dictionary Tooltip Vùng D tự động hiển thị nổi -> Học viên xem nghĩa -> Click nút "Lưu từ" -> Từ được đưa vào SRS -> Popup đóng lại khi click ra ngoài.
+  - Học viên bôi đen từ "fascinating" ở Vùng B $\rightarrow$ Popup Dictionary Tooltip Vùng D tự động hiển thị nổi $\rightarrow$ Học viên xem nghĩa $\rightarrow$ Click nút "Lưu từ" $\rightarrow$ Từ được đưa vào SRS $\rightarrow$ Popup đóng lại khi click ra ngoài.
 - **Hành động: Click nộp bài đọc ở Vùng D**
-  - **Luồng chính:** Học viên hoàn thành tất cả câu hỏi -> Click "Nộp bài" -> Hệ thống chấm điểm -> Chuyển Vùng C sang hiển thị trang kết quả chi tiết -> Toast thông báo thành công xanh lá -> Cá Voi Thông Thái Chat Panel mở rộng ở Vùng E.
-  - **Dữ liệu gửi lên / nhận về:**
-    - Gửi đi: `{ "userId": 105, "lessonId": 26, "answers": { "q1": "A", "q2": "collaborate" } }`
-    - Nhận về: `{ "score": 90, "correctCount": 9, "totalCount": 10, "details": { "q1": { "isCorrect": true, "correctAnswer": "A", "explanation": "..." } } }`
+  - Học viên hoàn thành tất cả câu hỏi $\rightarrow$ Click "Nộp bài" $\rightarrow$ Hệ thống chấm điểm $\rightarrow$ Chuyển Vùng C sang hiển thị trang kết quả chi tiết $\rightarrow$ Toast thông báo thành công xanh lá $\rightarrow$ Cá Voi Thông Thái Chat Panel mở rộng ở Vùng E.
+  - **Dữ liệu API:** `POST /api/reading/evaluate`
+    - Payload: `{ "userId": 105, "lessonId": 26, "answers": { "q1": "A", "q2": "collaborate" } }`
+    - Response: `{ "score": 90, "correctCount": 9, "totalCount": 10, "details": { "q1": { "isCorrect": true, "correctAnswer": "A", "explanation": "..." } } }`
 
-## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
-- **Trạng thái rỗng (empty state):** Không áp dụng.
-- **Trạng thái tải (loading state):** Khi đang tải bài đọc từ máy chủ, Vùng B và Vùng C hiển thị các khối xám nhấp nháy skeleton.
-- **Trạng thái lỗi (error state):** Khi tải bài đọc bị lỗi mạng -> Hiển thị text cảnh báo đỏ "Lỗi tải bài đọc. Vui lòng nhấn nút thử lại!".
-- **Trạng thái thành công (success state):** Trang kết quả hiển thị điểm EXP cộng thêm và Toast báo nộp bài thành công.
+## 6. CÁC TRẠNG THÁI ĐẶC BIỆT
+- **Trạng thái tải (Loading state):** Vùng B và Vùng C hiển thị các khối xám nhấp nháy skeleton.
+- **Trạng thái lỗi mạng:** Hiển thị text cảnh báo đỏ `{colors.error}`: *"Lỗi tải bài đọc. Vui lòng nhấn nút thử lại!"*.
 
 ## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
-- **Đến từ màn hình nào trước đó?** Từ Unit Detail Page (LN-02) sau khi học viên click bài luyện đọc.
-- **Sau khi hoàn thành hành động, đi đến màn hình nào?** Quay trở lại màn hình Unit Detail Page (LN-02) khi học viên bấm nút "Hoàn thành bài đọc".
-- **Các màn hình liên quan khác:** LN-02, Popup từ điển LN-13-M1.
+- **Đến từ:** [unit_detail_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/learner-app/unit_detail_page.md).
+- **Đi đến:** [unit_detail_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/learner-app/unit_detail_page.md) (khi click "Hoàn thành bài đọc").
 
-## 8. LƯU Ý THIẾT KẾ (DESIGN NOTES)
-- Nền sàn của trang sử dụng màu canvas sáng ấm (#fffaf0) đặc trưng.
-- Split screen chia đôi 50/50 tạo cảm giác thoải mái khi vừa đối chiếu văn bản vừa làm câu hỏi mà không cần cuộn trang lên xuống nhiều lần (tránh quá tải nhận thức).
-- Popup từ điển nhanh được thiết kế bo tròn nhẹ rounded-md (12px) trên nền surface-card (#f5f0e0), không dùng bóng đổ đen thô ráp mà chỉ có viền hairline tinh tế (#e5e5e5).
-- Các từ được tra cứu thành công và lưu vào SRS được highlight màu brand-mint (#a4d4c5) nhạt trong văn bản để biểu thị trạng thái đã lưu theo Nguyên tắc Báo hiệu (Signaling Principle).
-- Touch target của các đáp án trắc nghiệm và nút lưu tối thiểu 44px.
+## 8. LƯU Ý THIẾT KẾ CHO LẬP TRÌNH VIÊN (DO'S AND DON'TS)
+- **NÊN:** Đảm bảo tỉ lệ chia đôi 50/50 ở desktop giúp đối chiếu văn bản trực quan. Sử dụng tệp ảnh gốc [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) làm logo ghim cố định ở đầu thanh Nav.
+- **KHÔNG ĐƯỢC:** Sử dụng bóng đổ đen thô ráp bên dưới popup từ điển. Popup từ điển nhanh được thiết kế bo tròn nhẹ `{rounded.md}` (12px) trên nền kính mờ, không dùng bóng đổ đen thô ráp mà chỉ có viền hairline tinh tế.
 
-
-
+## ÁNH XẠ DỮ LIỆU MOCK (MOCK DATA BINDING)
+- **Thông tin bài học (Lesson Header):** Liên kết với `lessons.unit_1[4]` (các trường `{name}`).
+- **Đoạn văn đọc & Từ điển tra nhanh (Passage View):** `{lessons.unit_1[4].exercises.passage}` (tiêu đề, nội dung bài đọc và các chú thích giải nghĩa từ vựng).
+- **Bộ câu hỏi đọc hiểu (Reading Quiz):** `{lessons.unit_1[4].exercises.comprehensionQuiz}` (danh sách câu hỏi đọc hiểu trắc nghiệm).

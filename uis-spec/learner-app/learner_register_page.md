@@ -1,135 +1,120 @@
 # MÀN HÌNH: REGISTER PAGE (TRANG ĐĂNG KÝ NGƯỜI HỌC)
 
 ## 1. THÔNG TIN CHUNG
-- Tên màn hình: Register Page (Trang đăng ký người học)
-- Mã use case liên quan: LN-FL-01 (Xác thực tài khoản người học)
-- Mã luồng người dùng liên quan: Flow LN-FL-01 (Xác thực tài khoản người học)
-- Vai trò người dùng: Learner (Người học / Học viên)
-- Vị trí trong sitemap: Trang chủ -> Register Page (URL: /register)
+- **Tên màn hình:** Register Page (Trang đăng ký người học)
+- **Mã use case liên quan:** LN-FL-01 (Xác thực tài khoản người học - Khởi tạo tài khoản học viên)
+- **Mã luồng người dùng liên quan:** LN-FL-01 (Xác thực tài khoản người học)
+- **Vai trò người dùng:** Learner (Người học)
+- **Vị trí trong sitemap:** Trang chủ $\rightarrow$ Đăng ký (URL: `/register`)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Người dùng (học viên mới) truy cập màn hình này để đăng ký một tài khoản cá nhân mới trên hệ thống DiveVerse bằng cách điền thông tin họ tên, email và mật khẩu.
+Cung cấp biểu mẫu đăng ký để người dùng mới tạo tài khoản học tập cá nhân trên hệ thống DiveVerse. Việc tạo tài khoản giúp người dùng bắt đầu lộ trình học từ vựng/ngữ pháp (UC-05a, UC-05b), lưu trữ tiến độ cá nhân, và thiết lập cấp độ mục tiêu đầu ra (IELTS/TOEIC).
 
-## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Centered card layout (Bố cục một cột căn giữa hoàn toàn theo cả chiều ngang và dọc) trên nền canvas sáng ấm (#fffaf0).
-- Các vùng chính trên màn hình:
-  - Vùng A: Biểu tượng logo DiveVerse và tiêu đề trang căn giữa.
-  - Vùng B: Thẻ biểu mẫu đăng ký (Register Card Container) chứa các trường nhập liệu, nút bấm đăng ký và nút đăng ký nhanh qua mạng xã hội.
-  - Vùng C: Chân trang tối giản chứa thông tin bản quyền.
-- Kích thước / Grid tham khảo:
-  - Chiều rộng của thẻ biểu mẫu: 440px.
-  - Thẻ căn giữa toàn màn hình bằng CSS Flexbox.
-  - Khoảng cách padding trong thẻ: 40px.
-  - Khoảng cách dọc giữa các trường: spacing-md (16px).
+## 3. BỐ CỤC TỔNG THỂ (LAYOUT ARCHITECTURE)
+- **Triết lý bố cục:** Bố cục thẻ căn giữa (Centered Card Layout) dùng CSS Flexbox hoặc Grid để ghim khối biểu mẫu chính xác vào trung tâm của màn hình.
+- **Màu nền chung:** Nền trang sử dụng `{colors.canvas}` (`#F9F7FE`) kết hợp phủ dải chuyển màu khí quyển `{gradients.atmosphere-haze}` dạng radial phát ra từ góc trái trên màn hình. Điểm xuyết các chấm sao lấp lánh mờ ảo.
+- **Phân bổ các vùng chính (Layout Zones):**
+  - **Vùng A: Khu vực Nhận diện thương hiệu (Phía trên thẻ)**
+    - Logo DiveVerse thu nhỏ nằm căn giữa cùng Mascot Cá Voi Xanh động viên học viên mới.
+  - **Vùng B: Khối Biểu mẫu Đăng ký (Trung tâm)**
+    - Một thẻ biểu mẫu chứa các trường thông tin đăng ký cơ bản, nút submit, và liên kết đăng nhập.
+  - **Vùng C: Chân trang tối giản (Footer)**
+    - Chứa thông tin bản quyền và các liên kết pháp lý cơ bản ở góc dưới màn hình.
 
-## 4. THÀNH PHẦN GIAO DIỆN (UI COMPONENTS)
-- **Tên component:** Logo Mascot
-  - **Loại component tham chiếu từ DESIGN.md:** 3D claymation mascot / image
-  - **Vị trí:** Vùng A, nằm trên cùng, căn giữa.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hình ảnh chú Cá Voi Xanh DiveVerse đang đội mũ cử nhân. Kích thước 100px x 100px.
+---
 
-- **Tên component:** Tiêu đề trang
-  - **Loại component tham chiếu từ DESIGN.md:** display-md (Plain Black display typeface, font Inter weight 500, size 32px, letter-spacing -0.5px)
-  - **Vị trí:** Vùng A, cách logo 16px.
-  - **Trạng thái:** Mặc định, màu chữ ink (#0a0a0a).
-  - **Dữ liệu hiển thị / hành vi:** Dòng chữ "Bắt đầu học ngay!".
+## 4. THÀNH PHẦN GIAO DIỆN CHI TIẾT (UI COMPONENTS)
 
-- **Tên component:** Hộp chứa biểu mẫu (Register Form Card)
-  - **Loại component tham chiếu từ DESIGN.md:** feature-card-cream (nền surface-card #f5f0e0, border 1px hairline #e5e5e5, rounded-xl 24px, padding 40px, không đổ bóng)
-  - **Vị trí:** Vùng B, trung tâm màn hình.
-  - **Trạng thái:** Mặc định.
+### 4.1 Thẻ biểu mẫu đăng ký (Register Card Container)
+- **Đặc tả Visual:**
+  - Nền: `{colors.surface}` (`#FFFFFF`) tinh khiết.
+  - Bo góc: `{rounded.xxl}` (32px).
+  - Chiều rộng tối đa: `460px` (Rộng hơn trang đăng nhập một chút để dàn đều các trường).
+  - Hiệu ứng nâng độ cao: `{elevation.glow}` (Tỏa ánh sáng tím nhạt bao quanh thẻ).
+  - Padding bên trong: `{spacing.xl}` (32px).
+  - Viền mờ: `1px solid rgba(155, 93, 224, 0.1)`.
 
-- **Tên component:** Trường nhập Họ và tên (Full Name Input)
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, màu chữ ink #0a0a0a, rounded-md 12px, border 1px hairline #e5e5e5, height 44px)
-  - **Vị trí:** Vùng B, trường nhập thứ nhất.
-  - **Trạng thái:**
-    - Mặc định: viền màu hairline, placeholder "Ví dụ: Nguyễn Văn A..." màu muted-soft (#9a9a9a).
-    - Focus: viền đổi sang màu primary (#0a0a0a) 1.5px.
-    - Error: viền đỏ màu error (#ef4444).
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Họ và tên *". Bắt buộc nhập.
+### 4.2 Nhận diện thương hiệu & Mascot (Vùng A)
+- **Logo DiveVerse:**
+  - Sử dụng hình ảnh cá voi chính [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png).
+  - Kích thước: `80px x 80px`. Căn giữa hoàn hảo phía trên thẻ.
+- **Tiêu đề trang:**
+  - Kiểu chữ: `{typography.display-sm}` (Manrope, 28px, weight 700, letter-spacing -0.5px).
+  - Màu sắc: `{colors.text-primary}` (`#1A1A2E`).
+  - Nội dung: *"Bắt đầu chuyến du hành!"*
+- **Mascot Cá Voi Xanh Vũ Trụ (Bản khởi hành):**
+  - Sử dụng hình ảnh cá voi chính [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png).
+  - Kích thước: `100px` lơ lửng ngay góc trên bên phải của Thẻ biểu mẫu. Bụng chú cá voi phát quang hồng nhẹ, bên cạnh có hình ảnh một ngôi sao nhỏ lấp lánh (dùng icon `star` trong thư viện), tạo cảm giác phấn khởi khởi đầu hành trình mới.
 
-- **Tên component:** Trường nhập Email (Email Input)
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, màu chữ ink #0a0a0a, rounded-md 12px, border 1px hairline #e5e5e5, height 44px)
-  - **Vị trí:** Vùng B, trường nhập thứ hai.
-  - **Trạng thái:** Mặc định, focus, error.
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Email *". Placeholder "Nhập email đăng ký...". Bắt buộc nhập.
+### 4.3 Các trường nhập liệu (Input Fields - Vùng B)
+- **Trường nhập Họ và tên (Full Name Input):**
+  - Nhãn (Label): *"Họ và tên *" dùng `{typography.caption}` màu `{colors.text-primary}`.
+  - Hộp nhập liệu:
+    - Bo góc: `{rounded.lg}` (16px).
+    - Chiều cao: `input-height` (44px).
+    - Viền mặc định: `1px solid rgba(155, 93, 224, 0.2)`.
+    - Trạng thái Focus: Viền đổi sang màu `{colors.primary}` (`#4E56C0`), kèm theo lớp soft glow nhẹ.
+    - Placeholder: *"Ví dụ: Nguyễn Văn A..."* dùng `{typography.body-sm}` màu `{colors.text-secondary}`.
+- **Trường nhập Email (Email Input):**
+  - Nhãn (Label): *"Email *" dùng `{typography.caption}`.
+  - Hộp nhập liệu: Tương tự trường Họ và tên.
+  - Placeholder: *"Nhập email đăng ký của bạn..."*.
+- **Trường nhập Mật khẩu (Password Input):**
+  - Nhãn (Label): *"Mật khẩu (Tối thiểu 8 ký tự) *" dùng `{typography.caption}`.
+  - Hộp nhập liệu: Tương tự nhưng ẩn ký tự (`type="password"`).
+  - Icon chức năng: Icon Lucide `eye` / `eye-off` ở góc phải để hiển thị/ẩn mật khẩu.
+  - Placeholder: *"••••••••"*.
+- **Trường Nhập lại mật khẩu (Confirm Password Input):**
+  - Nhãn (Label): *"Nhập lại mật khẩu *" dùng `{typography.caption}`.
+  - Hộp nhập liệu: Tương tự trường mật khẩu.
+  - Placeholder: *"••••••••"*.
 
-- **Tên component:** Trường nhập Mật khẩu (Password Input)
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, màu chữ ink #0a0a0a, rounded-md 12px, border 1px hairline #e5e5e5, height 44px, ẩn ký tự mật khẩu)
-  - **Vị trí:** Vùng B, trường nhập thứ ba.
-  - **Trạng thái:** Mặc định, focus, error.
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Mật khẩu *". Placeholder "Tối thiểu 6 ký tự...". Bắt buộc nhập.
+### 4.4 Các nút bấm hành động (Action Buttons - Vùng B)
+- **Nút "Đăng ký" (Primary CTA của Form):**
+  - **Đặc tả Visual:** Nền `{colors.primary}` (`#4E56C0`), chữ màu `#FFFFFF`. Bo góc `{rounded.lg}` (16px). Chiều rộng 100%. Chiều cao tối thiểu `button-min-height` (44px).
+  - **Hiệu ứng:** Mặc định có `{elevation.active-glow}`. Khi hover: kích hoạt `{elevation.hover-glow}` (Hiệu ứng tỏa sáng tím đậm), chuyển động mượt mà trong `0.2s`.
+  - **Nội dung:** *"Tạo tài khoản miễn phí"*.
+- **Đường phân cách Social Signup:**
+  - Một đường line nằm ngang nét mảnh màu `rgba(155, 93, 224, 0.15)` cắt đôi nhãn *"hoặc đăng ký bằng"* ở chính giữa biểu mẫu. Nhãn dùng `{typography.caption}` màu `{colors.text-secondary}`.
+- **Nút Đăng ký bằng Google (Secondary Button):**
+  - **Đặc tả Visual:** Nền trắng `{colors.surface}`, chữ màu `{colors.primary}`, viền `1px solid rgba(78, 86, 192, 0.2)`. Bo góc `{rounded.lg}` (16px). Chiều rộng 100%. Chiều cao tối thiểu `44px`.
+  - **Icon:** Logo Google đa sắc căn lề trái của văn bản nút.
+- **Liên kết chuyển sang trang Đăng nhập:**
+  - **Vị trí:** Dưới cùng của thẻ biểu mẫu, căn giữa.
+  - **Đặc tả Visual:** *"Đã có tài khoản? Đăng nhập ngay"* dùng `{typography.body-sm}` (Inter, 14px). Cụm từ *"Đăng nhập ngay"* được tô màu `{colors.primary}` (`#4E56C0`) và in đậm. Khi hover sẽ tỏa sáng mờ và gạch chân.
 
-- **Tên component:** Trường Nhập lại mật khẩu (Confirm Password Input)
-  - **Loại component tham chiếu từ DESIGN.md:** text-input (nền canvas #fffaf0, màu chữ ink #0a0a0a, rounded-md 12px, border 1px hairline #e5e5e5, height 44px, ẩn ký tự mật khẩu)
-  - **Vị trí:** Vùng B, trường nhập thứ tư.
-  - **Trạng thái:** Mặc định, focus, error.
-  - **Dữ liệu hiển thị / hành vi:** Nhãn "Nhập lại mật khẩu *". Placeholder "••••••••". Bắt buộc nhập.
+---
 
-- **Tên component:** Nút "Đăng ký"
-  - **Loại component tham chiếu từ DESIGN.md:** button-primary (nền primary #0a0a0a, chữ màu on-primary #ffffff, font Inter size 14px, weight 600, rounded-md 12px, height 44px, width 100%)
-  - **Vị trí:** Vùng B, nằm dưới các trường nhập liệu.
-  - **Trạng thái:** Mặc định, hover, loading.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị chữ "Đăng ký tài khoản". Nhấp vào để gửi yêu cầu đăng ký mới.
+## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION FLOWS)
+1. **Luồng đăng ký thành công:**
+   - Người học nhập đầy đủ và hợp lệ các trường thông tin $\rightarrow$ Click nút "Tạo tài khoản miễn phí".
+   - Nút chuyển sang trạng thái Loading (Spinner xoay tròn, khóa tương tác).
+   - Gửi yêu cầu API đăng ký tài khoản: `POST /api/auth/register` với thông tin `{ name, email, password }`.
+   - API trả về thành công: `{ success: true, token: "jwt_token", user: { id, name, email } }`.
+   - Hệ thống tự động lưu Token xác thực vào LocalStorage.
+   - Hiển thị Toast chúc mừng màu xanh lá `{colors.success}`: *"Đăng ký tài khoản thành công! Bắt đầu du hành vũ trụ."*
+   - Chuyển hướng sang trang [learner_dashboard.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/learner-app/learner_dashboard.md).
+2. **Luồng xử lý lỗi nhập liệu (Validation & Server Errors):**
+   - **Họ và tên để trống:** Hiển thị lỗi *"Vui lòng nhập họ và tên của bạn"*.
+   - **Email trống/Sai cấu pháp:** Hiển thị lỗi *"Địa chỉ email không hợp lệ"*.
+   - **Mật khẩu dưới 8 ký tự:** Hiển thị lỗi *"Mật khẩu phải dài tối thiểu 8 ký tự"*.
+   - **Mật khẩu nhập lại không khớp:** Đổi viền trường Xác nhận mật khẩu sang màu đỏ `{colors.error}` và báo lỗi *"Mật khẩu xác nhận không khớp!"*.
+   - **Lỗi Email đã tồn tại (API trả về lỗi 409):** Hiển thị banner Alert màu nền hồng nhạt, viền đỏ `{colors.error}` ở đầu thẻ biểu mẫu: *"Email này đã được đăng ký trước đó. Vui lòng đăng nhập hoặc dùng email khác!"*.
 
-- **Tên component:** Đường phân cách "Hoặc" (Divider)
-  - **Loại component tham chiếu từ DESIGN.md:** body-sm (màu muted-soft #9a9a9a)
-  - **Vị trí:** Vùng B, nằm dưới nút Đăng ký.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị dòng hairline ngang, ở giữa có chữ "hoặc".
-
-- **Tên component:** Nút Đăng ký nhanh bằng Google (Google Signup Button)
-  - **Loại component tham chiếu từ DESIGN.md:** button-secondary (nền canvas #fffaf0, border 1px hairline #e5e5e5, chữ ink #0a0a0a, rounded-md 12px, height 44px, width 100%)
-  - **Vị trí:** Vùng B, nằm dưới đường phân cách.
-  - **Trạng thái:** Mặc định, hover.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị logo Google màu sắc và chữ "Đăng ký bằng Google".
-
-- **Tên component:** Liên kết "Đăng nhập" (Switch to Login)
-  - **Loại component tham chiếu từ DESIGN.md:** text-link (màu ink #0a0a0a, font Inter 14px, weight 600, có gạch chân)
-  - **Vị trí:** Vùng B, dưới cùng của thẻ biểu mẫu.
-  - **Trạng thái:** Mặc định, hover.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị dòng chữ: "Đã có tài khoản? Đăng nhập ngay". Nhấp chuột sẽ chuyển hướng đến Login Page (TR-02).
-
-## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION DETAILS)
-- **Hành động:** Điền đầy đủ thông tin và nhấp nút "Đăng ký tài khoản"
-  - **Luồng chính:**
-    1. Học viên nhập đầy đủ thông tin vào các trường (Tên, Email đúng định dạng, Mật khẩu >= 6 ký tự, Nhập lại mật khẩu khớp nhau).
-    2. Click nút "Đăng ký tài khoản".
-    3. Nút chuyển sang trạng thái Loading (hiển thị spinner xoay và khóa click).
-    4. Hệ thống gửi yêu cầu API POST tạo tài khoản mới lên máy chủ.
-    5. API tạo tài khoản thành công và tự động đăng nhập, trả về token xác thực (JWT).
-    6. Hệ thống lưu Token vào LocalStorage.
-    7. Hiển thị Toast thông báo đăng ký thành công màu xanh lá ở góc trên bên phải.
-    8. Chuyển hướng sang màn hình học tập chính LN-01 (Learner Dashboard).
-  - **Luồng con / rẽ nhánh:**
-    - *Trường hợp thiếu thông tin:* Ô nhập bị thiếu bôi đỏ viền, hiển thị lỗi: "Thông tin này là bắt buộc và không được để trống!".
-    - *Trường hợp mật khẩu quá ngắn:* Mật khẩu dưới 6 ký tự -> Bôi đỏ viền mật khẩu, báo lỗi: "Mật khẩu phải chứa ít nhất 6 ký tự!".
-    - *Trường hợp mật khẩu nhập lại không khớp:* Trường nhập lại mật khẩu bôi đỏ viền, hiển thị thông báo lỗi: "Mật khẩu xác nhận không khớp!".
-    - *Trường hợp email đã tồn tại:* Máy chủ trả lỗi 409 Conflict -> Nút Đăng ký đóng Loading, bôi đỏ ô Email, hiển thị lỗi: "Email này đã được sử dụng trong hệ thống!".
-  - **Dữ liệu gửi lên / nhận về:**
-    - Gửi đi: `{ "name": "Nguyễn Văn A", "email": "learner@gmail.com", "password": "secure_password" }`
-    - Nhận về: `{ "success": true, "token": "eyJhbGciOi...", "user": { "id": 105, "role": "learner", "name": "Nguyễn Văn A" } }`
-
-- **Hành động:** Nhấp nút "Đăng ký bằng Google"
-  - **Luồng chính:** Nhấp chọn -> Mở popup xác thực tài khoản Google của bên thứ ba -> Thành công -> Hệ thống tự động tạo tài khoản theo thông tin Google và chuyển sang LN-01.
-
-## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
-- **Trạng thái rỗng (empty state):** Các trường nhập mặc định hiển thị trống kèm placeholder xám.
-- **Trạng thái tải (loading state):** Khi đang gửi dữ liệu lên server, nút Đăng ký hiển thị spinner xoay và khóa tương tác click.
-- **Trạng thái lỗi (error state):** Khi API thất bại, bôi đỏ viền input và hiển thị nhãn báo lỗi đỏ (#ef4444).
-- **Trạng thái thành công (success state):** Hiển thị Toast thông báo xanh lá (#22c55e) ở góc trên bên phải: "Tạo tài khoản thành công! Đang khởi tạo lộ trình học tập...".
+## 6. CÁC TRẠNG THÁI ĐẶC BIỆT
+- **Trạng thái tải (Loading state):** Nút Đăng ký vô hiệu hóa, hiển thị spinner. Toàn bộ các trường input bị khóa (`disabled`).
+- **Trạng thái lỗi (Error state):** Các trường lỗi được viền màu đỏ semantic `{colors.error}` kèm hiệu ứng rung lắc nhẹ để báo hiệu cho người dùng.
 
 ## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
-- **Đến từ màn hình nào trước đó?** Từ Guest Landing Page (TR-01) khi nhấp nút "Bắt đầu học ngay", hoặc từ Login Page (TR-02) khi nhấp chọn liên kết "Đăng ký ngay".
-- **Sau khi hoàn thành hành động, đi đến màn hình nào?** Chuyển hướng trực tiếp đến Learner Dashboard (LN-01).
-- **Các màn hình liên quan khác:** Login Page (TR-02).
+- **Đến từ:** [guest_landing_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/learner-app/guest_landing_page.md), hoặc [learner_login_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/learner-app/learner_login_page.md).
+- **Đi đến:** [learner_dashboard.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/learner-app/learner_dashboard.md) (Sau khi đăng ký thành công).
 
-## 8. LƯU Ý THIẾT KẾ (DESIGN NOTES)
-- Nền sàn sử dụng màu canvas sáng ấm (#fffaf0).
-- Thẻ biểu mẫu được thiết kế bằng phong cách `feature-card-cream` có góc bo rất lớn rounded-xl (24px) và màu nền surface-card (#f5f0e0), viền hairline mỏng 1px (#e5e5e5).
-- Khoảng cách dọc giữa các trường nhập liệu là spacing-md (16px) đảm bảo tính thoáng mát, dễ nhìn, tránh quá tải nhận thức cho học viên mới.
-- Chiều cao các trường nhập và nút bấm là 44px, đạt touch target chuẩn mực.
+## 8. LƯU Ý THIẾT KẾ CHO LẬP TRÌNH VIÊN (DO'S AND DON'TS)
+- **NÊN:** Đảm bảo tất cả các input field có độ nhạy tương tác cao (hiệu ứng focus mềm mại trong `0.2s`). Giữ khoảng cách giữa các trường đồng đều ở mức `{spacing.md}` (16px).
+- **KHÔNG ĐƯỢC:** Để xảy ra tình trạng tràn màn hình ở các thiết bị di động nhỏ. Trực quan hóa cấu trúc form theo luồng cuộn đơn khi màn hình hẹp lại.
 
-
-
+## ÁNH XẠ DỮ LIỆU MOCK (MOCK DATA BINDING)
+- **Thông báo lỗi đăng ký (Validation Errors):**
+  - Email đã được đăng ký: `{auth.registerErrors.emailTaken}`
+  - Mật khẩu không khớp: `{auth.registerErrors.passwordMismatch}`
+  - Mật khẩu quá yếu: `{auth.registerErrors.weakPassword}`

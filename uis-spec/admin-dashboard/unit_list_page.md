@@ -1,146 +1,114 @@
 # MÀN HÌNH: UNIT LIST PAGE (MÀN HÌNH DANH SÁCH UNIT THEO CẤP ĐỘ)
 
 ## 1. THÔNG TIN CHUNG
-- Tên màn hình: Unit List Page (Màn hình danh sách Unit theo cấp độ)
-- Mã use case liên quan: UC-02a, UC-02b, UC-02c, UC-02d
-- Mã luồng người dùng liên quan: Flow AD-FL-02 (Quản lý Unit)
-- Vai trò người dùng: Admin (Quản trị viên)
-- Vị trí trong sitemap: Trang chủ quản trị -> AD-01: Level List Page -> Click tên cấp độ -> AD-02: Unit List Page (URL: /admin/levels/{level_id}/units)
+- **Tên màn hình:** Unit List Page (Màn hình danh sách Unit theo cấp độ)
+- **Mã use case liên quan:** UC-02a, UC-02b, UC-02c, UC-02d
+- **Mã luồng người dùng liên quan:** Flow AD-FL-02 (Quản lý Unit)
+- **Vai trò người dùng:** Admin (Quản trị viên)
+- **Vị trí trong sitemap:** Trang chủ quản trị $\rightarrow$ AD-01: Level List Page $\rightarrow$ Click tên cấp độ $\rightarrow$ AD-02: Unit List Page (URL: `/admin/levels/{level_id}/units`)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Quản trị viên sử dụng màn hình này để xem danh sách toàn bộ các Unit thuộc một Cấp độ học cụ thể, thay đổi thứ tự sắp xếp của các Unit bằng cách kéo thả trực quan, và kích hoạt các hộp thoại thêm, sửa, xóa các Unit trong cấp độ này.
+Quản trị viên sử dụng màn hình này để quản lý danh sách toàn bộ các Unit thuộc một Cấp độ học cụ thể. Admin có thể kéo thả trực quan để thay đổi thứ tự giảng dạy của các Unit, lưu lại cấu hình thứ tự mới vào cơ sở dữ liệu, hoặc kích hoạt các hộp thoại nổi để thêm mới, sửa và xóa các Unit trong lộ trình này.
 
-## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Bố cục cột kép (Sidebar cố định bên trái chiếm 260px và Vùng nội dung chính cuộn dọc bên phải chiếm phần còn lại).
-- Các vùng chính trên màn hình:
-  - Vùng A: Sidebar điều hướng (Fixed Navigation Sidebar) hiển thị danh mục quản trị.
-  - Vùng B: Thanh đầu trang (Header / Breadcrumbs bar) hiển thị đường dẫn thư mục và thông tin tài khoản admin.
-  - Vùng C: Thanh công cụ nội dung (Content Toolbar) gồm tiêu đề Cấp độ học hiện tại, nút "Thêm Unit mới" và nút "Lưu thứ tự" (khi có thay đổi sắp xếp).
-  - Vùng D: Danh sách các thẻ Unit dạng danh sách cuộn dọc (Drag-and-Drop Sortable List). Mỗi thẻ Unit chứa các thông tin của Unit đó.
-- Kích thước / Grid tham khảo:
-  - Max-width của vùng nội dung chính bên phải: 1200px.
-  - Danh sách Unit được xếp dọc theo một cột 12-column, mỗi thẻ Unit chiếm trọn 12 cột để có chiều rộng tối đa, khoảng cách dọc giữa các thẻ: spacing-md (16px).
-  - Khoảng cách padding bao quanh nội dung chính: spacing-xl (32px).
+## 3. BỐ CỤC TỔNG THỂ (LAYOUT ARCHITECTURE)
+- **Triết lý bố cục:** Bố cục cột kép gồm Sidebar cố định bên trái chiếm `260px` và Vùng nội dung chính cuộn dọc bên phải chiếm phần còn lại.
+- **Màu nền chung:** Nền trang chính sử dụng tông màu `{colors.canvas}` (`#F9F7FE`) phủ sương mờ `{gradients.atmosphere-haze}`.
+- **Phân bổ các vùng chính (Layout Zones):**
+  - **Zone 1: Left Navigation Sidebar (Vùng A):** Sidebar điều hướng cố định bên trái.
+  - **Zone 2: Header Breadcrumbs Bar (Vùng B):** Thanh dẫn thư mục và thông tin tài khoản admin.
+  - **Zone 3: Toolbar & Drag Control (Vùng C):** Tiêu đề cấp độ học hiện tại, nút "+ Thêm Unit mới", cùng cặp nút "Lưu thứ tự" & "Hủy thay đổi" hiển thị động.
+  - **Zone 4: Drag-and-Drop Sortable Unit List (Vùng D):** Danh sách các Unit xếp dọc có hỗ trợ kéo thả thay đổi vị trí.
+- **Kích thước tham khảo:**
+  - Chiều rộng tối đa của vùng nội dung chính bên phải: `1200px`.
+  - Các thẻ Unit chiếm trọn 12 cột lưới để tối ưu không gian hiển thị thông tin ngang.
+  - Khoảng cách dọc giữa các thẻ Unit: `{spacing.md}` (16px).
 
-## 4. THÀNH PHẦN GIAO DIỆN (UI COMPONENTS)
-- **Tên component:** Danh sách liên kết điều hướng Sidebar
-  - **Loại component tham chiếu từ DESIGN.md:** nav-link / category-tab
-  - **Vị trí:** Vùng A (Sidebar), danh sách chạy dọc thân Sidebar.
-  - **Trạng thái:**
-    - Cấp độ học: category-tab-active (nền surface-card #f5f0e0, chữ ink #0a0a0a, font Inter weight 600) để thể hiện đang làm việc với Cấp độ & Unit.
-    - Bài kiểm tra: category-tab (trong suốt, chữ muted #6a6a6a)
-    - Báo cáo học tập: category-tab (trong suốt, chữ muted #6a6a6a)
-  - **Dữ liệu hiển thị / hành vi:** Các nút bấm chuyển đổi phân hệ. Nhấp chuột vào sẽ chuyển trang.
+---
 
-- **Tên component:** Thanh dẫn Breadcrumbs
-  - **Loại component tham chiếu từ DESIGN.md:** body-sm (màu muted #6a6a6a)
-  - **Vị trí:** Vùng B (Header), góc trên bên trái.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị dòng văn bản dạng liên kết: "Admin / Lộ trình học / Cấp độ: {Tên Cấp độ đã chọn} / Danh sách Unit". Người học/Admin có thể nhấp vào "Lộ trình học" để quay lại AD-01.
+## 4. THÀNH PHẦN GIAO DIỆN CHI TIẾT (UI COMPONENTS)
 
-- **Tên component:** Tiêu đề cấp độ học hiện tại
-  - **Loại component tham chiếu từ DESIGN.md:** display-md (Plain Black display typeface, font Inter weight 500, size 32px, letter-spacing -1px)
-  - **Vị trí:** Vùng C, góc bên trái thanh công cụ.
-  - **Trạng thái:** Mặc định, màu ink (#0a0a0a).
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị tên cấp độ học đang xem danh sách Unit (ví dụ: "Cấp độ: Cơ bản (A1 - A2)").
+### 4.1 Thanh điều hướng Sidebar quản trị (Navigation Sidebar - Vùng A)
+- **Đặc tả Visual:**
+  - Tương tự như đặc tả tại [level_list_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/level_list_page.md).
+  - Tab "Cấp độ học" ở trạng thái Active (nền `{colors.surface}`, chữ màu `{colors.primary}`, có `{elevation.glow}`) để biểu thị đang thao tác sâu trong phân hệ Cấp độ & Unit.
 
-- **Tên component:** Nút "Thêm Unit mới"
-  - **Loại component tham chiếu từ DESIGN.md:** button-primary (nền primary #0a0a0a, chữ màu on-primary #ffffff, font Inter size 14px, weight 600, rounded-md 12px, height 44px)
-  - **Vị trí:** Vùng C, góc bên phải thanh công cụ.
-  - **Trạng thái:** Mặc định, hover, active.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị text "+ Thêm Unit mới". Nhấp chuột sẽ hiển thị Modal AD-02-M1.
+### 4.2 Thanh Breadcrumbs điều hướng (Top Breadcrumbs Bar - Vùng B)
+- **Thành phần:**
+  - **Breadcrumbs:** Dòng chữ dạng `{typography.caption}` (12px), màu `{colors.text-secondary}`. Hiển thị: *"Admin / Lộ trình học / Cấp độ: {Tên Cấp độ đã chọn} / Danh sách Unit"*.
+  - Admin có thể click vào liên kết "Lộ trình học" để nhanh chóng quay trở lại màn hình danh sách cấp độ `AD-01`.
 
-- **Tên component:** Nút "Lưu thứ tự"
-  - **Loại component tham chiếu từ DESIGN.md:** button-primary (nền primary #0a0a0a, chữ màu on-primary #ffffff, font Inter size 14px, weight 600, rounded-md 12px, height 44px)
-  - **Vị trí:** Vùng C, nằm cạnh nút "Thêm Unit mới" về bên trái.
-  - **Trạng thái:**
-    - Ẩn mặc định khi thứ tự danh sách chưa thay đổi.
-    - Hiển thị khi Admin thực hiện thao tác kéo thả thay đổi vị trí ít nhất một Unit.
-    - Hover: sáng nhẹ.
-    - Loading: xoay spinner trắng, vô hiệu hóa nút.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị text "Lưu thứ tự mới". Nhấp vào để lưu vị trí Unit mới vào cơ sở dữ liệu.
+### 4.3 Thanh hành động Toolbar (Content Toolbar - Vùng C)
+- **Thành phần:**
+  - **Tiêu đề cấp độ học hiện tại:** Dạng chữ `{typography.display-sm}` (28px, Manrope, weight 700, màu `{colors.text-primary}`). Hiển thị: *"Cấp độ: {Tên cấp độ}"* (ví dụ: *Cấp độ: Cơ bản (A1 - A2)*).
+  - **Cụm nút hành động sắp xếp và thêm mới:**
+    - **Nút "Lưu thứ tự mới":** Style `button-primary` nền `{colors.primary}`, chữ trắng, cao `44px`, bo góc `{rounded.lg}`. Ẩn mặc định, chỉ hiển thị khi có sự kiện kéo thả hoán đổi vị trí Unit.
+    - **Nút "Hủy thay đổi":** Style `button-secondary` nền `{colors.surface}`, viền mờ, chữ `{colors.primary}`, cao `44px`, bo góc `{rounded.lg}`. Ẩn mặc định, chỉ hiển thị khi có thay đổi thứ tự kéo thả.
+    - **Nút "+ Thêm Unit mới":** Style `button-primary` nền `{colors.primary}` (`#4E56C0`), chữ trắng, cao `44px`, bo góc `{rounded.lg}`. Mặc định tỏa sáng `{elevation.active-glow}`. Bấm vào mở Modal `AD-02-M1`.
 
-- **Tên component:** Nút "Hủy thay đổi"
-  - **Loại component tham chiếu từ DESIGN.md:** button-secondary (nền canvas #fffaf0, border 1px hairline #e5e5e5, chữ ink #0a0a0a, rounded-md 12px, height 44px)
-  - **Vị trí:** Vùng C, nằm cạnh nút "Lưu thứ tự" về bên trái.
-  - **Trạng thái:** Ẩn mặc định, chỉ hiển thị khi có thay đổi thứ tự kéo thả.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị text "Hủy thay đổi". Nhấp chuột để phục hồi danh sách về thứ tự ban đầu.
+### 4.4 Danh sách thẻ Unit hỗ trợ kéo thả (Sortable Unit List - Vùng D)
+- **Thẻ bài học Unit (Unit Card Item):**
+  - Nền thẻ: `{colors.surface}` (`#FFFFFF`).
+  - Bo góc: `{rounded.xl}` (24px).
+  - Viền mờ: `1px solid rgba(155, 93, 224, 0.1)`. Padding: `{spacing.lg}` (24px).
+  - Hiệu ứng nâng: Mặc định `{elevation.glow}`. Hover viền đổi sang màu `{colors.primary}` nhẹ và có con trỏ dạng grab.
+  - **Thành phần bên trong thẻ:**
+    - **Icon grip kéo thả:** Icon 6 dấu chấm (Lucide `grip-vertical`) nằm ở đầu ngoài cùng bên trái thẻ, màu `{colors.text-secondary}`.
+    - **Nhãn số thứ tự Unit:** Badge viên thuốc `{rounded.pill}`, nền nhạt `{colors.light-accent}` (`#FDCFFA`), chữ màu `{colors.primary}`. Hiển thị dạng: *"Unit 01"*, *"Unit 02"*.
+    - **Tên Unit & Chủ đề lớn:**
+      - Dạng chữ `{typography.title-md}` (18px, weight 600, màu `{colors.text-primary}`). Nhấp vào tên Unit để mở màn hình danh sách bài học của Unit đó (`AD-03`).
+      - Ví dụ: *"Tên Unit: Greetings & Introductions — Chủ đề: Greetings"* (theo `level_built.md`).
+    - **Cụm nhãn thông tin phụ (Info Badges Area):**
+      - Xếp hàng ngang dưới tên Unit gồm các badge nhỏ nền `{colors.canvas}` (`#F9F7FE`), viền mờ, chữ màu `{colors.text-secondary}`:
+        - *"Từ vựng: Chào hỏi & Quốc tịch"*
+        - *"Ngữ pháp: To be (Present)"*
+        - *"Kỹ năng thi: IELTS"*
+    - **Nút tương tác cuối thẻ:**
+      - *Nút "Sửa":* Style `button-secondary` cao `40px` (có padding đảm bảo touch target 44px), viền mờ, chữ `{colors.primary}`. Bấm vào mở Modal sửa `AD-02-M2`.
+      - *Nút "Xóa":* Style liên kết chữ trơn màu `{colors.error}` (`#EF4444`) (weight 600). Bấm vào kích hoạt luồng xóa `UC-02c`.
 
-- **Tên component:** Danh sách thẻ Unit (Drag-and-Drop)
-  - **Loại component tham chiếu từ DESIGN.md:** product-mockup-card (nền canvas #fffaf0, border 1px hairline #e5e5e5, rounded-lg 16px, padding 20px)
-  - **Vị trí:** Vùng D.
-  - **Trạng thái:** Mặc định. Có thể kéo thả từng thẻ lên xuống.
-  - **Dữ liệu hiển thị / hành vi:** Mỗi dòng là một thẻ Unit có thể kéo thả. Đầu thẻ có icon grip 6 chấm biểu thị tính năng kéo thả. Thẻ hiển thị các thông tin: Số thứ tự Unit, Tên Unit, Chủ đề lớn, Chủ điểm từ vựng, Chủ điểm ngữ pháp, Kỹ năng thi.
-
-- **Tên component:** Số thứ tự Unit (Unit Number Badge)
-  - **Loại component tham chiếu từ DESIGN.md:** badge-pill (nền #f5f0e0, chữ ink #0a0a0a, font caption size 13px, weight 600, rounded-pill)
-  - **Vị trí:** Vùng D, góc trên bên trái trong mỗi thẻ Unit.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị dạng "Unit 01", "Unit 02", v.v.
-
-- **Tên component:** Tên Unit & Chủ đề
-  - **Loại component tham chiếu từ DESIGN.md:** title-md (font Inter 18px, weight 600, màu ink #0a0a0a)
-  - **Vị trí:** Vùng D, ở phần giữa thẻ Unit.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị dạng "Tên Unit: {Tên} - Chủ đề: {Chủ đề lớn}". Nhấp vào tên Unit sẽ chuyển hướng sang màn hình AD-03 (Lesson List Page của Unit đó).
-
-- **Tên component:** Các thẻ thông tin bổ trợ (Info Badges)
-  - **Loại component tham chiếu từ DESIGN.md:** badge-pill (nền canvas #fffaf0, border 1px hairline #e5e5e5, font Inter 13px, màu body #3a3a3a)
-  - **Vị trí:** Vùng D, nằm dưới tên Unit.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị các nhãn: "Từ vựng: {Chủ điểm}", "Ngữ pháp: {Chủ điểm}", "Kỹ năng kiểm tra: {IELTS / TOEIC}".
-
-- **Tên component:** Nút "Sửa" trên thẻ Unit
-  - **Loại component tham chiếu từ DESIGN.md:** button-secondary (nền canvas #fffaf0, border 1px hairline #e5e5e5, rounded-sm 8px, font Inter size 13px, weight 600, padding 8px x 12px)
-  - **Vị trí:** Vùng D, góc dưới bên phải thẻ Unit.
-  - **Trạng thái:** Mặc định, hover.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị chữ "Sửa". Nhấn vào để mở Modal sửa Unit AD-02-M2.
-
-- **Tên component:** Nút "Xóa" trên thẻ Unit
-  - **Loại component tham chiếu từ DESIGN.md:** button-text-link (màu error #ef4444, font Inter size 13px, weight 600)
-  - **Vị trí:** Vùng D, cạnh nút "Sửa" về bên phải.
-  - **Trạng thái:** Mặc định, hover.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị chữ "Xóa". Nhấn vào để kích hoạt luồng xóa Unit (UC-02c).
+---
 
 ## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION DETAILS)
-- **Hành động:** Kéo thả thẻ Unit thay đổi thứ tự
-  - **Luồng chính:** Admin click giữ chuột trái vào icon grip ở đầu thẻ Unit -> Kéo di chuyển thẻ lên trên hoặc xuống dưới -> Nhả chuột tại vị trí mới. Các thẻ Unit tự động hoán đổi vị trí trực quan. Số thứ tự hiển thị của các Unit tự động cập nhật tạm thời (ví dụ: Unit kéo từ thứ 3 lên thứ 1 sẽ đổi badge thành Unit 01, các thẻ khác tụt số thứ tự). Nút "Lưu thứ tự" và nút "Hủy thay đổi" xuất hiện ở Vùng C.
-- **Hành động:** Nhấp nút "Lưu thứ tự"
-  - **Luồng chính:** Admin click nút -> Hệ thống gửi API POST chứa danh sách các ID Unit kèm số thứ tự mới -> Thành công -> Hiển thị Toast thông báo thành công màu xanh lá -> Tải lại danh sách Unit theo thứ tự mới. Nút "Lưu thứ tự" và "Hủy thay đổi" ẩn đi.
-  - **Dữ liệu gửi lên / nhận về:**
-    - Gửi đi: `[ { "id": 12, "sequence": 1 }, { "id": 10, "sequence": 2 }, ... ]`
-    - Nhận về: `{ "success": true }`
-- **Hành động:** Nhấp nút "Hủy thay đổi"
-  - **Luồng chính:** Admin click nút -> Hệ thống khôi phục vị trí các thẻ Unit về đúng trạng thái ban đầu trước khi kéo thả. Nút "Lưu thứ tự" và "Hủy thay đổi" ẩn đi.
-- **Hành động:** Nhấp vào tên Unit hoặc chủ đề
-  - **Luồng chính:** Admin nhấp chuột -> Chuyển hướng sang màn hình AD-03 (Lesson List Page của Unit đó).
-- **Hành động:** Nhấp nút "Thêm Unit mới"
-  - **Luồng chính:** Hiển thị Modal AD-02-M1 chồng lên màn hình hiện tại.
-- **Hành động:** Nhấp nút "Sửa" trên thẻ Unit
-  - **Luồng chính:** Hiển thị Modal AD-02-M2 chứa thông tin cũ chồng lên màn hình hiện tại.
-- **Hành động:** Nhấp nút "Xóa" trên thẻ Unit
-  - **Luồng chính:** Hệ thống kiểm tra điều kiện xóa (Unit đã có học viên học hoặc làm bài kiểm tra):
-    - *Nhánh có học viên hoạt động:* Báo lỗi dạng Toast hoặc cảnh báo đỏ: "Không thể xóa Unit vì hiện đang có tiến trình học tập của học viên được ghi nhận". Không mở Modal xóa.
-    - *Nhánh Unit hợp lệ:* Hiển thị Modal xác nhận xóa AD-02-M3.
+- **Hành động: Kéo thả thẻ Unit thay đổi thứ tự**
+  - Admin giữ chuột trái vào icon grip $\rightarrow$ Kéo thẻ di chuyển $\rightarrow$ Nhả chuột $\rightarrow$ Các thẻ tự động hoán đổi vị trí mượt mà, số thứ tự trên badge tự động cập nhật lại tạm thời $\rightarrow$ Xuất hiện cặp nút "Lưu thứ tự mới" & "Hủy thay đổi" ở Vùng C.
+- **Hành động: Click nút "Lưu thứ tự mới"**
+  - Hệ thống gửi API POST danh sách thứ tự mới lên server.
+  - **API Cập nhật thứ tự:** `POST /api/units/reorder`
+    - Payload: `[ { "id": 12, "sequence": 1 }, { "id": 15, "sequence": 2 } ]`
+    - Response: `{ "success": true }`
+  - Thành công: Đóng trạng thái chỉnh sửa, ẩn các nút Lưu/Hủy, hiện Toast màu xanh lá `{colors.success}`: *"Cập nhật thứ tự các Unit thành công!"*.
+- **Hành động: Click nút "Xóa" trên thẻ Unit**
+  - Hệ thống kiểm tra điều kiện xóa:
+    - *Nếu Unit đã có học viên học hoặc làm bài kiểm tra:* Ngăn chặn xóa, hiện cảnh báo đỏ màu `{colors.error}`: *"Không thể xóa Unit vì hiện đang có tiến trình học tập của học viên được ghi nhận!"*.
+    - *Nếu Unit trống hợp lệ:* Hiển thị Modal xác nhận xóa `AD-02-M3`.
+
+---
 
 ## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
-- **Trạng thái rỗng (empty state):** Khi cấp độ chưa có Unit nào, hiển thị hình ảnh 3D claymation minh họa ở trung tâm vùng D kèm văn bản: "Cấp độ học này chưa có Unit nào. Hãy nhấn nút 'Thêm Unit mới' phía trên để bắt đầu xây dựng nội dung học tập."
-- **Trạng thái tải (loading state):** Khi đang tải danh sách Unit, các thẻ được thay thế bằng các khung xương Skeleton nhấp nháy xám nhẹ.
-- **Trạng thái lỗi (error state):** Khi mất kết nối API, vùng D hiển thị thông báo lỗi "Không thể tải danh sách Unit. Vui lòng kiểm tra kết nối mạng." kèm nút "Thử lại".
-- **Trạng thái thành công (success state):** Sau khi thực hiện lưu thứ tự thành công, hiển thị Toast thông báo xanh lá ở góc trên bên phải: "Cập nhật thứ tự các Unit thành công!".
+- **Trạng thái danh sách trống (Empty State):**
+  - Khi chưa có Unit nào được tạo cho cấp độ học này:
+    - Ẩn danh sách. Hiển thị hình ảnh chú cá voi [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) (`160px x 160px`) lơ lửng ngơ ngác giữa các vì sao mờ.
+    - Văn bản hiển thị: *"Cấp độ này chưa có Unit nào được khởi tạo. Hãy nhấn nút 'Thêm Unit mới' phía trên để bắt đầu xây dựng nội dung!"* dạng `{typography.body-md}` màu `{colors.text-secondary}`.
+- **Trạng thái tải trang (Loading State):** Hiển thị các khối Skeleton nhấp nháy mờ dịu mắt thay thế các thẻ Unit.
+
+---
 
 ## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
-- **Đến từ màn hình nào trước đó?** Từ màn hình AD-01 (Level List Page) sau khi Admin click vào tên của một Cấp độ.
-- **Sau khi hoàn thành hành động, đi đến màn hình nào?**
-  - Đi đến màn hình AD-03 (Lesson List Page) sau khi nhấp vào tên một Unit.
-  - Đi đến màn hình AD-01 (Level List Page) sau khi click vào Breadcrumbs "Lộ trình học".
-- **Các màn hình liên quan khác:** Modal AD-02-M1, Modal AD-02-M2, Modal AD-02-M3 hiển thị đè lên màn hình này.
+- **Đến từ:** Màn hình danh sách cấp độ [level_list_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/level_list_page.md) sau khi click chọn tên một cấp độ.
+- **Đi đến:**
+  - [lesson_list_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/lesson_list_page.md) khi click vào tên một Unit.
+  - [level_list_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/admin-dashboard/level_list_page.md) khi click Breadcrumbs "Lộ trình học".
 
-## 8. LƯU Ý THIẾT KẾ (DESIGN NOTES)
-- Nền sàn của trang sử dụng màu canvas sáng ấm (#fffaf0).
-- Các thẻ Unit sử dụng kiểu dáng `product-mockup-card` với viền hairline mỏng 1px (#e5e5e5) màu nhạt, bo tròn góc rounded-lg (16px), không đổ bóng để giữ tính tối giản. Khi rê chuột qua thẻ (hover), viền thẻ đổi màu xám sẫm nhẹ và con trỏ chuột đổi sang dạng di chuyển (grab icon).
-- Khoảng cách dọc giữa các thẻ Unit là spacing-md (16px) đảm bảo tính trực quan và dễ dàng thao tác kéo thả mà không bị kích nhầm.
-- Touch target của các nút hành động (Sửa, Xóa) được tăng vùng đệm tối thiểu 44x44px. Nút Xóa có màu đỏ thương hiệu (#ef4444) để báo hiệu hành động nguy hiểm theo Nguyên tắc Báo hiệu (Signaling Principle).
+---
 
+## 8. LƯU Ý THIẾT KẾ CHO LẬP TRÌNH VIÊN (DO'S AND DON'TS)
+- **NÊN:** Thiết lập hiệu ứng chuyển cảnh kéo thả mượt mà (sử dụng các thư viện như React-Beautiful-DnD hoặc tương đương) kèm theo bóng phát sáng `{elevation.active-glow}` xung quanh thẻ khi đang kéo để tạo phản hồi thị giác tốt.
+- **KHÔNG ĐƯỢC:** Sử dụng bóng đổ đen thô ráp. Việc phân cấp chỉ dựa vào viền mờ hairline và dải phát sáng mờ ảo để giữ nguyên hồn thương hiệu DiveVerse.
 
-
+## ÁNH XẠ DỮ LIỆU MOCK (MOCK DATA BINDING)
+- **Danh sách Unit thuộc Cấp độ (Units Management Table):** Liên kết với mảng `adminDashboardData.unitsList`. Mỗi Unit hiển thị:
+  - Số thứ tự Unit: `{sequence}`
+  - Tên Unit: `{name}`
+  - Mã Cấp độ cha: `{levelId}`
+  - Số lượng bài học: `{lessonsCount}`
+  - Trạng thái hoạt động: `{status}` (active / inactive)

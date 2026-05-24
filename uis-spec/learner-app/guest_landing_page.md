@@ -1,115 +1,131 @@
 # MÀN HÌNH: GUEST LANDING PAGE (TRANG CHỦ GIỚI THIỆU)
 
 ## 1. THÔNG TIN CHUNG
-- Tên màn hình: Guest Landing Page (Trang chủ giới thiệu)
-- Mã use case liên quan: N/A (Trang giới thiệu tiếp thị dành cho khách truy cập)
-- Mã luồng người dùng liên quan: Flow LN-FL-01 (Xác thực tài khoản người học)
-- Vai trò người dùng: Guest (Khách truy cập chưa đăng nhập)
-- Vị trí trong sitemap: Trang chủ (URL: /)
+- **Tên màn hình:** Guest Landing Page (Trang chủ giới thiệu)
+- **Mã use case liên quan:** N/A (Trang tiếp thị giới thiệu sản phẩm cho khách truy cập)
+- **Mã luồng người dùng liên quan:** LN-FL-01 (Xác thực tài khoản người học)
+- **Vai trò người dùng:** Guest (Khách vãng lai chưa đăng nhập)
+- **Vị trí trong sitemap:** Trang chủ (URL: `/`)
 
 ## 2. MỤC ĐÍCH CỦA MÀN HÌNH
-Người dùng (Khách vãng lai) truy cập trang này để tìm hiểu về hành trình khám phá tiếng Anh cùng DiveVerse (phương pháp học tự nhiên, luyện tập tương tác và người bạn đồng hành AI Cá Voi) và bắt đầu chuyến du hành của mình.
+Giới thiệu phương pháp học tiếng Anh đột phá của DiveVerse (quy nạp tự nhiên, hỗ trợ AI cá nhân hóa theo ZPD) và cấu trúc 3 cấp độ học tập (Basic A1-A2, Intermediate B1-B2, Advanced C1-C2) ánh xạ trực tiếp chuẩn điểm thi quốc tế (IELTS từ 3.0 đến 9.0; TOEIC từ 100 đến 990). Từ đó, thuyết phục và dẫn dắt người dùng đăng nhập hoặc đăng ký tài khoản mới để bắt đầu lộ trình học tập.
 
-## 3. BỐ CỤC (LAYOUT)
-- Loại bố cục: Bố cục cuộn dọc nhiều phân băng (Multi-band Long Scrolling Layout) đặc trưng của Clay.com, sử dụng nền canvas sáng ấm (#fffaf0).
-- Các vùng chính trên màn hình:
-  - Vùng A: Thanh điều hướng đầu trang (Sticky Header Navbar) cố định.
-  - Vùng B: Phân băng khởi hành (Hero Section Grid 7-5) giới thiệu thông điệp chính "Bơi vào vũ trụ ngôn ngữ", kết hợp hình minh họa 3D Chú Cá Voi Xanh bơi giữa các hành tinh kiến thức bên phải.
-  - Vùng C: Lưới thẻ "Trạm dừng chân" (Feature Cards Grid 3-up) giới thiệu các tính năng: Học từ vựng tự nhiên, Luyện kỹ năng thực tế, và Người bạn Cá Voi đồng hành.
-  - Vùng D: Băng kêu gọi hành động "Sẵn sàng cất cánh" (Illustrated CTA Band).
-  - Vùng E: Chân trang (Cream-tinted Footer) chứa thông tin kết nối và hình ảnh mặt trăng đất sét 3D.
-- Kích thước / Grid tham khảo:
-  - Chiều rộng nội dung tối đa: 1280px căn giữa.
-  - Khoảng cách dọc giữa các phân băng: spacing-section (96px).
-  - Lưới Vùng C: 3 cột ở desktop, 2 cột ở tablet, 1 cột ở mobile.
+## 3. BỐ CỤC TỔNG THỂ (LAYOUT ARCHITECTURE)
+- **Triết lý bố cục:** Bố cục cuộn dọc nhiều phân vùng (Multi-section Vertical Scrolling Layout) có chiều rộng nội dung tối đa là `1200px` (`max-content-width`).
+- **Màu sắc nền tảng:** Nền trang tổng thể sử dụng `{colors.canvas}` (`#F9F7FE`). Nền điểm xuyết các chòm sao vector mờ nét mảnh `0.5px` và các chấm sao ngẫu nhiên `1-3px` phát sáng để tạo không gian vũ trụ ánh sáng bồng bềnh.
+- **Khoảng cách dọc giữa các phân vùng:** `{spacing.section}` (96px).
+- **Phân bổ các vùng chính (Layout Zones):**
+  - **Zone 1: Top Bar (Thanh điều hướng cố định)**
+    - Chiều cao cố định: `nav-height` (64px). Ghim cố định ở đầu màn hình khi cuộn.
+  - **Zone 2: Hero Section (Khu vực thu hút chính)**
+    - Lưới chia 2 cột (Desktop 7:5, chuyển thành 1 cột dọc trên Mobile). Nền phủ lớp radial gradient `{gradients.atmosphere-haze}`.
+  - **Zone 3: Lộ trình & Thang điểm quốc tế (Level & Target Mapping Grid)**
+    - Lưới 3 cột giới thiệu cấu trúc 3 cấp độ học tập dựa theo `level_built.md`.
+  - **Zone 4: Quy trình học tập 6 giai đoạn (6-Stage Learning Process Showcase)**
+    - Vùng bố cục ngang trực quan hóa các bước học từ vựng/ngữ pháp (UC-05a, UC-05b) giúp người dùng hiểu phương pháp học của hệ thống.
+  - **Zone 5: CTA Band (Thẻ kêu gọi hành động cuối trang)**
+    - Một thẻ card lớn nằm ngang căn giữa, nền dải màu `{gradients.morning-nebula}`.
+  - **Zone 6: Footer (Chân trang dark mode thư giãn)**
+    - Sử dụng nền tối màu `{colors.dark-floor}` (`#1C1B2E`) làm điểm dừng nghỉ cho mắt.
 
-## 4. THÀNH PHẦN GIAO DIỆN (UI COMPONENTS)
-- **Tên component:** Thanh điều hướng đầu trang (Header Navbar)
-  - **Loại component tham chiếu từ DESIGN.md:** top-nav (cao 64px, nền canvas #fffaf0, border-bottom 1px hairline #e5e5e5)
-  - **Vị trí:** Vùng A, ghim cố định ở đầu màn hình.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** 
-    - Bên trái: Logo 3D DiveVerse hình Chú Cá Voi Xanh và Wordmark "DiveVerse" màu ink (#0a0a0a).
-    - Ở giữa: Danh sách link điều hướng (Khám phá, Lộ trình, Tính năng, Tham gia) dạng `nav-link` (Inter 14px weight 500, màu muted #6a6a6a).
-    - Bên phải: Nút "Đăng nhập" (`button-text-link`) và nút "Khám phá ngay" (`button-primary` nền đen, chữ trắng).
+---
 
-- **Tên component:** Tiêu đề Hero (Hero Headline)
-  - **Loại component tham chiếu từ DESIGN.md:** display-xl (Plain Black display typeface, font Inter weight 500, size 68px, line-height 1.0, letter-spacing -2.5px)
-  - **Vị trí:** Vùng B, nằm bên trái của Hero Section.
-  - **Trạng thái:** Mặc định, màu chữ ink (#0a0a0a).
-  - **Dữ liệu hiển thị / hành vi:** Dòng chữ: "Bơi vào vũ trụ tiếng Anh theo cách tự nhiên nhất".
+## 4. THÀNH PHẦN GIAO DIỆN CHI TIẾT (UI COMPONENTS)
 
-- **Tên component:** Đoạn văn mô tả Hero
-  - **Loại component tham chiếu từ DESIGN.md:** body-strong (font Inter weight 500, size 18px, line-height 1.55, màu body-strong #1a1a1a)
-  - **Vị trí:** Vùng B, nằm dưới tiêu đề Hero.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Dòng chữ: "DiveVerse giúp bạn đắm mình vào ngôn ngữ qua những ngữ cảnh thực tế. Cùng chú Cá Voi Thông Thái khám phá từ vựng, ngữ pháp và luyện nói tương tác mỗi ngày.".
+### 4.1 Thanh điều hướng đầu trang (Top Navigation)
+- **Cấu trúc & Định vị:** Vùng 1, ghim cố định (`position: sticky; top: 0; z-index: 100`).
+- **Đặc tả Visual:**
+  - Nền: Kính mờ `{colors.glass}` (`rgba(255, 255, 255, 0.7)`), thuộc tính `backdrop-filter: blur(8px)`.
+  - Viền dưới: `1px solid rgba(155, 93, 224, 0.1)`. Chiều cao: `64px`.
+- **Các phần tử bên trong:**
+  - **Logo DiveVerse:** Sử dụng tệp ảnh cá voi chính [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) kích thước `36px x 36px` căn lề trái, bên cạnh là chữ "DiveVerse" dạng `{typography.title-lg}` (Inter, 24px, weight 600, màu `{colors.text-primary}`).
+  - **Liên kết điều hướng:** Gồm các nút "Khám phá", "Lộ trình", "Cấp độ", "Tính năng". Font `{typography.body-md}`, màu `{colors.text-secondary}` (`#5A5A7A`). Di chuột qua sẽ đổi màu sang `{colors.primary}` (`#4E56C0`) kèm vạch kẻ chân mờ.
+  - **Nút "Đăng nhập":** Kiểu chữ `{typography.button}`, màu `{colors.primary}`. Touch target tối thiểu `44px`.
+  - **Nút "Đăng ký du hành" (Primary CTA):** Nền `{colors.primary}` (`#4E56C0`), chữ trắng. Bo góc `{rounded.lg}` (16px). Chiều cao tối thiểu `44px`. Có `{elevation.active-glow}` mặc định, di chuột qua kích hoạt `{elevation.hover-glow}`.
 
-- **Tên component:** Nút CTA Hero "Bắt đầu học ngay"
-  - **Loại component tham chiếu từ DESIGN.md:** button-primary (nền primary #0a0a0a, chữ màu on-primary #ffffff, font Inter size 14px, weight 600, rounded-md 12px, height 44px, padding 12px x 24px)
-  - **Vị trí:** Vùng B, nằm dưới đoạn mô tả Hero.
-  - **Trạng thái:** Mặc định, hover (tăng độ sáng nhẹ).
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị chữ "Bắt đầu học ngay". Nhấp chuột chuyển sang Register Page (TR-03).
+### 4.2 Khu vực Hero (Hero Section)
+- **Đặc tả Visual:** Vùng 2. Nền phủ dải màu radial `{gradients.atmosphere-haze}` mượt mà.
+- **Các phần tử bên trong:**
+  - **Tiêu đề Hero (Hero Headline):**
+    - Kiểu chữ: `{typography.display-xl}` (Manrope, 64px, weight 700, letter-spacing -2px).
+    - Màu sắc: `{colors.text-primary}`.
+    - Nội dung: *"Bơi vào vũ trụ ngôn ngữ theo cách tự nhiên nhất"*
+  - **Đoạn mô tả phụ:**
+    - Kiểu chữ: `{typography.body-md}` (Inter, 16px, line-height 1.6). Màu `{colors.text-secondary}`.
+    - Nội dung: *"Đắm mình vào Anh ngữ thông qua ngữ cảnh thực tế. Cấu trúc lộ trình học tương tác chuẩn quốc tế kết hợp trợ lý AI sửa lỗi 2 vòng giúp bạn tự tin đạt mốc IELTS 3.0 - 9.0 và TOEIC 100 - 990."*
+  - **Nút hành động chính (Hero Primary CTA - "Bắt đầu học ngay"):**
+    - Kiểu: Nút lớn độc tôn, bo góc `{rounded.lg}` (16px), nền `{colors.primary}` (`#4E56C0`), chữ trắng.
+    - Hiệu ứng: Default `{elevation.active-glow}`, hover `{elevation.hover-glow}` (tỏa quầng sáng tím rực rỡ `box-shadow: 0 0 32px rgba(215, 143, 238, 0.4)`), tự động phóng to nhẹ `scale(1.02)` trong `0.2s`.
+  - **Mascot Cosmic Blue Whale (Phiên bản Hero):**
+    - **Hình ảnh:** Sử dụng hình ảnh cá voi chính [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png).
+    - **Kích thước:** Chiều rộng `160px`.
+    - **Vị trí:** Cột bên phải, lơ lửng chuyển động nhún nhảy chậm (`floating keyframe`). Bụng chú cá voi phát sáng màu hồng nhạt `{colors.light-accent}`.
 
-- **Tên component:** Ảnh minh họa Hero 3D
-  - **Loại component tham chiếu từ DESIGN.md:** hero-illustration-card (nền surface-soft #faf5e8, rounded-xl 24px)
-  - **Vị trí:** Vùng B, nằm bên phải của Hero Section.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hình ảnh 3D claymation minh họa một nhân vật đang lướt sóng trên đại dương tri thức chứa đầy các chữ cái và từ vựng tiếng Anh. Kích thước hiển thị: 480px x 420px.
+### 4.3 Phân vùng Cấp độ & Thang điểm quốc tế (Level Mapping Grid)
+- **Cấu trúc & Định vị:** Vùng 3. Thiết kế lưới 3 cột ngang tương ứng với 3 cấp độ học tập chi tiết trong `level_built.md`.
+- **Đặc tả Visual của mỗi thẻ cấp độ (Level Cards):**
+  - Nền: `{colors.surface}` (`#FFFFFF`), bo góc `{rounded.xl}` (24px), viền mờ `1px solid rgba(155, 93, 224, 0.1)`, nâng độ cao bằng `{elevation.glow}`. Hover nâng card nhẹ lên và viền đổi màu sang `{colors.accent}`.
+- **Nội dung hiển thị chi tiết (theo level_built.md):**
+  - **Cột 1: Cấp độ Basic (A1 - A2)**
+    - Tên cấp độ: *"Cấp độ Basic (A1-A2) - Giao tiếp sinh tồn"*
+    - Thang điểm mục tiêu: **IELTS Target: 3.0 - 3.5 | TOEIC Target: 100 - 540**.
+    - Cấu trúc: 25 Units (100 Lessons) | Tích lũy ~2,000 từ vựng.
+    - Chủ điểm chính: Chào hỏi, thói quen hàng ngày, quá khứ đơn (Past Simple), dự định tương lai (Will vs Going to), động từ khuyết thiếu cơ bản (Can, Should).
+  - **Cột 2: Cấp độ Intermediate (B1 - B2)**
+    - Tên cấp độ: *"Cấp độ Intermediate (B1-B2) - Làm việc độc lập"*
+    - Thang điểm mục tiêu: **IELTS Target: 5.5 - 6.5 | TOEIC Target: 550 - 940**.
+    - Cấu trúc: 35 Units (140 Lessons) | Tích lũy ~6,000 từ vựng.
+    - Chủ điểm chính: Phrasal verbs, câu bị động, câu điều kiện loại 1, 2, 3 và hỗn hợp, mệnh đề quan hệ, reported speech, câu chẻ (Cleft sentences).
+  - **Cột 3: Cấp độ Advanced (C1 - C2)**
+    - Tên cấp độ: *"Cấp độ Advanced (C1-C2) - Chuyên gia học thuật"*
+    - Thang điểm mục tiêu: **IELTS Target: 7.5 - 9.0 | TOEIC Target: 945 - 990**.
+    - Cấu trúc: 40 Units (160 Lessons) | Tích lũy ~10,000+ từ vựng & Collocations học thuật.
+    - Chủ điểm chính: Đảo ngữ nâng cao, danh từ hóa (Nominalisation), rào đón ngôn từ (Hedging language), tư duy phản biện sâu, ngôn ngữ học, vật lý lượng tử đơn giản.
 
-- **Tên component:** Lưới thẻ tính năng (Feature Cards Grid)
-  - **Loại component tham chiếu từ DESIGN.md:** grid 3-up
-  - **Vị trí:** Vùng C.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** Hiển thị 3 thẻ tính năng nổi bật:
-    - *Thẻ 1 - Học từ vựng tự nhiên:* `feature-card-pink` (nền brand-pink #ff4d8b, chữ trắng). Chứa tiêu đề "Học từ vựng 6 giai đoạn" (Plain Black 24px), đoạn mô tả ngắn, hình ảnh mockup UI mini các giai đoạn đoán ngữ cảnh và gõ chính tả dictation.
-    - *Thẻ 2 - Luyện nói hội thoại AI:* `feature-card-teal` (nền brand-teal #1a3a3a, chữ trắng). Chứa tiêu đề "Hội thoại giả lập AI" (Plain Black 24px), đoạn mô tả ngắn, hình ảnh minh họa soundwave và chat box tương tác cùng Cá Voi Thông Thái.
-    - *Thẻ 3 - Ôn tập lặp lại ngắt quãng:* `feature-card-lavender` (nền brand-lavender #b8a4ed, chữ ink). Chứa tiêu đề "Bộ nhớ dài hạn SRS" (Plain Black 24px), đoạn mô tả ngắn, hình ảnh 3D claymation một chiếc đồng hồ cát phản xạ 10 giây.
+### 4.4 Quy trình học tập 6 giai đoạn (6-Stage Process Showcase)
+- **Cấu trúc & Định vị:** Vùng 4. Bố cục chuỗi nằm ngang thể hiện hành trình học quy nạp tự nhiên (UC-05a, UC-05b):
+  1. *Làm quen ngữ cảnh (Contextual Guessing):* Đọc ví dụ, nghe âm thanh bản xứ để đoán nghĩa.
+  2. *Giải mã chi tiết (Explicit Decoding):* Xem IPA, định nghĩa, collocations, sắc thái từ (Register/Nuance).
+  3. *Thực hành tương tác (Active Practice):* Flashcard SRS kéo thả, Collocation Prediction.
+  4. *Ghi nhớ vận động (Dictation):* Nghe và gõ lại để khắc sâu trí nhớ âm thanh.
+  5. *Tự sản sinh câu (Personalized Production):* Tự đặt câu bám sát đời sống thực tế cá nhân.
+  6. *Sửa lỗi bằng AI (ZPD AI Feedback):* Trợ lý AI phân tích, chỉ ra lỗi và hướng dẫn sửa lại qua 2 vòng gợi ý.
 
-- **Tên component:** Băng kêu gọi hành động cuối trang (CTA Illustrated Band)
-  - **Loại component tham chiếu từ DESIGN.md:** cta-band-illustrated (nền surface-soft #faf5e8, rounded-xl 24px, padding 80px)
-  - **Vị trí:** Vùng D.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:**
-    - Tiêu đề "Sẵn sàng chinh phục tiếng Anh?" (display-md 40px, weight 500, màu ink #0a0a0a).
-    - Nút CTA lớn "Đăng ký tài khoản miễn phí" (`button-primary` nền đen, chữ trắng).
-    - Hình minh họa 3D chú Cá Voi Xanh mascot nhỏ đang đứng cười thân thiện vẫy tay ở góc phải.
+### 4.5 Thẻ kêu gọi hành động cuối trang (CTA Band)
+- **Đặc tả Visual:** Vùng 5.
+  - Nền: Dải gradient `{gradients.morning-nebula}`. Bo góc `{rounded.xxl}` (32px).
+  - Hiệu ứng phát sáng: `{elevation.hover-glow}`. Padding: `{spacing.xxl}` (48px).
+- **Nội dung:**
+  - Tiêu đề: *"Sẵn sàng đắm mình vào vũ trụ tiếng Anh?"* dạng `{typography.display-md}`.
+  - Phụ đề: *"Cá Voi Xanh đang đợi bạn ở trạm hành trình tiếp theo."*
+  - **Mascot:** Sử dụng hình ảnh cá voi chính [whale-removebg.png](file:///d:/Study/research_DiveVerse/project/built-ui/design/design-system/whale-removebg.png) kích thước `180px` nhún nhảy chậm bên cạnh tên lửa nhỏ cách điệu vector mờ.
+  - Nút bấm: *"Đăng ký du hành ngay"* nền trắng `{colors.surface}`, chữ màu `{colors.primary}`, bo góc `{rounded.lg}` (16px), có soft glow.
 
-- **Tên component:** Chân trang (Footer)
-  - **Loại component tham chiếu từ DESIGN.md:** footer (nền surface-soft #faf5e8, text màu body #3a3a3a, padding dọc 80px)
-  - **Vị trí:** Vùng E.
-  - **Trạng thái:** Mặc định.
-  - **Dữ liệu hiển thị / hành vi:** 
-    - Hiển thị 4 cột liên kết thông tin (Sản phẩm, Công ty, Tài nguyên, Pháp lý).
-    - Dưới cùng hiển thị bản quyền và hình vẽ vector tối giản một ngọn núi đất sét nhấp nhô màu kem nhạt - biểu tượng signature của Clay.com.
+### 4.6 Chân trang (Footer)
+- **Đặc tả Visual:** Vùng 6, chân trang tối màu `{colors.dark-floor}` (`#1C1B2E`) điểm xuyết tinh vân mờ.
+- **Nội dung:** Các liên kết sản phẩm, điều khoản, logo thu nhỏ và dòng bản quyền.
 
-## 5. CHI TIẾT TƯƠNG TÁC (INTERACTION DETAILS)
-- **Hành động:** Nhấp vào nút "Bắt đầu học ngay" (Hero CTA) hoặc "Đăng ký tài khoản miễn phí" (Pre-footer CTA)
-  - **Luồng chính:** Khách click nút -> Chuyển hướng trình duyệt sang màn hình Register Page (TR-03) để đăng ký tài khoản mới.
-- **Hành động:** Nhấp vào nút "Đăng nhập" ở Vùng A
-  - **Luồng chính:** Khách click nút -> Chuyển hướng trình duyệt sang màn hình Login Page (TR-02).
-- **Hành động:** Di chuột qua các thẻ tính năng ở Vùng C
-  - **Luồng chính:** Con trỏ chuột chuyển thành dạng bàn tay. Thẻ hơi nhấc lên nhẹ nhờ hiệu ứng transition css mượt mà (không dùng bóng đổ đậm để giữ phong cách Clay phẳng).
+---
 
-## 6. CÁC TRẠNG THÁI ĐẶC BIỆT (SPECIAL STATES)
-- **Trạng thái rỗng (empty state):** Không áp dụng cho trang tĩnh.
-- **Trạng thái tải (loading state):** Khi trang đang load, ảnh 3D claymation hiển thị một ô xám mờ nhẹ trước khi ảnh tải hoàn tất.
-- **Trạng thái lỗi (error state):** Không áp dụng.
-- **Trạng thái thành công (success state):** Không áp dụng.
+## 5. CHI TIẾT TƯƠNG TÁC & CHUYỂN TRANG
+- **Hành động: Click vào bất kỳ nút Đăng ký / Bắt đầu ngay**
+  - Chuyển hướng mượt mà (Fade Out/Fade In trong `0.3s`) đến [learner_register_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/learner-app/learner_register_page.md).
+- **Hành động: Click vào nút Đăng nhập**
+  - Chuyển hướng mượt mà đến [learner_login_page.md](file:///d:/Study/research_DiveVerse/project/built-ui/design/uis-spec/learner-app/learner_login_page.md).
+- **Hành động: Di chuột (Hover) qua các thẻ cấp độ (Level Cards)**
+  - Thẻ tịnh tiến lên trên `translateY(-4px)` nhẹ nhàng, tăng độ rộng phát sáng của viền từ `{elevation.glow}` lên `{elevation.hover-glow}`.
 
-## 7. THAM CHIẾU LUỒNG (FLOW REFERENCES)
-- **Đến từ màn hình nào trước đó?** Không có (đây là trang chủ của hệ thống).
-- **Sau khi hoàn thành hành động, đi đến màn hình nào?**
-  - Chuyển sang Register Page (TR-03) khi bấm đăng ký.
-  - Chuyển sang Login Page (TR-02) khi bấm đăng nhập.
-- **Các màn hình liên quan khác:** Không có.
+## 6. CÁC TRẠNG THÁI ĐẶC BIỆT
+- **Trạng thái tải trang (Loading State):** Hiển thị màn hình chờ màu `{colors.canvas}` với một chú Cá Voi Xanh nhỏ xoay tròn phát sáng.
+- **Trạng thái hiển thị Responsive:**
+  - **Mobile:** Menu trên Nav chuyển thành nút hamburger mở panel trượt kính mờ (`{elevation.glass}`) từ bên phải sang. Lưới cấp độ chuyển thành dạng vuốt ngang (carousel slide) tiện lợi.
 
-## 8. LƯU Ý THIẾT KẾ (DESIGN NOTES)
-- Giữ đúng hợp đồng thiết kế của Clay.com: Canvas màu kem ấm `#fffaf0` làm chủ đạo, tuyệt đối không dùng màu xám lạnh.
-- Các thẻ feature card ở Vùng C tuân thủ quy tắc xen kẽ màu sắc: Pink -> Teal -> Lavender để tạo nhịp điệu sinh động cho trang. Thẻ Pink và Teal có nền rất đậm nên chữ được lật sang màu trắng (`#ffffff`), thẻ Lavender có nền sáng nên chữ giữ màu đen (`#0a0a0a`).
-- Sử dụng font display display-xl ở cỡ chữ cực lớn 68px, chữ đậm trung bình (weight 500), khoảng cách chữ khít nhau (-2.5px) để tạo tính thương hiệu cao cấp.
-- Footer sử dụng màu nền ấm `surface-soft` (#faf5e8) thay vì màu đen/xám đậm truyền thống của các trang SaaS khác.
-- Đảm bảo touch target của tất cả các liên kết và nút tối thiểu 44x44px.
+## 7. LƯU Ý THIẾT KẾ CHO LẬP TRÌNH VIÊN (DO'S AND DON'TS)
+- **NÊN:** Sử dụng tối đa các mã biến token (ví dụ: `var(--color-primary)`) thay vì nhập trực tiếp mã màu hex. Đảm bảo khoảng trắng xung quanh các card lớn cực kỳ rộng rãi.
+- **KHÔNG ĐƯỢC:** Sử dụng đổ bóng xám/đen vật lý. Mọi đổ bóng bắt buộc phải đổi sang dạng dải màu phát sáng (glow) sắc tím/hồng nhạt có độ đục (alpha) thấp như quy chuẩn của hệ thống DiveVerse.
 
-
-
+## ÁNH XẠ DỮ LIỆU MOCK (MOCK DATA BINDING)
+- **Thống kê hệ thống (Stats Counters):** Liên kết với danh sách `landingPage.stats` (các cặp `{value}` và `{label}`).
+- **Các tính năng nổi bật (Features Showcase):** Liên kết với danh sách `landingPage.features` (các trường `{title}`, `{desc}`, `{icon}`).
+- **Nhận xét từ học viên (Testimonials):** Liên kết với danh sách `landingPage.testimonials` (các trường `{name}`, `{role}`, `{quote}`, `{avatar}`).
+- **Danh mục các Cấp độ (Levels mapping):** Liên kết với mảng `levels` chứa thông tin của `level_basic`, `level_intermediate` và `level_advanced` (các trường `{name}`, `{shortDescription}`, `{ieltsTarget}`, `{toeicTarget}`, `{maxUnits}`).
